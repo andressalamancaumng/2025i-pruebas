@@ -118,8 +118,10 @@ $env:PYTHONPATH="." ; pytest  # Windows PowerShell
 
 ## ✍️ Autor
 
-Proyecto preparado por **(Tu nombre aquí)**  
+Proyecto preparado por **(Andrés Mauricio Salamanca Arias)**  
 Curso de **Ingeniería de Software**
+Ingenieria Multimedia
+Universidad Militar Nueva Granada
 
 ---
 
