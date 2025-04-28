@@ -1,3 +1,0 @@
-# back/pytest.ini
-[pytest]
-pythonpath = app
