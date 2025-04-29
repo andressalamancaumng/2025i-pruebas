@@ -44,7 +44,7 @@ venv\Scripts\activate  # Windows
 4. **Instala las dependencias:**
 
 ```bash
-pip install -r requirements.txt
+pip install -r app/requeriments.txt
 ```
 
 ---
