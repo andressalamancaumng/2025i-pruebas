@@ -20,3 +20,6 @@ def create_user(name: str, email: str, db: Session = Depends(get_db)):
 @app.get("/users/")
 def read_users(db: Session = Depends(get_db)):
     return crud.get_users(db)
+
+
+#holaa
