@@ -13,18 +13,10 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./usuarios.page.scss'],
 })
 export class UsuariosPage {
-  usuarios: any[] = [];
   nuevoNombre = '';
   nuevoCorreo = '';
 
   constructor(private userService: UserService) {
-    this.cargarUsuarios();
-  }
-
-  cargarUsuarios() {
-    this.userService.getUsers().subscribe((data) => {
-      this.usuarios = data;
-    });
   }
 
   crearUsuario() {
@@ -33,7 +25,6 @@ export class UsuariosPage {
     this.userService
       .createUser(this.nuevoNombre, this.nuevoCorreo)
       .subscribe((nuevo) => {
-        this.usuarios.push(nuevo);
         this.nuevoNombre = '';
         this.nuevoCorreo = '';
       });

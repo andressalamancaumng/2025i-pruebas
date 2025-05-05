@@ -1,22 +1,54 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class UserService {
-  private apiUrl = 'http://localhost:8000';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { UserService } from './user.service';
 
-  constructor(private http: HttpClient) {}
+describe('UserService', () => {
+  let service: UserService;
+  let httpMock: HttpTestingController;
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/`);
-  }
-
-  createUser(name: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [UserService]
     });
-  }
-}
+    service = TestBed.inject(UserService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  it('debería crear usuario (POST)', () => {
+    const name = 'Pedro';
+    const email = 'pedro@example.com';
+    const mockResponse = { id: 1, name, email };
+
+    service.createUser(name, email).subscribe(user => {
+      expect(user).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(req =>
+      req.method === 'POST' &&
+      req.url.startsWith('http://localhost:8000/users')
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+  });
+
+  it('debería obtener usuarios (GET)', () => {
+    const mockUsers = [{ id: 1, name: 'Ana', email: 'ana@example.com' }];
+
+    service.getUsers().subscribe(users => {
+      expect(users).toEqual(mockUsers);
+    });
+
+    const req = httpMock.expectOne(req =>
+      req.method === 'GET' &&
+      req.url.startsWith('http://localhost:8000/users')
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush(mockUsers);
+  });
+});
