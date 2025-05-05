@@ -1,19 +1,69 @@
-.bienvenida-container {
+/* CSS simplificado con fondo blanco y botón en relieve */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  ion-content {
+    --background: #ffffff;
+  }
+  
+  ion-header ion-toolbar {
+    --background: #000000;
+    --color: white;
+  }
+  
+  .bienvenida-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100%;
+    font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
+    padding: 20px;
+    position: relative;
   }
   
   .bienvenida-text {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1a73e8;
     margin-bottom: 20px;
+  }
+  
+  .bienvenida-subtitle {
+    font-size: 16px;
+    color: #5f6368;
+    margin-bottom: 30px;
   }
   
   .iniciar-button {
     width: 200px;
-    margin-top: 20px;
-  }  
+    height: 48px;
+    font-size: 16px;
+    --background: #e0e0e0;
+    --color: #444444;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0,0,0,0.1), 
+                  inset 1px 1px 0 rgba(255,255,255,0.5),
+                  inset -1px -1px 0 rgba(0,0,0,0.1);
+    margin-top: 10px;
+    transition: transform 0.2s ease;
+  }
+  
+  .iniciar-button:hover {
+    transform: translateY(-2px);
+    --background: #e8e8e8;
+    --box-shadow: 0 6px 8px rgba(0,0,0,0.15), 
+                  inset 1px 1px 0 rgba(255,255,255,0.5),
+                  inset -1px -1px 0 rgba(0,0,0,0.1);
+  }
+  
+  .iniciar-button:active {
+    transform: translateY(1px);
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1), 
+                  inset 1px 1px 0 rgba(255,255,255,0.5),
+                  inset -1px -1px 0 rgba(0,0,0,0.1);
+  }
