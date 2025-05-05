@@ -1,10 +1,19 @@
-from fastapi import FastAPI, Depends  # Importa FastAPI y manejo de dependencias
-from sqlalchemy.orm import Session  # Importa la sesión de la base de datos
-from app import models, crud, database  # Importa modelos, funciones CRUD y configuración de la base de datos
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from app import models, crud, database
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()  # Crea la instancia de la aplicación FastAPI
 
 models.Base.metadata.create_all(bind=database.engine)  # Crea las tablas en la base de datos si no existen
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_db():
     # Proporciona una sesión de la base de datos
