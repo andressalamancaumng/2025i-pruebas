@@ -22,5 +22,12 @@ def read_users(db: Session = Depends(get_db)):
     return crud.get_users(db)
 
 
-#holaa
-#Alopolisia
+from app import models, database  # Ajusta si tu estructura es distinta
+
+models.Base.metadata.create_all(bind=database.engine)
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"mensaje": "API funcionando correctamente"}

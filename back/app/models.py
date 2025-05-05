@@ -1,11 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from .database import Base  # Asegúrate de que esta ruta es correcta
 
-Base = declarative_base()
-
-class User(Base):
-    __tablename__ = "users"
+class Carro(Base):
+    __tablename__ = "carros"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(50), index=True)
-    email = Column(String(50), unique=True, index=True)
+    modelo = Column(Integer, nullable=False)
+    marca = Column(String(255), nullable=False)
+    serie = Column(String(255), nullable=False)
