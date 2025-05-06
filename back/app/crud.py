@@ -40,3 +40,8 @@ def delete_carro_by_details(db: Session, carro_id: int, modelo: int, marca: str)
         db.commit()
         return db_carro
     return None
+
+def delete_all_carros(db: Session):
+    deleted = db.query(models.Carro).delete()
+    db.commit()
+    return deleted

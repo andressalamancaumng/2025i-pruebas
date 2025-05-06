@@ -8,12 +8,12 @@ from app.main import app
 client = TestClient(app)
 
 def test_crear_carro():
-    response = client.post("/carros/", json={"modelo": 2022, "marca": "Tesla", "serie": "TES123"})
+    response = client.post("/carros/", json={"modelo": 2013, "marca": "Chevrolet", "serie": "Sail"})
     assert response.status_code == 200
     data = response.json()
-    assert data["modelo"] == 2022
-    assert data["marca"] == "Tesla"
-    assert data["serie"] == "TES123"
+    assert data["modelo"] == 2013
+    assert data["marca"] == "Chevrolet"
+    assert data["serie"] == "Sail"
     assert "id" in data
 
 def test_leer_carros():
@@ -28,7 +28,7 @@ def test_leer_carros():
 
 def test_leer_carro_por_id():
     # Crear un carro para obtener su id
-    create_response = client.post("/carros/", json={"modelo": 2023, "marca": "Ford", "serie": "FOR456"})
+    create_response = client.post("/carros/", json={"modelo": 2023, "marca": "Ford", "serie": "Mustang"})
     assert create_response.status_code == 200
     carro_id = create_response.json()["id"]
 
@@ -40,7 +40,7 @@ def test_leer_carro_por_id():
 
 def test_eliminar_carro_por_id():
     # Crear un carro para obtener su id
-    create_response = client.post("/carros/", json={"modelo": 2021, "marca": "Chevrolet", "serie": "CHE789"})
+    create_response = client.post("/carros/", json={"modelo": 2021, "marca": "Chevrolet", "serie": "Chrysler"})
     assert create_response.status_code == 200
     carro_id = create_response.json()["id"]
 
@@ -54,7 +54,7 @@ def test_eliminar_carro_por_id():
 
 def test_eliminar_carro_por_detalles():
     # Crear un carro para obtener su id
-    create_response = client.post("/carros/", json={"modelo": 2020, "marca": "Honda", "serie": "HON123"})
+    create_response = client.post("/carros/", json={"modelo": 2020, "marca": "Honda", "serie": "Civic"})
     assert create_response.status_code == 200
     carro_id = create_response.json()["id"]
 
