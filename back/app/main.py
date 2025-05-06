@@ -51,12 +51,10 @@ def eliminar_carro_por_detalles(
         raise HTTPException(status_code=404, detail="Carro no encontrado con esos detalles")
     return {"message": "Carro eliminado por detalles"}
 
-from fastapi import Query
-
-@app.delete("/carros/all")
-def eliminar_todos_los_carros(confirm: str = Query(None, description="Confirma la eliminación con 'yes'"), db: Session = Depends(get_db)):
-    if confirm != "yes":
-        return {"message": "Por favor confirma la eliminación enviando el parámetro confirm='yes'"}
-    deleted_count = crud.delete_all_carros(db)
-    return {"message": f"Se eliminaron {deleted_count} carros"}
+@app.delete("/carros/{carro_id}")
+def eliminar_carro_por_id(carro_id: int, db: Session = Depends(get_db)):
+    db_carro = crud.delete_carro(db, carro_id=carro_id)
+    if not db_carro:
+        raise HTTPException(status_code=404, detail="Carro no encontrado")
+    return {"message": "Carro eliminado"}
 
