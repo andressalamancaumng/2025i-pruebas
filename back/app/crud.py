@@ -8,8 +8,15 @@ def create_carro(db: Session, carro: schemas.CarroCreate):
     db.refresh(db_carro)
     return db_carro
 
-def get_carros(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Carro).offset(skip).limit(limit).all()
+def get_carros(db: Session, skip: int = 0, limit: int = 100, order_by: str = "id"):
+    query = db.query(models.Carro)
+    if order_by == "modelo":
+        query = query.order_by(models.Carro.modelo)
+    elif order_by == "marca":
+        query = query.order_by(models.Carro.marca)
+    else:
+        query = query.order_by(models.Carro.id)
+    return query.offset(skip).limit(limit).all()
 
 def get_carro(db: Session, carro_id: int):
     return db.query(models.Carro).filter(models.Carro.id == carro_id).first()
