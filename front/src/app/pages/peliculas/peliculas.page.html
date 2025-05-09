@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Peliculas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (submit)="crearPelicula()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="NombrePelicula" name="NombrePelicula"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Ano</ion-label>
+      <ion-input type= "number" [(ngModel)]="nuevoAnio" name="anio"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Director </ion-label>
+      <ion-input [(ngModel)]="director" name="director"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" class="ion-margin-top">
+      Crear Pelicula
+    </ion-button>
+    <ion-button expand="block" color="danger" routerLink="/listado-usuarios" class="ion-margin-top">
+      Cancelar
+    </ion-button>
+  </form>
+</ion-content>

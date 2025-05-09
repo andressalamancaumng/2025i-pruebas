@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListadoUsuariosPage } from './listado-usuarios.page';
-import { UserService } from '../../services/user.service';
+import { ListadoPeliculasPage } from './listado-peliculas.page';
+import { PeliculasService } from '../../services/peliculas.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-describe('ListadoUsuariosPage', () => {
-  let component: ListadoUsuariosPage;
-  let fixture: ComponentFixture<ListadoUsuariosPage>;
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+describe('ListadoPeliculaspage', () => {
+  let component: ListadoPeliculasPage;
+  let fixture: ComponentFixture<ListadoPeliculasPage>;
+  let peliculasServiceSpy: jasmine.SpyObj<PeliculasService>;
   let navCtrlSpy: jasmine.SpyObj<NavController>;
 
   const fakeActivatedRoute = {
@@ -16,20 +16,20 @@ describe('ListadoUsuariosPage', () => {
   };
 
   beforeEach(async () => {
-    userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
+    peliculasServiceSpy = jasmine.createSpyObj('PeliculasService', ['obtenerPeliculas']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
-    userServiceSpy.getUsers.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
+    peliculasServiceSpy.obtenerPeliculas.and.returnValue(of([{ id:1 ,name_movie: 'Inception', anio:2010, director:'Chritopher Nolan' }]));
 
     await TestBed.configureTestingModule({
-      imports: [ListadoUsuariosPage],
+      imports: [ListadoPeliculasPage],
       providers: [
-        { provide: UserService, useValue: userServiceSpy },
+        { provide: PeliculasService, useValue: peliculasServiceSpy },
         { provide: NavController, useValue: navCtrlSpy },
         { provide: ActivatedRoute, useValue: fakeActivatedRoute }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListadoUsuariosPage);
+    fixture = TestBed.createComponent(ListadoPeliculasPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -42,18 +42,20 @@ describe('ListadoUsuariosPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería mostrar usuarios en la vista', () => {
+   it('debería mostrar las películas en la vista', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const listItems = compiled.querySelectorAll('ion-item');
     expect(listItems.length).toBeGreaterThan(0);
+    expect(listItems[0].textContent).toContain('I');
+    expect(listItems[0].textContent).toContain('2022');
     expect(listItems[0].textContent).toContain('Ana');
   });
 
-  it('debería manejar error al obtener usuarios', () => {
-    userServiceSpy.getUsers.and.returnValue(throwError(() => new Error('Error')));
-    fixture = TestBed.createComponent(ListadoUsuariosPage);
+  it('debería manejar error al obtener peliculas', () => {
+    peliculasServiceSpy.obtenerPeliculas.and.returnValue(throwError(() => new Error('Error')));
+    fixture = TestBed.createComponent(ListadoPeliculasPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    expect(component.usuarios).toEqual([]);
+    expect(component.peliculas).toEqual([]);
   });
 });

@@ -1,0 +1,47 @@
+ion-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  background-color: #fff; /* Color de fondo blanco para que todo resalte */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ion-item {
+  --background: #217950;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 8px;
+}
+
+ion-input, ion-textarea {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  font-size: 16px; /* Aumenta el tamaño de la fuente para que sea más legible */
+}
+
+ion-button {
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 12px; /* Aumenta el tamaño del botón para hacerlo más fácil de presionar */
+}
+
+ion-button[color="danger"] {
+  --background: #ff4d4d;
+  --color: white;
+}
+
+ion-button[type="submit"] {
+  --background: #3880ff;
+  --color: white;
+}
+
+ion-button:disabled {
+  --background: #ccc;
+  --color: #666;
+}

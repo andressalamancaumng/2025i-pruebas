@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Listado pelicula</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let pelicula of peliculas">
+      <ion-label>
+        <h2>{{ pelicula.name_movie }}</h2>
+        <p>{{ pelicula.director }}</p>
+        <p>{{pelicula.anio}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" routerLink="/crear-pelicula" class="ion-margin-top" type="button">
+    
+  </ion-button>
+</ion-content>
