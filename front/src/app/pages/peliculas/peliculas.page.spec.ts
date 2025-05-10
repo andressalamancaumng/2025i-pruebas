@@ -30,7 +30,7 @@ describe('Peliculas', () => {
     component = fixture.componentInstance;
     peliculasServiceSpy = TestBed.inject(PeliculasService) as jasmine.SpyObj<PeliculasService>;
 
-    // ✅ Esta línea debe ir después de obtener el userServiceSpy real
+  
     peliculasServiceSpy.obtenerPeliculas.and.returnValue(of([]));
 
     fixture.detectChanges();

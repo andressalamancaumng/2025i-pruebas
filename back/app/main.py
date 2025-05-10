@@ -26,6 +26,6 @@ def get_db():
 def create_pelicula(name_movie: str, año: int,director:str, db: Session = Depends(get_db)):
     return crud.create_pelicula(db, name_movie, año,director)
 
-@app.get("/peliculas/")
+@app.get("/listado_peliculas/")
 def read_peliculas(db: Session = Depends(get_db)):
     return crud.get_peliculas(db)
