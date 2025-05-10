@@ -25,14 +25,10 @@ ion-content.contenedor-bienvenida {
 
 /* Título principal */
 .texto-bienvenida {
-  color: #333;
+  color: #2575fc;
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 16px;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 /* Subtítulo */
@@ -51,7 +47,7 @@ ion-content.contenedor-bienvenida {
   --padding-start: 30px;
   --padding-end: 30px;
   --color: #ffffff;
-  --color-hover: #2575fc;
+  --color-hover: #ecf3ff;
   font-size: 18px;
   font-weight: 500;
   text-transform: none;
