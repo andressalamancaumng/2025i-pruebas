@@ -1,9 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Listado usuarios</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item *ngFor="let usuario of usuarios">
@@ -14,7 +8,5 @@
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" routerLink="/usuarios" class="ion-margin-top" type="button">
-    Crear Usuario
-  </ion-button>
+  <ion-button class="Boton-volver" expand="block" routerLink="/usuarios">Volver</ion-button>
 </ion-content>
