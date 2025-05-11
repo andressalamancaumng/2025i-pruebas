@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'listado-peliculas',
+    redirectTo: 'peliculas',
     pathMatch: 'full',
   },
   

@@ -25,8 +25,8 @@ describe('PeliculasService', () => {
     const anio = 2010;
     const director='Christopher Nolan'
     const mockResponse = { id: 1, name_movie, anio,director };
-
-    service.createPelicula(name_movie, anio, director).subscribe(pelicula => {
+const nuevaPelicula = { name_movie, anio, director };
+    service.crearPelicula(nuevaPelicula).subscribe(pelicula => {
       expect(pelicula).toEqual(mockResponse);
     });
 
@@ -35,6 +35,7 @@ describe('PeliculasService', () => {
       req.url.startsWith('http://localhost:8000/peliculas')
     );
     expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ name_movie, anio, director });
     req.flush(mockResponse);
   });
 
@@ -47,9 +48,25 @@ describe('PeliculasService', () => {
 
     const req = httpMock.expectOne(req =>
       req.method === 'GET' &&
-      req.url.startsWith('http://localhost:8000/users')
+      req.url.startsWith('http://localhost:8000/listado_peliculas')
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockPeliculas);
   });
+
+  it('debería borrar pelicula (DELETE)', () => {
+  const id = 1;
+  const mockResponse = null;  // Si el servidor no devuelve nada, puedes usar `null`.
+
+  service.borrarPelicula(id).subscribe(response => {
+    expect(response).toBeNull();  // Asegúrate de que la respuesta sea `null` si el servidor no responde con datos.
+  });
+
+  const req = httpMock.expectOne(req =>
+    req.method === 'DELETE' &&
+    req.url === `http://localhost:8000/peliculas/${id}`
+  );
+  expect(req.request.method).toBe('DELETE');
+  req.flush(mockResponse, { status: 204, statusText: 'No Content' });  // El código de estado 204 indica que no hay contenido.
+});
 });

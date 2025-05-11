@@ -16,17 +16,26 @@ export interface Pelicula
   providedIn: 'root',
 })
 export class PeliculasService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'http://127.0.0.1:8000/peliculas';
 
   constructor(private http: HttpClient) {}
 
   obtenerPeliculas(): Observable<Pelicula[]> {
-    return this.http.get<Pelicula[]>(`${this.apiUrl}/peliculas/`);
+    return this.http.get<Pelicula[]>(`${this.apiUrl}/listado_peliculas/`);
   }
 
-  createPelicula(name_movie: string, año: number,director:string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/peliculas/`, null, {
-      params: { name_movie,año,director },
-    });
+  
+
+
+  crearPelicula(pelicula: { name_movie: string, anio?: number, director: string }): Observable<any> {
+    return this.http.post(this.apiUrl+ '/', pelicula);
   }
+
+
+  borrarPelicula(id:number): Observable<void>
+  {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
+  }
+
+  
 }

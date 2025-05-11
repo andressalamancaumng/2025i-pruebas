@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Para hacer la solicitud HTTP
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -7,28 +8,34 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-peliculas',
-  standalone: true,
+  templateUrl: 'peliculas.page.html',
+  styleUrls: ['peliculas.page.scss'],
+    standalone: true,
   imports: [IonicModule, NgFor, NgIf, FormsModule, AsyncPipe, RouterLink],
-  templateUrl: './peliculas.page.html',
-  styleUrls: ['./peliculas.page.scss'],
 })
 export class Peliculas {
-  NombrePelicula = '';
-  nuevoAnio: number | null = null;
-  director="";
-  peliculas: Pelicula []=[];
+  name_movie: string = '';
+  anio?: number;
+  director: string = '';
+
   constructor(private peliculasService: PeliculasService) {}
 
   crearPelicula() {
-    if (!this.NombrePelicula || !this.nuevoAnio ||!this.director) return;
+    const nuevaPelicula = {
+      name_movie: this.name_movie,
+      anio: this.anio,
+      director: this.director,
+    };
 
-    this.peliculasService
-      .createPelicula(this.NombrePelicula, this.nuevoAnio, this.director)
-      .subscribe((nueva) => {
-        this.peliculas.push(nueva);
-        this. NombrePelicula ='' ;
-        this.nuevoAnio = null;
-        this.director='';
-      });
+    this.peliculasService.crearPelicula(nuevaPelicula).subscribe(
+      (response) => {
+        console.log('Película creada exitosamente:', response);
+        // Puedes redirigir o mostrar un mensaje de éxito aquí
+      },
+      (error) => {
+        console.error('Error al crear la película:', error);
+        // Muestra un mensaje de error al usuario si ocurre algún problema
+      }
+    );
   }
 }

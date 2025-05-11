@@ -5,7 +5,7 @@ ion-header {
 }
 
 ion-toolbar {
-  --background: #3880ff;
+  --background: #3d495f;
   color: white;
 }
 
@@ -16,36 +16,46 @@ ion-title {
 
 ion-content {
   --background: #fff;
+  padding: 10px; /* Espaciado adicional para un mejor diseño */
 }
 
 ion-item {
   margin-bottom: 15px;
   background-color: #fafafa;
   border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px; /* Aumento el padding para mayor espacio */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Mejor sombra */
+  transition: background-color 0.3s ease; /* Efecto suave al cambiar color */
+}
+
+ion-item:hover {
+  background-color: #f1f1f1; /* Color más oscuro al pasar el cursor */
 }
 
 ion-item h2 {
   font-size: 1.2rem;
   font-weight: bold;
   color: #3880ff;
+  margin-bottom: 5px; /* Un poco de espacio debajo del título */
 }
 
 ion-item p {
   font-size: 1rem;
   color: #555;
+  margin-bottom: 10px; /* Espacio entre el texto */
 }
 
 ion-button {
-  background-color: #3880ff;
+  background-color: #60e905;
   color: white;
   font-weight: bold;
   text-align: center;
+  margin-top: 5px; /* Espacio entre los botones */
+  border-radius: 8px; /* Bordes redondeados */
 }
 
 ion-button:hover {
-  background-color: #2674cc;
+  background-color: #051100;
 }
 
 ion-label {

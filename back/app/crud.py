@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from app.models import Pelicula
 
-def create_peliculas(db: Session, name_movie: str,año: int, director:str):
-    db_pelicula = Pelicula(name_movie=name_movie, año=año, director=director)
+def create_pelicula(db: Session, name_movie: str,anio: int, director:str):
+    db_pelicula = Pelicula(name_movie=name_movie, anio=anio, director=director)
 
     db.add(db_pelicula)
     db.commit()

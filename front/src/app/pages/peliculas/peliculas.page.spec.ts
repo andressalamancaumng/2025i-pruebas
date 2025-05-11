@@ -12,7 +12,7 @@ describe('Peliculas', () => {
   let peliculasServiceSpy: jasmine.SpyObj<PeliculasService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('UserService', ['getUsers', 'createUser']);
+    const spy = jasmine.createSpyObj('PeliculaService', ['getPelicula', 'createPelicula']);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -40,15 +40,15 @@ describe('Peliculas', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería llamar a createUser con los datos correctos', () => {
+  it('debería llamar a createpeliculas con los datos correctos', () => {
     const mockPelicula = { name_movie: 'Inception', anio: 2010,director:'Christopher Nolan' };
-    component.NombrePelicula = mockPelicula.name_movie;
-    component.nuevoAnio= mockPelicula.anio;
+    component.name_movie = mockPelicula.name_movie;
+    component.anio= mockPelicula.anio;
     component.director= mockPelicula.director
-    peliculasServiceSpy.createPelicula.and.returnValue(of({mockPelicula}));
+    peliculasServiceSpy.crearPelicula.and.returnValue(of({mockPelicula}));
 
     component.crearPelicula();
 
-    expect(peliculasServiceSpy.createPelicula).toHaveBeenCalledWith(mockPelicula.name_movie, mockPelicula.anio, mockPelicula.director);
+    expect(peliculasServiceSpy.crearPelicula).toHaveBeenCalledWith(mockPelicula);
   });
 });

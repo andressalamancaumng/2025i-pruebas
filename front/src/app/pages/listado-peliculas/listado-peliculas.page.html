@@ -1,21 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Listado pelicula</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
-  <ion-list>
+  <ion-button expand="block" (click)="obtenerpeliculas()">Obtener películas</ion-button>
+
+  <!-- Depuración adicional -->
+  <p>Películas cargadas: {{ peliculas.length }}</p>
+
+  <ion-list *ngIf="peliculas.length > 0; else sinPeliculas">
     <ion-item *ngFor="let pelicula of peliculas">
       <ion-label>
         <h2>{{ pelicula.name_movie }}</h2>
         <p>{{ pelicula.director }}</p>
-        <p>{{pelicula.anio}}</p>
+        <p>{{ pelicula.anio }}</p>
       </ion-label>
+      <ion-button expand="block" (click)="borrarPelicula(pelicula.id)">Borrar</ion-button>
+      <ion-button expand="block">Ver detalles</ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" routerLink="/crear-pelicula" class="ion-margin-top" type="button">
-    
-  </ion-button>
+  <ng-template #sinPeliculas>
+    <p style="text-align: center; margin-top: 20px;">No hay películas para mostrar.</p>
+  </ng-template>
 </ion-content>
