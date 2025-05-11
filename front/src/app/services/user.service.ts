@@ -15,8 +15,7 @@ export class UserService {
   }
 
   createUser(name: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
-    });
+    const body = { name, email };
+    return this.http.post(`${this.apiUrl}/users/`, body);
   }
 }
