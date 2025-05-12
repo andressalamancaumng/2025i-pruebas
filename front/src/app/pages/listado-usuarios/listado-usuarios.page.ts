@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { UserService } from '../../services/user.service';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -17,13 +14,19 @@ import { RouterModule } from '@angular/router';
 })
 export class ListadoUsuariosPage implements OnInit {
   usuarios: any[] = [];
-  constructor(private userService: UserService) {
-    this.userService.getUsers().subscribe((data) =>{
-      this.usuarios=data;
-    });
-   }
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.userService.getUsers().subscribe((data) => {
+      this.usuarios = data;
+    });
   }
 
+  eliminarUsuario(id: number) {
+    this.userService.deleteUser(id).subscribe(() => {
+      // Elimina el usuario de la lista local
+      this.usuarios = this.usuarios.filter((usuario) => usuario.id !== id);
+    });
+  }
 }
