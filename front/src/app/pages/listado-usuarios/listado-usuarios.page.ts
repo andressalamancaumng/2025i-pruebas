@@ -1,29 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.page.html',
   styleUrls: ['./listado-usuarios.page.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, AsyncPipe, RouterModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [IonicModule, FormsModule],
 })
-export class ListadoUsuariosPage implements OnInit {
-  usuarios: any[] = [];
-  constructor(private userService: UserService) {
-    this.userService.getUsers().subscribe((data) =>{
-      this.usuarios=data;
-    });
-   }
+export class ListadoUsuariosPage {
+  nombre = '';
+  email = '';
+  documento = '';
 
-  ngOnInit() {
+  constructor(private userService: UserService) {}
+
+  registrarUsuario() {
+    if (this.nombre && this.email && this.documento) {
+      this.userService.createUser(this.nombre, this.email, this.documento).subscribe({
+        next: res => {
+          alert('Usuario creado correctamente');
+          this.nombre = '';
+          this.email = '';
+          this.documento = '';
+        },
+        error: err => alert('Error al crear usuario'),
+      });
+    } else {
+      alert('Completa todos los campos');
+    }
   }
-
 }

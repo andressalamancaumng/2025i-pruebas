@@ -16,6 +16,7 @@ import { IonButton } from '@ionic/angular/standalone';
 export class UsuariosPage {
   nuevoNombre = '';
   nuevoCorreo = '';
+  nuevoDocumento = '';
 
   constructor(private userService: UserService) {
   }
@@ -24,7 +25,7 @@ export class UsuariosPage {
     if (!this.nuevoNombre || !this.nuevoCorreo) return;
 
     this.userService
-      .createUser(this.nuevoNombre, this.nuevoCorreo)
+      .createUser(this.nuevoNombre, this.nuevoCorreo, this.nuevoDocumento)
       .subscribe((nuevo) => {
         this.nuevoNombre = '';
         this.nuevoCorreo = '';
