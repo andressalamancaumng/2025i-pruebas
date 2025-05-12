@@ -14,6 +14,7 @@ export class ListadoUsuariosPage {
   nombre = '';
   email = '';
   documento = '';
+  usuarios = [];
 
   constructor(private userService: UserService) {}
 
