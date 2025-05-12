@@ -1,26 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Usuarios</ion-title>
+    <ion-title>Vehículos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form (submit)="crearUsuario()">
+<ion-content>
+  <form (submit)="crearVehiculo($event)">
     <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="nuevoNombre" name="nombre"></ion-input>
+      <ion-label position="floating">Modelo</ion-label>
+      <ion-input type="number" [(ngModel)]="nuevoModelo" name="modelo"></ion-input>
     </ion-item>
-
     <ion-item>
-      <ion-label position="floating">Correo</ion-label>
-      <ion-input [(ngModel)]="nuevoCorreo" name="correo"></ion-input>
+      <ion-label position="floating">Marca</ion-label>
+      <ion-input type="text" [(ngModel)]="nuevaMarca" name="marca"></ion-input>
     </ion-item>
-
-    <ion-button expand="block" type="submit" class="ion-margin-top">
-      Crear Usuario
-    </ion-button>
-    <ion-button expand="block" color="danger" routerLink="/listado-usuarios" class="ion-margin-top">
-      Cancelar
-    </ion-button>
+    <ion-item>
+      <ion-label position="floating">Serie</ion-label>
+      <ion-input type="text" [(ngModel)]="nuevaSerie" name="serie"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit">Crear Vehículo</ion-button>
   </form>
 </ion-content>
