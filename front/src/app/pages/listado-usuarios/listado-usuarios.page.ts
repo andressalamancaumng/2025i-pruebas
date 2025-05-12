@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { CarroService } from '../../services/carro.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -11,33 +11,37 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './listado-usuarios.page.html',
   styleUrls: ['./listado-usuarios.page.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, AsyncPipe, RouterModule, FormsModule],
+  imports: [IonicModule, NgFor, AsyncPipe, NgIf, RouterModule, FormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ListadoUsuariosPage implements OnInit {
-  carros: any[] = [];
   modelo: number | null = null;
   marca: string = '';
+  serie: string = '';
 
-  constructor(private carroService: CarroService) {
-    this.loadCarros();
-  }
+  constructor(private carroService: CarroService) {}
 
   ngOnInit() {}
 
-  loadCarros() {
-    this.carroService.getCarros().subscribe((data) => {
-      this.carros = data;
-    });
-  }
-
   crearCarro() {
-    if (this.modelo && this.marca.trim()) {
+    if (this.modelo && this.marca.trim() && this.serie.trim()) {
       this.carroService.createCarro({ modelo: this.modelo, marca: this.marca.trim(), serie: this.serie.trim() }).subscribe(() => {
+        console.log('Carro creado exitosamente');
         this.modelo = null;
         this.marca = '';
-        this.loadCarros();
+        this.serie = '';
+      }, (error) => {
+        console.error('Error al crear carro:', error);
+        alert('Error al crear carro: ' + error.message);
       });
+    } else {
+      alert('Por favor, complete todos los campos antes de crear un carro.');
     }
+  }
+
+  cancelar() {
+    this.modelo = null;
+    this.marca = '';
+    this.serie = '';
   }
 }
