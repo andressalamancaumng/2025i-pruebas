@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class HomePage {
-  constructor() {}
+  peliculas = [
+    { id: 1, titulo: 'Pelicula 1', anio: 2020, director: 'Director 1' },
+    { id: 2, titulo: 'Pelicula 2', anio: 2021, director: 'Director 2' },
+    { id: 3, titulo: 'Pelicula 3', anio: 2022, director: 'Director 3' }
+  ];
 }

@@ -1,20 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Lista de Películas
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let pelicula of peliculas">
+      <ion-label>
+        <h2>{{ pelicula.titulo }}</h2>
+        <p><strong>Año:</strong> {{ pelicula.anio }}</p>
+        <p><strong>Director:</strong> {{ pelicula.director }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-button expand="block" routerLink="/crear-pelicula" class="ion-margin-top" type="button">
+    Crear Película
+  </ion-button>
 </ion-content>
