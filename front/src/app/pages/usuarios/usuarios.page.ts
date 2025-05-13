@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { RouterLink } from '@angular/router';
-import { IonButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [IonicModule, NgFor, NgIf, FormsModule, AsyncPipe, RouterLink, IonButton],
+  imports: [IonicModule, NgFor, NgIf, FormsModule, AsyncPipe, RouterLink],
   templateUrl: './usuarios.page.html',
   styleUrls: ['./usuarios.page.scss'],
 })
