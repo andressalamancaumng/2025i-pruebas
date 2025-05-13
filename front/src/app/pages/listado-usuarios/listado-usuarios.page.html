@@ -1,24 +1,37 @@
 <ion-header>
+  <!-- Encabezado superior de la página -->
   <ion-toolbar>
     <ion-title>Listado de Carros</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- Formulario para crear un nuevo carro -->
   <form (ngSubmit)="crearCarro()">
+    
+    <!-- Campo para ingresar el modelo del carro -->
     <ion-item>
       <ion-label position="floating">Modelo</ion-label>
       <ion-input type="number" [(ngModel)]="modelo" name="modelo" required></ion-input>
     </ion-item>
+
+    <!-- Campo para ingresar la marca del carro -->
     <ion-item>
       <ion-label position="floating">Marca</ion-label>
       <ion-input type="text" [(ngModel)]="marca" name="marca" required></ion-input>
     </ion-item>
+
+    <!-- Campo para ingresar la serie del carro -->
     <ion-item>
       <ion-label position="floating">Serie</ion-label>
       <ion-input type="text" [(ngModel)]="serie" name="serie" required></ion-input>
     </ion-item>
+
+    <!-- Botón para enviar el formulario y crear el carro -->
     <ion-button expand="block" type="submit" [disabled]="!modelo || !marca.trim() || !serie.trim()">Crear Carro</ion-button>
+
+    <!-- Botón para cancelar el proceso de creación -->
     <ion-button expand="block" color="medium" type="button" (click)="cancelar()">Cancelar</ion-button>
+    
   </form>
 </ion-content>
