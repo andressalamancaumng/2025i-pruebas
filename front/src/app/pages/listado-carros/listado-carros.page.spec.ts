@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListadoUsuariosPage } from './listado-usuarios.page';
-import { UserService } from '../../services/user.service';
+import { ListadoCarrosPage } from './listado-carros.page'; 
+import { CarsService } from '../../services/carro.service'; 
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-describe('ListadoUsuariosPage', () => {
-  let component: ListadoUsuariosPage;
-  let fixture: ComponentFixture<ListadoUsuariosPage>;
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+describe('ListadoCarrosPage', () => {
+  let component: ListadoCarrosPage;
+  let fixture: ComponentFixture<ListadoCarrosPage>;
+  let carroServiceSpy: jasmine.SpyObj<CarsService>;
   let navCtrlSpy: jasmine.SpyObj<NavController>;
 
   const fakeActivatedRoute = {
@@ -16,20 +16,22 @@ describe('ListadoUsuariosPage', () => {
   };
 
   beforeEach(async () => {
-    userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
+    carroServiceSpy = jasmine.createSpyObj('CarroService', ['getCarros']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
-    userServiceSpy.getUsers.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
+    carroServiceSpy.getCars.and.returnValue(of([
+      { marca: 'Toyota', modelo: 2022, serie: 'ABC123' }
+    ]));
 
     await TestBed.configureTestingModule({
-      imports: [ListadoUsuariosPage],
+      imports: [ListadoCarrosPage],
       providers: [
-        { provide: UserService, useValue: userServiceSpy },
+        { provide: CarsService, useValue: carroServiceSpy },
         { provide: NavController, useValue: navCtrlSpy },
         { provide: ActivatedRoute, useValue: fakeActivatedRoute }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListadoUsuariosPage);
+    fixture = TestBed.createComponent(ListadoCarrosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -42,18 +44,18 @@ describe('ListadoUsuariosPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería mostrar usuarios en la vista', () => {
+  it('debería mostrar carros en la vista', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const listItems = compiled.querySelectorAll('ion-item');
     expect(listItems.length).toBeGreaterThan(0);
-    expect(listItems[0].textContent).toContain('Ana');
+    expect(listItems[0].textContent).toContain('Toyota');
   });
 
-  it('debería manejar error al obtener usuarios', () => {
-    userServiceSpy.getUsers.and.returnValue(throwError(() => new Error('Error')));
-    fixture = TestBed.createComponent(ListadoUsuariosPage);
+  it('debería manejar error al obtener carros', () => {
+    carroServiceSpy.getCars.and.returnValue(throwError(() => new Error('Error')));
+    fixture = TestBed.createComponent(ListadoCarrosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    expect(component.usuarios).toEqual([]);
+    expect(component.carros).toEqual([]);
   });
 });

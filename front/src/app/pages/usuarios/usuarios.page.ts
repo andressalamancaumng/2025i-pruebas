@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/carro.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
