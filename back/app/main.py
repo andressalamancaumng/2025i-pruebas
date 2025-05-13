@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends , HTTPException
 from sqlalchemy.orm import Session
 from app import models, crud, database
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,10 +22,33 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/")
-def create_user(name: str, email: str, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email)
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+@app.post("/movies/")
+def create_movie(title: str, year: int, director: str, db: Session = Depends(get_db)):
+    if not title or not year or not director:
+        raise HTTPException(status_code=400, detail="Todos los campos son obligatorios")
+
+    existing_movie = crud.get_movie_by_details(db, title, year, director)
+    if existing_movie:
+        raise HTTPException(status_code=400, detail="La película ya existe")
+
+    movie = crud.create_movie(db, title, year, director)
+    return {"detail": "Película creada con éxito", "movie": movie}
+       
+
+@app.get("/movies/")
+def read_movies(db: Session = Depends(get_db)):
+    return crud.get_movies(db)
+
+@app.get("/movies/{movie_id}")
+def read_movie(movie_id: int, db: Session = Depends(get_db)):
+    movie = crud.get_movie(db, movie_id = movie_id)
+    if not movie:
+        raise HTTPException(status_code=404, detail="La película no existe")
+    return movie
+
+@app.delete("/movies/{movie_id}")
+def delete_movie(movie_id: int, db: Session = Depends(get_db)):
+    if not crud.delete_movie(db, movie_id = movie_id):
+        raise HTTPException(status_code=404, detail="La película no existe")
+    return {"detail": "Película eliminada con éxito"}
