@@ -34,7 +34,10 @@ def get_db():
 
 @app.post("/carros/", response_model=schemas.Carro)
 def crear_carro(carro: schemas.CarroCreate, db: Session = Depends(get_db)):
-    return crud.create_carro(db, carro=carro)
+    db_carro = crud.create_carro(db, carro=carro)
+    if db_carro is None:
+        raise HTTPException(status_code=400, detail="El carro con ese modelo y marca ya existe")
+    return db_carro
 
 @app.get("/carros/", response_model=list[schemas.Carro])
 def leer_carros(skip: int = 0, limit: int = 100, order_by: str = Query("id", description="Campo para ordenar: id, modelo, marca"), db: Session = Depends(get_db)):
@@ -46,15 +49,6 @@ def leer_carro(carro_id: int, db: Session = Depends(get_db)):
     if not db_carro:
         raise HTTPException(status_code=404, detail="Carro no encontrado")
     return db_carro
-
-# Removed eliminar_carro_por_id endpoint as per user request
-# The following endpoint is removed:
-# @app.delete("/carros/{carro_id}")
-# def eliminar_carro_por_id(carro_id: int, db: Session = Depends(get_db)):
-#     db_carro = crud.delete_carro(db, carro_id=carro_id)
-#     if not db_carro:
-#         raise HTTPException(status_code=404, detail="Carro no encontrado")
-#     return {"message": "Carro eliminado"}
 
 @app.delete("/carros/")
 def eliminar_carro_por_detalles(

@@ -1,3 +1,4 @@
+import random
 from sqlalchemy.orm import Session
 from .models import Carro
 from .schemas import CarroCreate
@@ -6,7 +7,16 @@ from sqlalchemy import asc, desc
 # CRUD functions for Carro
 
 def create_carro(db: Session, carro: CarroCreate):
-    db_carro = Carro(modelo=carro.modelo, marca=carro.marca, serie=carro.serie)
+    # Check if a car with the same modelo and marca already exists
+    existing_carro = db.query(Carro).filter(
+        Carro.modelo == carro.modelo,
+        Carro.marca == carro.marca
+    ).first()
+    if existing_carro:
+        return None  # Indicate duplicate found
+
+    random_id = random.randint(1, 1000000)
+    db_carro = Carro(id=random_id, modelo=carro.modelo, marca=carro.marca, serie=carro.serie)
     db.add(db_carro)
     db.commit()
     db.refresh(db_carro)

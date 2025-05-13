@@ -10,12 +10,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/usuarios/usuarios.page').then(m => m.VehiculosPage)
   },
   {
-    path: 'listado-usuarios',
+    path: 'listado-de-carros',
     loadComponent: () => import('./pages/listado-usuarios/listado-usuarios.page').then(m => m.ListadoUsuariosPage)
   },
   {
     path: '',
-    redirectTo: 'listado-usuarios',
+    redirectTo: 'listado-de-carros',
     pathMatch: 'full',
   },
 ];

@@ -1,11 +1,12 @@
 from sqlalchemy.orm import Session
 from . import models
 
+from sqlalchemy.orm import Session
+from .models import Carro
+
 def seed_initial_data(db: Session):
-    # Check if there are already cars in the database
-    existing = db.query(models.Carro).first()
-    if existing:
-        return  # Data already seeded
+    # Esta función no realiza ninguna acción para limpiar la tabla Carro
+    pass
 
     # Create example car data
     car1 = models.Carro(modelo=2020, marca="chevrolet", serie="sail")

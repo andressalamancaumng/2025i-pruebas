@@ -18,6 +18,7 @@ export class ListadoUsuariosPage implements OnInit {
   modelo: number | null = null;
   marca: string = '';
   serie: string = '';
+  mensajeCreacion: string = '';
 
   constructor(private carroService: CarroService) {}
 
@@ -26,7 +27,7 @@ export class ListadoUsuariosPage implements OnInit {
   crearCarro() {
     if (this.modelo && this.marca.trim() && this.serie.trim()) {
       this.carroService.createCarro({ modelo: this.modelo, marca: this.marca.trim(), serie: this.serie.trim() }).subscribe(() => {
-        console.log('Carro creado exitosamente');
+        this.mensajeCreacion = 'Carro exitosamente creado';
         this.modelo = null;
         this.marca = '';
         this.serie = '';
@@ -43,5 +44,6 @@ export class ListadoUsuariosPage implements OnInit {
     this.modelo = null;
     this.marca = '';
     this.serie = '';
+    this.mensajeCreacion = '';
   }
 }
