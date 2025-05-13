@@ -1,3 +1,7 @@
+# Propósito: Archivo principal de FastAPI donde se definen las rutas (@app.get, @app.post, etc).
+# Ejemplo: Cuando ejecutas el servidor, este archivo corre las rutas y empieza la API.
+# Ventaja: Es la entrada a tu aplicación.
+
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import models, crud, database, schemas

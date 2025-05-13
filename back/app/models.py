@@ -1,3 +1,7 @@
+# Propósito: Define las tablas de la base de datos usando clases ORM.
+# Ejemplo: La clase Carros representa una tabla SQL llamada Carros.
+# Ventaja: Evita escribir SQL a mano y mantiene sincronizada tu base de datos con Python.
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 

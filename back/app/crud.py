@@ -1,3 +1,7 @@
+# Propósito: Contiene la lógica para interactuar con la base de datos.
+# Ejemplo: Crear, leer, actualizar y eliminar usuarios o carros (create_user, get_users, create_carro_manual, etc).
+# Ventaja: Mantiene separada la lógica de base de datos del archivo principal (main.py).
+
 from sqlalchemy.orm import Session
 from app.models import User
 from app.models import Carros
