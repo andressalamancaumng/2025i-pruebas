@@ -30,4 +30,18 @@ def create_user(name: str, email: str,documento, db: Session = Depends(get_db)):
 def read_users(db: Session = Depends(get_db)):
     return crud.get_users(db)
 
-
+@app.get("/users/search")
+def search_user(
+    user_id: int = None,
+    name: str = None,
+    email: str = None,
+    documento: str = None,
+    db: Session = Depends(get_db));
+    if user_id is not None:
+        return crud.get_user_by_id(db, user_id)
+    if name is not None:
+        return crud.get_user_by_name(db, name)
+    if email is not None:
+        return crud.get_user_by_email(db, email)
+    if documento is not None:
+        return crud.get_user_by_documento(db, documento)
