@@ -23,8 +23,8 @@ def get_db():
         db.close()
 
 @app.post("/users/")
-def create_user(name: str, email: str, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email)
+def create_user(name: str, email: str,Ndocuemnto, db: Session = Depends(get_db)):
+    return crud.create_user(db, name, email,Ndocuemnto)
 
 @app.get("/users/")
 def read_users(db: Session = Depends(get_db)):
