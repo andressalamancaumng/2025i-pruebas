@@ -1,12 +1,25 @@
 from sqlalchemy.orm import Session
-from app.models import User
+from app.models import Movie
 
-def create_user(db: Session, name: str, email: str):
-    db_user = User(name=name, email=email)
-    db.add(db_user)
+def create_movie(db: Session, name: str, year: int, director: str):
+    db_movie = Movie(name=name, year=year, director=director)
+    db.add(db_movie)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_movie)
+    return db_movie
 
-def get_users(db: Session):
-    return db.query(User).all()
+def get_all_movies(db: Session):
+    return db.query(Movie).all()
+
+def get_movie_by_id_or_name(db: Session, value: str):
+    if value.isdigit():
+        return db.query(Movie).filter(Movie.id == int(value)).first()
+    else:
+        return db.query(Movie).filter(Movie.name == value).first()
+
+def delete_movie(db: Session, movie_id: int):
+    movie = db.query(Movie).filter(Movie.id == movie_id).first()
+    if movie:
+        db.delete(movie)
+        db.commit()
+    return movie
