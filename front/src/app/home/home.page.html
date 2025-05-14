@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Gestión de Usuarios
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,41 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Usuarios</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="container" style="padding: 16px">
+    <strong>Buscar usuario:</strong>
+    <ion-input
+      placeholder="Nombre, correo o documento"
+      [(ngModel)]="searchQuery"
+      (ionInput)="searchUsers()"
+    ></ion-input>
+
+    <hr />
+
+    <strong>Crear nuevo usuario:</strong>
+    <ion-input
+      placeholder="Nombre"
+      [(ngModel)]="newUser.name"
+    ></ion-input>
+    <ion-input
+      placeholder="Correo"
+      [(ngModel)]="newUser.email"
+    ></ion-input>
+    <ion-button expand="block" (click)="createUser()">Crear</ion-button>
+
+    <hr />
+
+    <strong>Usuarios registrados:</strong>
+    <ul>
+      <li *ngFor="let user of users">
+        {{ user.name }} - {{ user.email }}
+        <ion-button color="danger" size="small" (click)="deleteUser(user.id)">
+          Eliminar
+        </ion-button>
+      </li>
+    </ul>
   </div>
 </ion-content>
