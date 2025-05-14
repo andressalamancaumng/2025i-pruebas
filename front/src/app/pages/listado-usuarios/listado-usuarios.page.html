@@ -23,7 +23,14 @@
       Registrar Usuario
     </ion-button>
   </div>
+
+  <ion-list class="ion-margin-top">
+    <ion-item *ngFor="let usuario of usuarios">
+      <ion-label>
+        <h2>{{ usuario.name }}</h2>
+        <p>{{ usuario.email }}</p>
+        <p>{{ usuario.document }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
-
-
-
