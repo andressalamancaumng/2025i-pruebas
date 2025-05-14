@@ -1,42 +1,53 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 app = FastAPI()
 
-# Habilitar CORS
+# Habilitar CORS para permitir conexiones desde localhost (ajusta puertos si usas otros)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Puedes reemplazar "*" por "http://localhost:4200"
+    allow_origins=["http://localhost:8100", "http://localhost:4200", "http://localhost"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Modelo de usuario
-class User(BaseModel):
-    id: int
+# Modelo para crear usuario (sin id, porque lo generaremos automáticamente)
+class UserCreate(BaseModel):
     nombre: str
     correo: str
     documento: str
 
+# Modelo para respuesta (incluye id)
+class User(UserCreate):
+    id: int
+
 # Base de datos simulada
 users_db: List[User] = []
+next_id = 1  # Contador para asignar IDs automáticos
 
 # Obtener todos los usuarios
 @app.get("/usuarios/", response_model=List[User])
 def get_users():
     return users_db
 
-# Crear usuario
+# Crear usuario (genera id automáticamente)
 @app.post("/usuarios/", response_model=User)
-def create_user(user: User):
+def create_user(user: UserCreate):
+    global next_id
+    # Validar que correo o documento no estén repetidos
     for u in users_db:
-        if u.id == user.id:
-            raise HTTPException(status_code=400, detail="ID ya existe")
-    users_db.append(user)
-    return user
+        if u.correo == user.correo:
+            raise HTTPException(status_code=400, detail="Correo ya registrado")
+        if u.documento == user.documento:
+            raise HTTPException(status_code=400, detail="Documento ya registrado")
+
+    new_user = User(id=next_id, **user.dict())
+    users_db.append(new_user)
+    next_id += 1
+    return new_user
 
 # Eliminar usuario por ID
 @app.delete("/usuarios/{id}")
@@ -55,12 +66,15 @@ def get_user_by_id(id: int):
             return user
     raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
-# Buscar por nombre
+# Buscar por nombre (puede devolver varios usuarios)
 @app.get("/usuarios/nombre/{nombre}", response_model=List[User])
 def search_by_nombre(nombre: str):
-    return [user for user in users_db if nombre.lower() in user.nombre.lower()]
+    results = [user for user in users_db if nombre.lower() in user.nombre.lower()]
+    if not results:
+        raise HTTPException(status_code=404, detail="No se encontraron usuarios con ese nombre")
+    return results
 
-# Buscar por correo
+# Buscar por correo (devuelve un solo usuario)
 @app.get("/usuarios/correo/{correo}", response_model=User)
 def search_by_correo(correo: str):
     for user in users_db:
@@ -68,7 +82,7 @@ def search_by_correo(correo: str):
             return user
     raise HTTPException(status_code=404, detail="Correo no encontrado")
 
-# Buscar por documento
+# Buscar por documento (devuelve un solo usuario)
 @app.get("/usuarios/documento/{documento}", response_model=User)
 def search_by_documento(documento: str):
     for user in users_db:
