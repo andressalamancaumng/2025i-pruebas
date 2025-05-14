@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.page.html',
-  styleUrls: ['./usuarios.page.scss'],
+  selector: 'app-listado-usuarios',
+  templateUrl: './listado-usuarios.page.html',
+  styleUrls: ['./listado-usuarios.page.scss'],
 })
-export class UsuariosPage {
+export class ListadoUsuariosPage {
   usuarios: any[] = [];
   nuevoNombre: string = '';
   nuevoCorreo: string = '';
