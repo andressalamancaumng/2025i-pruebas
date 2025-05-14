@@ -1,0 +1,24 @@
+<main class="container">
+  <div class="header-actions">
+    <h1 class="title">CRUD de Películas</h1>
+    <button class="nav-button" routerLink="/movie-list">
+      Ver lista de películas
+    </button>
+  </div>
+  <form class="movie-form" (ngSubmit)="createMovie()">
+    <input [(ngModel)]="movieName" name="name" placeholder="Nombre de la película" required />
+    <input [(ngModel)]="movieYear" name="year" type="number" placeholder="Año" required />
+    <input [(ngModel)]="movieDirector" name="director" placeholder="Director" required />
+    <button type="submit">Agregar Película</button>
+  </form>
+
+  <section class="movie-list">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <div class="movie-header">
+        <h2>{{ movie.name }}</h2>
+        <span class="year">{{ movie.year }}</span>
+      </div>
+      <p class="director">Director: {{ movie.director }}</p>
+    </div>
+  </section>
+</main>

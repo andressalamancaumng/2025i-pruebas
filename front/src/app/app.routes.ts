@@ -6,17 +6,16 @@ export const routes: Routes = [
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'usuarios',
-    loadComponent: () => import('./pages/usuarios/usuarios.page').then( m => m.UsuariosPage)
+    path: 'movies',
+    loadComponent: () => import('./pages/movies/movies.page').then((m) => m.MoviesPage),
   },
   {
-    path: 'listado-usuarios',
-    loadComponent: () => import('./pages/listado-usuarios/listado-usuarios.page').then( m => m.ListadoUsuariosPage)
+    path: 'movie-list',
+    loadComponent: () => import('./pages/movie_list/movie-list.page').then((m) => m.MovieListPage),
   },
   {
     path: '',
-    redirectTo: 'listado-usuarios',
+    redirectTo: 'movie-list',
     pathMatch: 'full',
   },
-  
 ];

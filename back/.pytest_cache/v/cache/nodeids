@@ -1,0 +1,8 @@
+[
+  "app/tests/test_main.py::test_create_movie",
+  "app/tests/test_main.py::test_delete_movie",
+  "app/tests/test_main.py::test_get_deleted_movie_should_fail",
+  "app/tests/test_main.py::test_get_movie_by_id",
+  "app/tests/test_main.py::test_get_movie_by_name",
+  "app/tests/test_main.py::test_read_movies_empty"
+]

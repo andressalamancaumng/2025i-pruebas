@@ -1,0 +1,25 @@
+<main class="container">
+  <div class="header-actions">
+    <h1 class="title">Listado de Películas</h1>
+    <button class="nav-button" routerLink="/movies">
+      Volver al CRUD
+    </button>
+  </div>
+  <input
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="applyFilter()"
+    type="text"
+    class="search-bar"
+    placeholder="Buscar por nombre..."
+  />
+  <section class="movie-list">
+    <div class="movie-card" *ngFor="let movie of filteredMovies">
+      <div class="movie-header">
+        <h2>{{ movie.name }}</h2>
+        <span class="year">{{ movie.year }}</span>
+      </div>
+      <p class="director">Director: {{ movie.director }}</p>
+      <button class="btn-delete" (click)="deleteMovie(movie.id)">Eliminar</button>
+    </div>
+  </section>
+</main>
