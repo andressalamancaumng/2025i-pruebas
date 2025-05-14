@@ -1,32 +1,59 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { AsyncPipe, NgFor } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { Component } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-listado-usuarios',
-  templateUrl: './listado-usuarios.page.html',
-  styleUrls: ['./listado-usuarios.page.scss'],
-  standalone: true,
-  imports: [IonicModule, NgFor, AsyncPipe, RouterModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.page.html',
+  styleUrls: ['./usuarios.page.scss'],
 })
-export class ListadoUsuariosPage implements OnInit {
+export class UsuariosPage {
   usuarios: any[] = [];
+  nuevoNombre: string = '';
+  nuevoCorreo: string = '';
+  nuevoDocumento: string = '';
+  busqueda: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.cargarUsuarios();
+  }
 
-  ngOnInit() {
+  cargarUsuarios() {
     this.userService.getUsers().subscribe((data) => {
       this.usuarios = data;
     });
   }
 
+  crearUsuario() {
+    this.userService
+      .createUser(this.nuevoNombre, this.nuevoCorreo, this.nuevoDocumento)
+      .subscribe(() => {
+        this.nuevoNombre = '';
+        this.nuevoCorreo = '';
+        this.nuevoDocumento = '';
+        this.cargarUsuarios();
+      });
+  }
+
   eliminarUsuario(id: number) {
     this.userService.deleteUser(id).subscribe(() => {
-      // Elimina el usuario de la lista local
-      this.usuarios = this.usuarios.filter((usuario) => usuario.id !== id);
+      this.cargarUsuarios();
     });
+  }
+
+  buscarUsuario() {
+    if (this.busqueda.trim() === '') {
+      this.cargarUsuarios();
+      return;
+    }
+
+    this.userService.searchUsers(this.busqueda).subscribe(
+      (usuario) => {
+        this.usuarios = [usuario]; // Mostrar solo el encontrado
+      },
+      (error) => {
+        this.usuarios = [];
+        console.error('Usuario no encontrado');
+      }
+    );
   }
 }
