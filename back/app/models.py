@@ -9,3 +9,11 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(50), index=True)
     email = Column(String(50), unique=True, index=True)
+
+    class Peliculas(Base):
+        _tablename_ = "Peliculas"
+
+        id = Column(Integer, primary_key=True, index=True)
+        nombre = Column(Integer, index=True)
+        director = Column(Integer, index=True)
+        año = Column(String(20), index=True)
