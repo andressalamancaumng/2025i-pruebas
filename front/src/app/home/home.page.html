@@ -1,49 +1,58 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Gestión de Usuarios
-    </ion-title>
+    <ion-title>Lista de Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Usuarios</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <!-- FORMULARIO CREAR USUARIO -->
+  <ion-input
+    [(ngModel)]="newUser.name"
+    placeholder="Nombre"
+    label="Nombre"
+    labelPlacement="floating"
+    type="text"
+  ></ion-input>
 
-  <div id="container" style="padding: 16px">
-    <strong>Buscar usuario:</strong>
-    <ion-input
-      placeholder="Nombre, correo o documento"
-      [(ngModel)]="searchQuery"
-      (ionInput)="searchUsers()"
-    ></ion-input>
+  <ion-input
+    [(ngModel)]="newUser.email"
+    placeholder="Correo"
+    label="Correo"
+    labelPlacement="floating"
+    type="email"
+  ></ion-input>
 
-    <hr />
+  <ion-input
+    [(ngModel)]="newUser.document"
+    placeholder="Documento"
+    label="Documento"
+    labelPlacement="floating"
+    type="text"
+  ></ion-input>
 
-    <strong>Crear nuevo usuario:</strong>
-    <ion-input
-      placeholder="Nombre"
-      [(ngModel)]="newUser.name"
-    ></ion-input>
-    <ion-input
-      placeholder="Correo"
-      [(ngModel)]="newUser.email"
-    ></ion-input>
-    <ion-button expand="block" (click)="createUser()">Crear</ion-button>
+  <ion-button expand="block" (click)="createUser()">Crear Usuario</ion-button>
 
-    <hr />
+  <!-- BUSCAR USUARIO -->
+  <ion-input
+    [(ngModel)]="searchQuery"
+    placeholder="Buscar por nombre, correo o documento"
+    label="Buscar"
+    labelPlacement="floating"
+    type="text"
+  ></ion-input>
+  <ion-button expand="block" (click)="searchUsers()">Buscar</ion-button>
 
-    <strong>Usuarios registrados:</strong>
-    <ul>
-      <li *ngFor="let user of users">
-        {{ user.name }} - {{ user.email }}
-        <ion-button color="danger" size="small" (click)="deleteUser(user.id)">
-          Eliminar
-        </ion-button>
-      </li>
-    </ul>
-  </div>
+  <!-- LISTA DE USUARIOS -->
+  <ion-list>
+    <ion-item *ngFor="let user of users">
+      <ion-label>
+        <h2>{{ user.nombre }}</h2>
+        <p>{{ user.correo }}</p>
+        <p>{{ user.documento }}</p>
+      </ion-label>
+      <ion-button fill="clear" color="danger" (click)="deleteUser(user.id)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
