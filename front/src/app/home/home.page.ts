@@ -6,9 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
   peliculas = [
-    { id: 1, titulo: 'Pelicula 1', anio: 2020, director: 'Director 1' },
-    { id: 2, titulo: 'Pelicula 2', anio: 2021, director: 'Director 2' },
-    { id: 3, titulo: 'Pelicula 3', anio: 2022, director: 'Director 3' }
+    { id: 1, titulo: 'El Padrino', anio: 1972, director: 'Francis Ford Coppola' },
+    { id: 2, titulo: 'Titanic', anio: 1997, director: 'James Cameron' },
+    { id: 3, titulo: 'Matrix', anio: 1999, director: 'Lana Wachowski, Lilly Wachowski' }
   ];
+
+  constructor() {}
+
+  borrarPelicula(id: number) {
+    this.peliculas = this.peliculas.filter(pelicula => pelicula.id !== id);
+  }
+
 }
+

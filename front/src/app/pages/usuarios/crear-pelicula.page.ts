@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { PeliculasService } from '../services/peliculas.service';
 
 @Component({
   selector: 'app-crear-pelicula',
-  templateUrl: 'crear-pelicula.page.html',
-  styleUrls: ['crear-pelicula.page.scss'],
+  templateUrl: './crear-pelicula.page.html',
+  styleUrls: ['./crear-pelicula.page.scss'],
 })
 export class CrearPeliculaPage {
-  nuevoTitulo: string = '';
-  nuevoAnio: number = 0;
-  nuevoDirector: string = '';
 
-  constructor(private router: Router) {}
+  nuevoTitulo = '';
+  nuevoAnio: number | null = null;
+  nuevoDirector = '';
+
+  constructor(private peliculasService: PeliculasService, private router: Router) {}
 
   crearPelicula() {
-    console.log('Película creada:', {
-      titulo: this.nuevoTitulo,
-      anio: this.nuevoAnio,
-      director: this.nuevoDirector,
-    });
+    if (!this.nuevoTitulo || !this.nuevoAnio || !this.nuevoDirector) {
+      alert('Por favor, completa todos los campos');
+      return;
+    }
+
+    this.peliculasService.agregarPelicula(this.nuevoTitulo, this.nuevoAnio, this.nuevoDirector);
     this.router.navigate(['/home']);
   }
 }

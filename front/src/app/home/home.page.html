@@ -16,6 +16,18 @@
       </ion-label>
     </ion-item>
   </ion-list>
+<ion-list>
+  <ion-item *ngFor="let pelicula of peliculas">
+    <ion-label>
+      <h2>{{ pelicula.titulo }}</h2>
+      <p><strong>Año:</strong> {{ pelicula.anio }}</p>
+      <p><strong>Director:</strong> {{ pelicula.director }}</p>
+    </ion-label>
+    <ion-button color="danger" fill="clear" slot="end" (click)="borrarPelicula(pelicula.id)">
+      Borrar
+    </ion-button>
+  </ion-item>
+</ion-list>
 
   <ion-button expand="block" routerLink="/crear-pelicula" class="ion-margin-top" type="button">
     Crear Película
