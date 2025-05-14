@@ -1,24 +1,29 @@
 <ion-content class="ion-padding contenido-registro">
+  <div class="caja-registro">
+    <h2 class="titulo-registro">Ingrese los siguientes datos:</h2>
 
-  <ion-list class="lista-campos">
-    <ion-item class="campo-item">
-      <ion-label position="floating" class="campo-label">Nombre</ion-label>
-      <ion-input [(ngModel)]="nombre" type="text" class="campo-input"></ion-input>
-    </ion-item>
+    <ion-list class="lista-campos">
+      <ion-item lines="none" class="campo-item">
+        <ion-label position="floating" class="campo-label">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombre" type="text" class="campo-input"></ion-input>
+      </ion-item>
 
-    <ion-item class="campo-item">
-      <ion-label position="floating" class="campo-label">Correo</ion-label>
-      <ion-input [(ngModel)]="email" type="email" class="campo-input"></ion-input>
-    </ion-item>
+      <ion-item lines="none" class="campo-item">
+        <ion-label position="floating" class="campo-label">Correo</ion-label>
+        <ion-input [(ngModel)]="email" type="email" class="campo-input"></ion-input>
+      </ion-item>
 
-    <ion-item class="campo-item">
-      <ion-label position="floating" class="campo-label">Documento</ion-label>
-      <ion-input [(ngModel)]="documento" type="text" class="campo-input"></ion-input>
-    </ion-item>
-  </ion-list>
+      <ion-item lines="none" class="campo-item">
+        <ion-label position="floating" class="campo-label">Documento</ion-label>
+        <ion-input [(ngModel)]="documento" type="text" class="campo-input"></ion-input>
+      </ion-item>
+    </ion-list>
 
-  <ion-button expand="block" (click)="registrarUsuario()" class="boton-registrar">
-    Registrar Usuario
-  </ion-button>
+    <ion-button expand="block" (click)="registrarUsuario()" class="boton-registrar">
+      Registrar Usuario
+    </ion-button>
+  </div>
+</ion-content>
 
-</ion-content>  
+
+
