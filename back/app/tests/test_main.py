@@ -7,7 +7,7 @@ client = TestClient(app)
 test_user = {
     "name": "Juan",
     "email": "juan@example.com",
-    "documento": "1007298102"
+    "documento": "10072102"
 }
 
 def test_create_user():
@@ -17,6 +17,14 @@ def test_create_user():
     assert data["name"] == test_user["name"]
     assert data["email"] == test_user["email"]
     assert data["documento"] == test_user["documento"]
+
+def test_get_users():
+    response = client.get("/users/")
+    assert response.status_code == 200
+
+    usuarios = response.json()
+    assert isinstance(usuarios, list)
+    assert any(user["email"] == test_user["email"] for user in usuarios)
 
 
 def test_read_user_by_name():
@@ -39,7 +47,3 @@ def test_delete_user():
     assert response.status_code == 200
     assert response.json()["message"] == "Usuario eliminado exitosamente"
 
-def test_user_deleted():
-    response = client.get(f"/users/?documento={test_user['documento']}")
-    assert response.status_code == 200
-    assert len(response.json()) == 0

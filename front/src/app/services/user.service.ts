@@ -14,9 +14,9 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/users/`);
   }
 
-  createUser(name: string, email: string): Observable<any> {
+  createUser(name: string, email: string, documento: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
+      params: { name, email, documento },
     });
   }
 }

@@ -24,6 +24,11 @@ export class ListadoUsuariosPage implements OnInit {
    }
 
   ngOnInit() {
+    this.userService.getUsers().subscribe((data) => {
+      this.usuarios = data;
+    }, (error) => {
+      console.error('Error al obtener usuarios:', error);
+    });
   }
 
 }

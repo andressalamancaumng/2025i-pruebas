@@ -41,14 +41,15 @@ describe('UsuariosPage', () => {
   });
 
   it('debería llamar a createUser con los datos correctos', () => {
-    const mockUser = { name: 'Pedro', email: 'pedro@example.com' };
+    const mockUser = { name: 'Pedro', email: 'pedro@example.com', documento: '10072966' };
     component.nuevoNombre = mockUser.name;
     component.nuevoCorreo = mockUser.email;
+    component.nuevoDocumento = mockUser.documento;
 
     userServiceSpy.createUser.and.returnValue(of({}));
 
     component.crearUsuario();
 
-    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email);
+    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email, mockUser.documento);
   });
 });

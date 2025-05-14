@@ -19,13 +19,18 @@ def create_user(name: str, email: str, documento: str, db: Session = Depends(get
     return crud.create_user(db, name, email, documento)
 
 @app.get("/users/")
-def read_users(
-    name: Optional[str] = None,
-    email: Optional[str] = None,
-    documento: Optional[str] = None,
-    db: Session = Depends(get_db)
-):
-    return crud.get_users(db, name, email, documento)
+def get_users(db: Session = Depends(get_db)):
+    return db.query(models.User).all()
+
+#metodo para buscar por un parametro, no es necesario
+#@app.get("/users/")
+#def read_users(
+#    name: Optional[str] = None,
+ #   email: Optional[str] = None,
+  #  documento: Optional[str] = None,
+   # db: Session = Depends(get_db)
+#):
+ #   return crud.get_users(db, name, email, documento)
 
 @app.delete("/users/")
 def delete_user(documento: str, db: Session = Depends(get_db)):

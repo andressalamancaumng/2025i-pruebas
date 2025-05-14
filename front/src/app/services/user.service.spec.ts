@@ -23,9 +23,10 @@ describe('UserService', () => {
   it('debería crear usuario (POST)', () => {
     const name = 'Pedro';
     const email = 'pedro@example.com';
-    const mockResponse = { id: 1, name, email };
+    const documento = '1007296326';
+    const mockResponse = { id: 1, name, email, documento };
 
-    service.createUser(name, email).subscribe(user => {
+    service.createUser(name, email, documento).subscribe(user => {
       expect(user).toEqual(mockResponse);
     });
 
@@ -38,7 +39,7 @@ describe('UserService', () => {
   });
 
   it('debería obtener usuarios (GET)', () => {
-    const mockUsers = [{ id: 1, name: 'Ana', email: 'ana@example.com' }];
+    const mockUsers = [{ id: 1, name: 'Ana', email: 'ana@example.com', documento: '1007296326' }];
 
     service.getUsers().subscribe(users => {
       expect(users).toEqual(mockUsers);

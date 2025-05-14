@@ -9,7 +9,10 @@ def create_user(db: Session, name: str, email: str, documento: str):
     db.refresh(db_user)
     return db_user
 
-def get_users(db, name: str = None, email: str = None, documento: str = None):
+def get_users(db: Session):
+    return db.query(models.User).all()
+
+def read_users(db, name: str = None, email: str = None, documento: str = None):
     query = db.query(models.User)
     
     if name:
