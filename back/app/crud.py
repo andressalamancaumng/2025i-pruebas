@@ -23,10 +23,9 @@ def get_email(db:Session,email:int):
 def get_documento(db:Session,documento:int):
     return db.query(User).filter(User.documento==documento).first()
 
-def delete_user(db: Session, user_id: int):
-    user = db.query(User).filter(User.id == user_id).first()
+def delete_user(db: Session, userID: int):
+    user = db.query(User).filter(User.ID == userID).first()
     if user:
         db.delete(user)
         db.commit()
         return user
-    return None
