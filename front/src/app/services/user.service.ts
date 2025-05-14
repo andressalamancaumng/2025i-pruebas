@@ -1,41 +1,48 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model'; // Asegúrate de que esta ruta sea correcta
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000/usuarios'; // FastAPI base URL
+  private apiUrl = 'http://localhost:8000/usuarios'; // Ruta base del backend
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/`);
+  // Obtener todos los usuarios
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/`);
   }
 
-  createUser(nombre: string, correo: string, documento: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/`, null, {
-      params: { nombre, correo, documento },
+  // Crear un usuario (envía JSON en el body)
+  createUser(nombre: string, correo: string, documento: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/`, {
+      nombre,
+      correo,
+      documento
     });
   }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  // Eliminar un usuario por ID
+  deleteUser(id: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
   }
 
-  searchUsers(query: string): Observable<any> {
-    // Prioridad: documento > correo > nombre
+  // Buscar usuarios por nombre, correo o documento
+  searchUsers(query: string): Observable<User | User[]> {
     if (!isNaN(Number(query))) {
-      return this.http.get(`${this.apiUrl}/documento/${query}`);
+      return this.http.get<User>(`${this.apiUrl}/documento/${query}`);
     } else if (query.includes('@')) {
-      return this.http.get(`${this.apiUrl}/correo/${query}`);
+      return this.http.get<User>(`${this.apiUrl}/correo/${query}`);
     } else {
-      return this.http.get(`${this.apiUrl}/nombre/${query}`);
+      return this.http.get<User[]>(`${this.apiUrl}/nombre/${query}`);
     }
   }
 
-  getUserById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/id/${id}`);
+  // Obtener un usuario por ID
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/id/${id}`);
   }
 }

@@ -1,62 +1,77 @@
-from fastapi import FastAPI, Depends, HTTPException, Query
-from sqlalchemy.orm import Session
-from app import models, crud, database
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List
 
 app = FastAPI()
 
-# Crear las tablas en la base de datos
-models.Base.metadata.create_all(bind=database.engine)
-
+# Habilitar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
+    allow_origins=["*"],  # Puedes reemplazar "*" por "http://localhost:4200"
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# Modelo de usuario
+class User(BaseModel):
+    id: int
+    nombre: str
+    correo: str
+    documento: str
 
-@app.get("/")
-def home():
-    return {"mensaje": "¡La API está funcionando!"}
-
-# Crear un nuevo usuario
-@app.post("/usuarios/")
-def crear_usuario(nombre: str, correo: str, documento: str, db: Session = Depends(get_db)):
-    return crud.crear_usuario(db, nombre, correo, documento)
+# Base de datos simulada
+users_db: List[User] = []
 
 # Obtener todos los usuarios
-@app.get("/usuarios/")
-def leer_usuarios(db: Session = Depends(get_db)):
-    return crud.obtener_usuarios(db)
+@app.get("/usuarios/", response_model=List[User])
+def get_users():
+    return users_db
+
+# Crear usuario
+@app.post("/usuarios/", response_model=User)
+def create_user(user: User):
+    for u in users_db:
+        if u.id == user.id:
+            raise HTTPException(status_code=400, detail="ID ya existe")
+    users_db.append(user)
+    return user
+
+# Eliminar usuario por ID
+@app.delete("/usuarios/{id}")
+def delete_user(id: int):
+    for i, user in enumerate(users_db):
+        if user.id == id:
+            users_db.pop(i)
+            return {"message": "Usuario eliminado"}
+    raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 # Obtener usuario por ID
-@app.get("/usuarios/id/{user_id}")
-def obtener_por_id(user_id: int, db: Session = Depends(get_db)):
-    usuario = crud.obtener_usuario_por_id(db, user_id)
-    if not usuario:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    return usuario
+@app.get("/usuarios/id/{id}", response_model=User)
+def get_user_by_id(id: int):
+    for user in users_db:
+        if user.id == id:
+            return user
+    raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
-# Ruta para buscar usuarios por nombre, correo o documento (búsqueda genérica)
-@app.get("/usuarios/buscar/")
-def buscar_usuarios(query: str, db: Session = Depends(get_db)):
-    usuarios = crud.buscar_usuarios(db, query)
-    if not usuarios:
-        raise HTTPException(status_code=404, detail="No se encontraron usuarios")
-    return usuarios
+# Buscar por nombre
+@app.get("/usuarios/nombre/{nombre}", response_model=List[User])
+def search_by_nombre(nombre: str):
+    return [user for user in users_db if nombre.lower() in user.nombre.lower()]
 
-# Eliminar un usuario por ID
-@app.delete("/usuarios/{user_id}")
-def eliminar(user_id: int, db: Session = Depends(get_db)):
-    usuario = crud.eliminar_usuario(db, user_id)
-    if not usuario:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    return {"mensaje": "Usuario eliminado"}
+# Buscar por correo
+@app.get("/usuarios/correo/{correo}", response_model=User)
+def search_by_correo(correo: str):
+    for user in users_db:
+        if user.correo == correo:
+            return user
+    raise HTTPException(status_code=404, detail="Correo no encontrado")
+
+# Buscar por documento
+@app.get("/usuarios/documento/{documento}", response_model=User)
+def search_by_documento(documento: str):
+    for user in users_db:
+        if user.documento == documento:
+            return user
+    raise HTTPException(status_code=404, detail="Documento no encontrado")
