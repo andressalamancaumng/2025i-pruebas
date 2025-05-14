@@ -1,4 +1,3 @@
-// src/app/home/home.page.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,7 +8,10 @@ import {
   IonTitle,
   IonContent,
   IonInput,
-  IonButton
+  IonButton,
+  IonList,
+  IonItem,
+  IonLabel
 } from '@ionic/angular/standalone';
 import { UserService } from '../services/user.service';
 
@@ -27,49 +29,49 @@ import { UserService } from '../services/user.service';
     IonTitle,
     IonContent,
     IonInput,
-    IonButton
+    IonButton,
+    IonList,
+    IonItem,
+    IonLabel
   ],
 })
 export class HomePage {
-  users: any[] = [];  // Aquí guardamos la lista de usuarios
-  newUser = { name: '', email: '' };  // Datos del nuevo usuario
-  searchQuery: string = '';  // Valor de búsqueda
+  users: any[] = [];
+  newUser = { name: '', email: '', document: '' };
+  searchQuery: string = '';
 
   constructor(private userService: UserService) {
-    this.loadUsers();  // Cargar los usuarios al iniciar
+    this.loadUsers();
   }
 
-  // Método para cargar los usuarios desde el servicio
   loadUsers(): void {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
     });
   }
 
-  // Método para crear un nuevo usuario
   createUser(): void {
-    if (this.newUser.name && this.newUser.email) {
-      this.userService.createUser(this.newUser.name, this.newUser.email).subscribe(() => {
-        this.newUser = { name: '', email: '' };  // Limpiar campos después de crear
-        this.loadUsers();  // Recargar usuarios
+    const { name, email, document } = this.newUser;
+    if (name && email && document) {
+      this.userService.createUser(name, email, document).subscribe(() => {
+        this.newUser = { name: '', email: '', document: '' };
+        this.loadUsers();
       });
     }
   }
 
-  // Método para eliminar un usuario por ID
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe(() => {
-      this.loadUsers();  // Recargar usuarios después de eliminar
+      this.loadUsers();
     });
   }
 
-  // Método para buscar usuarios por nombre, correo o documento
   searchUsers(): void {
     if (this.searchQuery.trim() === '') {
-      this.loadUsers();  // Si no hay búsqueda, recarga todos los usuarios
+      this.loadUsers();
     } else {
       this.userService.searchUsers(this.searchQuery).subscribe((data) => {
-        this.users = data;  // Actualiza la lista con los usuarios encontrados
+        this.users = data;
       });
     }
   }

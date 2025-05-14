@@ -1,35 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000'; // URL del backend FastAPI
+  private apiUrl = 'http://localhost:8000/usuarios'; // FastAPI base URL
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todos los usuarios
   getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/`);
+    return this.http.get(`${this.apiUrl}/`);
   }
 
-  // Crear un nuevo usuario
-  createUser(name: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: new HttpParams().set('name', name).set('email', email),
+  createUser(nombre: string, correo: string, documento: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/`, null, {
+      params: { nombre, correo, documento },
     });
   }
 
-  // Eliminar un usuario por ID
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  // Buscar usuarios por nombre, correo o documento
   searchUsers(query: string): Observable<any> {
-    const params = new HttpParams().set('query', query);
-    return this.http.get(`${this.apiUrl}/users/search/`, { params });
+    // Prioridad: documento > correo > nombre
+    if (!isNaN(Number(query))) {
+      return this.http.get(`${this.apiUrl}/documento/${query}`);
+    } else if (query.includes('@')) {
+      return this.http.get(`${this.apiUrl}/correo/${query}`);
+    } else {
+      return this.http.get(`${this.apiUrl}/nombre/${query}`);
+    }
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/id/${id}`);
   }
 }
