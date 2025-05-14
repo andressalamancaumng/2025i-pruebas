@@ -1,3 +1,4 @@
+// src/app/home/home.page.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -30,41 +31,45 @@ import { UserService } from '../services/user.service';
   ],
 })
 export class HomePage {
-  users: any[] = [];
-  newUser = { name: '', email: '' };
-  searchQuery: string = '';
+  users: any[] = [];  // Aquí guardamos la lista de usuarios
+  newUser = { name: '', email: '' };  // Datos del nuevo usuario
+  searchQuery: string = '';  // Valor de búsqueda
 
   constructor(private userService: UserService) {
-    this.loadUsers();
+    this.loadUsers();  // Cargar los usuarios al iniciar
   }
 
+  // Método para cargar los usuarios desde el servicio
   loadUsers(): void {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
     });
   }
 
+  // Método para crear un nuevo usuario
   createUser(): void {
     if (this.newUser.name && this.newUser.email) {
       this.userService.createUser(this.newUser.name, this.newUser.email).subscribe(() => {
-        this.newUser = { name: '', email: '' };
-        this.loadUsers();
+        this.newUser = { name: '', email: '' };  // Limpiar campos después de crear
+        this.loadUsers();  // Recargar usuarios
       });
     }
   }
 
+  // Método para eliminar un usuario por ID
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe(() => {
-      this.loadUsers();
+      this.loadUsers();  // Recargar usuarios después de eliminar
     });
   }
 
+  // Método para buscar usuarios por nombre, correo o documento
   searchUsers(): void {
     if (this.searchQuery.trim() === '') {
-      this.loadUsers();
+      this.loadUsers();  // Si no hay búsqueda, recarga todos los usuarios
     } else {
       this.userService.searchUsers(this.searchQuery).subscribe((data) => {
-        this.users = data;
+        this.users = data;  // Actualiza la lista con los usuarios encontrados
       });
     }
   }
