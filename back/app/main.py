@@ -22,10 +22,10 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/")
-def create_user(name: str, email: str, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email)
+@app.post("/movies/")
+def create_movie(name: str, year: int, name_director: str, db: Session = Depends(get_db)):
+    return crud.create_movie(db, name, year, name_director)
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+@app.get("/movies/")
+def read_movies(db: Session = Depends(get_db)):
+    return crud.get_movies(db)

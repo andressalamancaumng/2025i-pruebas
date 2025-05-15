@@ -1,12 +1,14 @@
 from sqlalchemy.orm import Session
-from app.models import User
+from app.models import Movies
 
-def create_user(db: Session, name: str, email: str):
-    db_user = User(name=name, email=email)
-    db.add(db_user)
+def create_movie(db: Session, name: str, year: int, name_director:str):
+    db_movies = Movies(name=name, year=year, name_director=name_director)
+    db.add(db_movies)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_movies)
+    return db_movies
 
-def get_users(db: Session):
-    return db.query(User).all()
+def get_movies(db: Session):
+    return db.query(Movies).all()
+
+#def movie_id_or_name():
