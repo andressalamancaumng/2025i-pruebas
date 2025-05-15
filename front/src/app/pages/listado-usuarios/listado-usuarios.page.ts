@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -28,7 +29,7 @@ export class ListadoUsuariosPage implements OnInit {
 
   usuarios: any[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.cargarUsuarios();
@@ -92,5 +93,9 @@ export class ListadoUsuariosPage implements OnInit {
     } else {
       alert('Debes ingresar un ID válido para eliminar');
     }
+  }
+
+  volver() {
+    this.router.navigate(['/usuarios']);
   }
 }
