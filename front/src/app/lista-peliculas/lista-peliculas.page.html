@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Listado de Películas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let pelicula of peliculas">
+      <ion-label>
+        <h2>{{ pelicula.name_movie }}</h2>
+        <p><strong>Año:</strong> {{ pelicula.year }}</p>
+        <p><strong>Director:</strong> {{ pelicula.director }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" routerLink="/peliculas" class="ion-margin-top">
+    Añadir Película
+  </ion-button>
+</ion-content>

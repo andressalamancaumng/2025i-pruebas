@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule} from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';

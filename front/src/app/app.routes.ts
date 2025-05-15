@@ -17,6 +17,14 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'listado-usuarios',
     pathMatch: 'full',
+  },  {
+    path: 'lista-peliculas',
+    loadComponent: () => import('./lista-peliculas/lista-peliculas.page').then( m => m.ListaPeliculasPage)
   },
+  {
+    path: 'peliculas',
+    loadComponent: () => import('./peliculas/peliculas.page').then( m => m.PeliculasPage)
+  },
+
   
 ];

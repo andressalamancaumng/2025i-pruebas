@@ -29,3 +29,19 @@ def create_user(name: str, email: str, db: Session = Depends(get_db)):
 @app.get("/users/")
 def read_users(db: Session = Depends(get_db)):
     return crud.get_users(db)
+
+@app.post("/movies/")
+def create_movie(name_movie: str, year: int, director: str, db: Session = Depends(get_db)):
+    return crud.create_movie(db, name_movie, year, director)
+
+@app.get("/movies/")
+def read_users(db: Session = Depends(get_db)):
+    return crud.get_movie(db)
+
+@app.get("/movie/{id}")
+def read_users(id: int, db: Session = Depends(get_db)):
+    return crud.get_movie_by_id(id, db)
+
+@app.delete("/movie/{id}")
+def read_users(id: int, db: Session = Depends(get_db)):
+    return crud.delete_movie_by_id(id, db)
