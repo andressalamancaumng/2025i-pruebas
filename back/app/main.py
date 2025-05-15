@@ -38,13 +38,13 @@ def read_users(db: Session = Depends(get_db)):
 
 # **Rutas para carros (Carro)**
 
+#@app.post("/carros/")
+#def create_carro(carro: CarroCreate, db: Session = Depends(get_db)):
+ #   return crud.create_carro(db, carro.modelo, carro.marca, carro.serie)
+
 @app.post("/carros/")
 def create_carro(carro: CarroCreate, db: Session = Depends(get_db)):
     return crud.create_carro(db, carro.modelo, carro.marca, carro.serie)
-
-# @app.post("/carros/")
-#def create_carro(modelo: int, marca: str, serie: str, db: Session = Depends(get_db)):
-#    return crud.create_carro(db, modelo, marca, serie)
 
 @app.get("/carros/")
 def read_carros(db: Session = Depends(get_db)):
