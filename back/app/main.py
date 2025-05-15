@@ -36,7 +36,7 @@ def search_user(
     name: str = None,
     email: str = None,
     documento: str = None,
-    db: Session = Depends(get_db));
+    db: Session = Depends(get_db)):
     if user_id is not None:
         return crud.get_user_by_id(db, user_id)
     if name is not None:
