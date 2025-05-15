@@ -28,6 +28,8 @@ export class ListaPeliculasPage implements OnInit {
         console.error('Error al cargar películas:', err);
       }
     });
+
+    
   }
 
 }

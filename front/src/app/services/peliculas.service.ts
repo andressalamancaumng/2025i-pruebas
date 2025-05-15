@@ -16,7 +16,7 @@ export class PeliculasService {
   }
 
   crearPelicula(nombre: string, anio: number, director: string): Observable<any> {
-  return this.http.post(`${this.apiUrl}/movies/`, null, {
+  return this.http.post(`${this.apiUrl}/movies/`, {
     params: {
       name_movie: nombre,
       year: anio,
