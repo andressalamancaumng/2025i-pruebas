@@ -1,18 +1,14 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import declarative_base
-import os
+from sqlalchemy.orm import sessionmaker, declarative_base
 
+DATABASE_URL = "sqlite:///./test.db"  # Puedes cambiar por MySQL si deseas
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:123456@localhost/testdb")
+engine = create_engine(
+    DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+Base = declarative_base()
 
-base = declarative_base()
-def init_db():
-    from app import models  # Importa los modelos
-    base.metadata.drop_all(bind=engine)  # Borra tablas de las bases de datos
-    base.metadata.create_all(bind=engine)  # Crea las tablas de acuerdo a los modelos
 
 

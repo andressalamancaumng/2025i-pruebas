@@ -1,19 +1,10 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app import models, crud, database
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI()
+from app import crud, models, database
 
 models.Base.metadata.create_all(bind=database.engine)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = FastAPI()
 
 def get_db():
     db = database.SessionLocal()
@@ -22,26 +13,21 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/")
-def create_user(name: str, email: str,documento, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email,documento)
+@app.post("/usuarios/")
+def crear_usuario(nombre: str, correo: str, documento: str, db: Session = Depends(get_db)):
+    return crud.crear_usuario(db, nombre, correo, documento)
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+@app.delete("/usuarios/{usuario_id}")
+def borrar_usuario(usuario_id: int, db: Session = Depends(get_db)):
+    eliminado = crud.eliminar_usuario_por_id(db, usuario_id)
+    if not eliminado:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    return {"mensaje": "Usuario eliminado"}
 
-@app.get("/users/search")
-def search_user(
-    user_id: int = None,
-    name: str = None,
-    email: str = None,
-    documento: str = None,
-    db: Session = Depends(get_db));
-    if user_id is not None:
-        return crud.get_user_by_id(db, user_id)
-    if name is not None:
-        return crud.get_user_by_name(db, name)
-    if email is not None:
-        return crud.get_user_by_email(db, email)
-    if documento is not None:
-        return crud.get_user_by_documento(db, documento)
+@app.get("/usuarios/buscar/{valor}")
+def buscar_usuario(valor: str, db: Session = Depends(get_db)):
+    usuario = crud.buscar_usuario(db, valor)
+    if not usuario:
+        raise HTTPException(status_code=404, detail="No se encontró el usuario")
+    return usuario
+

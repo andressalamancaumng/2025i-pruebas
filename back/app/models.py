@@ -1,12 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from .database import Base
 
-Base = declarative_base()
-
-class User(Base):
-    __tablename__ = "users"
+class Usuario(Base):
+    __tablename__ = "usuarios"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(50), index=True)
-    email = Column(String(50), unique=True, index=True)
-    documento = Column(String(50), unique=True, index=True)
+    nombre = Column(String(100))
+    correo = Column(String(100), unique=True, index=True)
+    documento = Column(String(100), unique=True, index=True)  # Nuevo campo

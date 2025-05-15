@@ -1,31 +1,26 @@
 from sqlalchemy.orm import Session
-from app.models import User
+from app.models import Usuario
 
-def create_user(db: Session, name: str, email: str, documento:str):
-    db_user = User(name=name, email=email,documento=documento)
-    db.add(db_user)
+def crear_usuario(db: Session, nombre: str, correo: str, documento: str):
+    nuevo_usuario = Usuario(nombre=nombre, correo=correo, documento=documento)
+    db.add(nuevo_usuario)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(nuevo_usuario)
+    return nuevo_usuario
 
-def get_users(db: Session):
-    return db.query(User).all()
-
-def get_userID(db:Session,userID:int):
-    return db.query(User).filter(User.ID==userID).first()
-
-def get_name(db:Session,name:int):
-    return db.query(User).filter(User.name==name).first()
-
-def get_email(db:Session,email:int):
-    return db.query(User).filter(User.email==email).first()
-
-def get_documento(db:Session,documento:int):
-    return db.query(User).filter(User.documento==documento).first()
-
-def delete_user(db: Session, userID: int):
-    user = db.query(User).filter(User.ID == userID).first()
-    if user:
-        db.delete(user)
+def eliminar_usuario_por_id(db: Session, usuario_id: int):
+    usuario = db.query(Usuario).filter(Usuario.id == usuario_id).first()
+    if usuario:
+        db.delete(usuario)
         db.commit()
-        return user
+        return True
+    return False
+
+def buscar_usuario(db: Session, valor: str):
+    return db.query(Usuario).filter(
+        (Usuario.id == valor) |
+        (Usuario.nombre == valor) |
+        (Usuario.correo == valor) |
+        (Usuario.documento == valor)
+    ).first()
+
