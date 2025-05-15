@@ -1,101 +1,99 @@
+
 <ion-content class="ion-padding contenido-registro">
-
-  <ion-accordion-group expand="first">
-
-    <!-- Crear Usuario -->
-    <ion-accordion value="create">
-      <ion-item slot="header">
-        <ion-label>Crear Usuario</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-list class="lista-campos">
-          <ion-item>
-            <ion-label position="floating">Nombre</ion-label>
-            <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+  <div class="contenedor-principal">
+    <div class="columna-izquierda">
+      <ion-accordion-group expand="first">
+        <!-- Crear Usuario -->
+        <ion-accordion value="create">
+          <ion-item slot="header">
+            <ion-label>Crear Usuario</ion-label>
           </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list class="lista-campos">
+              <ion-item>
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input [(ngModel)]="nombreCrear" type="text"></ion-input>
+              </ion-item>
 
-          <ion-item>
-            <ion-label position="floating">Correo</ion-label>
-            <ion-input [(ngModel)]="email" type="email"></ion-input>
+              <ion-item>
+                <ion-label position="floating">Correo</ion-label>
+                <ion-input [(ngModel)]="emailCrear" type="email"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Documento</ion-label>
+                <ion-input [(ngModel)]="documentoCrear" type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-button expand="block" (click)="registrarUsuario()">Registrar Usuario</ion-button>
+          </div>
+        </ion-accordion>
+
+        <!-- Buscar Usuario -->
+        <ion-accordion value="search">
+          <ion-item slot="header">
+            <ion-label>Buscar Usuario</ion-label>
           </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-list class="lista-campos">
+              <ion-item>
+                <ion-label position="floating">ID</ion-label>
+                <ion-input [(ngModel)]="idBuscar" type="number"></ion-input>
+              </ion-item>
 
-          <ion-item>
-            <ion-label position="floating">Documento</ion-label>
-            <ion-input [(ngModel)]="documento" type="text"></ion-input>
+              <ion-item>
+                <ion-label position="floating">Nombre</ion-label>
+                <ion-input [(ngModel)]="nombreBuscar" type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Correo</ion-label>
+                <ion-input [(ngModel)]="emailBuscar" type="email"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Documento</ion-label>
+                <ion-input [(ngModel)]="documentoBuscar" type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+
+            <ion-button expand="block" color="secondary" (click)="buscarUsuario()">Buscar</ion-button>
+          </div>
+        </ion-accordion>
+
+        <!-- Eliminar Usuario -->
+        <ion-accordion value="delete">
+          <ion-item slot="header">
+            <ion-label>Eliminar Usuario</ion-label>
           </ion-item>
-        </ion-list>
+          <div class="ion-padding" slot="content">
+            <ion-list class="lista-campos">
+              <ion-item>
+                <ion-label position="floating">ID</ion-label>
+                <ion-input [(ngModel)]="idEliminar" type="number"></ion-input>
+              </ion-item>
+            </ion-list>
 
-        <ion-button expand="block" (click)="registrarUsuario()">Registrar Usuario</ion-button>
-      </div>
-    </ion-accordion>
+            <ion-button expand="block" color="danger" (click)="eliminarUsuario()">Eliminar</ion-button>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
 
-    <!-- Buscar Usuario -->
-    <ion-accordion value="search">
-      <ion-item slot="header">
-        <ion-label>Buscar Usuario</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-item>
-          <ion-label position="floating">ID</ion-label>
-          <ion-input [(ngModel)]="idUsuario" type="number"></ion-input>
+    <div class="columna-derecha">
+      <h2>Lista de usuarios:</h2>
+      <ion-list>
+        <ion-item *ngFor="let usuario of usuarios">
+          <ion-label>
+            <h2>{{ usuario.name }}: <span style="font-weight: 500;">#{{ usuario.id }}</span></h2>
+            <p>{{ usuario.email }}</p>
+            <p>{{ usuario.document }}</p>
+          </ion-label>
         </ion-item>
+      </ion-list>
+    </div>
+  </div>
 
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="nombre" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Correo</ion-label>
-          <ion-input [(ngModel)]="email" type="email"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Documento</ion-label>
-          <ion-input [(ngModel)]="documento" type="text"></ion-input>
-        </ion-item>
-
-        <ion-button expand="block" color="secondary" (click)="buscarUsuario()">Buscar</ion-button>
-      </div>
-    </ion-accordion>
-
-    <!-- Eliminar Usuario -->
-    <ion-accordion value="delete">
-      <ion-item slot="header">
-        <ion-label>Eliminar Usuario</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-item>
-          <ion-label position="floating">ID</ion-label>
-          <ion-input [(ngModel)]="idUsuario" type="number"></ion-input>
-        </ion-item>
-
-        <ion-button expand="block" color="danger" (click)="eliminarUsuario()">Eliminar</ion-button>
-      </div>
-    </ion-accordion>
-
-  </ion-accordion-group>
-
-  <!-- Título para la lista -->
-  <h2 class="ion-padding-top">Lista de usuarios:</h2>
-
-  <!-- Lista de usuarios -->
-  <ion-list class="ion-margin-top">
-    <ion-item *ngFor="let usuario of usuarios">
-      <ion-label>
-        <h2>{{ usuario.name }}</h2>
-        <p>{{ usuario.email }}</p>
-        <p>{{ usuario.document }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
+  <ion-button routerLink="/usuarios" color="white" class="boton-volver">Volver a Usuarios</ion-button>
 </ion-content>
-
-
-
-
-
-
-
-

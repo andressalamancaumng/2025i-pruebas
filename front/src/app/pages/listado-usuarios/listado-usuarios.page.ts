@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';  // Solo IonicModule
+import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { NgFor } from '@angular/common';
@@ -9,13 +9,23 @@ import { NgFor } from '@angular/common';
   templateUrl: './listado-usuarios.page.html',
   styleUrls: ['./listado-usuarios.page.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, NgFor],  // Importamos solo estos
+  imports: [IonicModule, FormsModule, NgFor],
 })
 export class ListadoUsuariosPage implements OnInit {
-  idUsuario = '';
-  nombre = '';
-  email = '';
-  documento = '';
+  // Crear usuario
+  nombreCrear = '';
+  emailCrear = '';
+  documentoCrear = '';
+
+  // Buscar usuario
+  idBuscar = '';
+  nombreBuscar = '';
+  emailBuscar = '';
+  documentoBuscar = '';
+
+  // Eliminar usuario
+  idEliminar = '';
+
   usuarios: any[] = [];
 
   constructor(private userService: UserService) {}
@@ -29,13 +39,13 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   registrarUsuario() {
-    if (this.nombre && this.email && this.documento) {
-      this.userService.createUser(this.nombre, this.email, this.documento).subscribe({
+    if (this.nombreCrear && this.emailCrear && this.documentoCrear) {
+      this.userService.createUser(this.nombreCrear, this.emailCrear, this.documentoCrear).subscribe({
         next: () => {
           alert('Usuario creado correctamente');
-          this.nombre = '';
-          this.email = '';
-          this.documento = '';
+          this.nombreCrear = '';
+          this.emailCrear = '';
+          this.documentoCrear = '';
           this.cargarUsuarios();
         },
         error: () => alert('Error al crear usuario'),
@@ -46,11 +56,11 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   buscarUsuario() {
-    const idParsed = parseInt(this.idUsuario);
+    const idParsed = parseInt(this.idBuscar);
     const id = isNaN(idParsed) ? undefined : idParsed;
 
-    if (id || this.nombre || this.email || this.documento) {
-      this.userService.searchUser(id, this.nombre, this.email, this.documento).subscribe({
+    if (id || this.nombreBuscar || this.emailBuscar || this.documentoBuscar) {
+      this.userService.searchUser(id, this.nombreBuscar, this.emailBuscar, this.documentoBuscar).subscribe({
         next: (res) => {
           if (res) {
             this.usuarios = Array.isArray(res) ? res : [res];
@@ -70,7 +80,7 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   eliminarUsuario() {
-    const idParsed = parseInt(this.idUsuario);
+    const idParsed = parseInt(this.idEliminar);
     if (!isNaN(idParsed)) {
       this.userService.deleteUserFlexible(idParsed).subscribe({
         next: () => {
@@ -84,6 +94,3 @@ export class ListadoUsuariosPage implements OnInit {
     }
   }
 }
-
-
-

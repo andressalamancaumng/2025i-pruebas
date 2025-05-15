@@ -1,107 +1,278 @@
-// listado-usuarios.page.scss
+/* Estilos base */
+ion-content {
+  --background: linear-gradient(135deg, #d9c1f2, #2575fc);
+}
 
-// Fondo degradado general
-ion-content.contenido-registro {
-  --background: transparent;
+* {
+  font-weight: 300 !important;
+  font-size: 1.05rem;
+}
+
+ion-label,
+ion-input,
+ion-button,
+h1, h2, h3, h4, h5, h6,
+p, span {
+  font-weight: 300 !important;
+  letter-spacing: 0.4px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+}
+
+/* Contenedores principales */
+.contenedor-principal {
+  display: flex;
+  height: 100%;
+  gap: 1.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.columna-izquierda,
+.columna-derecha {
+  flex: 1;
+  max-width: 50%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.columna-izquierda::-webkit-scrollbar,
+.columna-derecha::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fondo general */
+.contenido-registro {
   background: linear-gradient(135deg, #d9c1f2, #2575fc);
   height: 100%;
   margin: 0;
   position: relative;
-  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-
-  // Grupo de acordeones (crear, buscar, eliminar)
-  ion-accordion-group {
-    margin-bottom: 2rem;
-  }
-
-  ion-accordion {
-    border-radius: 16px;
-    margin-bottom: 1rem;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-
-    // Encabezado del acordeón (menú desplegable) con fondo blanco y texto negro
-    ion-item[slot="header"] {
-      background-color: #ffffff !important;
-      color: #000000 !important;
-      --color: #000000;
-      --ion-color-base: #ffffff;
-      --ion-item-background: #ffffff;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      font-weight: bold;
-
-      // Flecha del acordeón en color negro
-      ion-icon {
-        color: #000000 !important;
-      }
-    }
-
-    ion-list.lista-campos,
-    .ion-padding {
-      padding: 1rem;
-    }
-
-    ion-item {
-      --inner-padding-end: 8px;
-      --highlight-color-focused: #3880ff;
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-
-    ion-input {
-      --padding-start: 10px;
-    }
-
-    ion-button {
-      margin-top: 1rem;
-      --border-radius: 12px;
-      --box-shadow: 0 4px 12px rgba(37, 117, 252, 0.25);
-    }
-  }
-
-  // Título de la lista de usuarios
-  h2 {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  }
-
-  // Lista de usuarios
-  ion-list {
-    background: transparent;
-    padding: 1rem;
-
-    ion-item {
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
-      padding: 1rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-      }
-
-      ion-label {
-        h2 {
-          color: #2575fc;
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin-bottom: 0.3rem;
-        }
-
-        p {
-          font-size: 0.95rem;
-          color: #555;
-          margin: 0.1rem 0;
-        }
-      }
-    }
-  }
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Ion-item general */
+ion-item {
+  --min-height: 46px;
+  --background-hover: transparent;
+  --background-focused: transparent;
+  --background-activated: transparent;
+}
+
+/* Input */
+ion-input {
+  --padding-bottom: 8px !important;
+  width: 100%;
+  max-height: none;
+}
+
+/* Acordeones */
+ion-accordion-group {
+  margin-bottom: 2rem;
+}
+
+ion-accordion {
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ion-accordion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+ion-accordion ion-item[slot="header"] {
+  --background: #f8f9fa;
+  --color: #495057;
+  --border-width: 0;
+  --inner-border-width: 0;
+  border-radius: 16px;
+  font-weight: 600;
+  min-height: 56px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+ion-accordion ion-item[slot="header"] ion-icon {
+  color: #00192f !important;
+  transition: transform 0.25s ease;
+}
+
+ion-accordion ion-item[slot="header"].ion-activated ion-icon {
+  transform: rotate(180deg);
+}
+
+ion-accordion [slot="content"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+ion-accordion [slot="content"] .ion-padding {
+  padding: 1.5rem 0.5rem 1rem;
+  background: transparent;
+}
+
+ion-accordion [slot="content"] .lista-campos {
+  margin: 15px auto 0 !important;
+  padding: 0;
+  background: transparent;
+  width: 90%;
+  max-width: 540px;
+}
+
+/* Items */
+.lista-campos ion-item {
+  --background: #fff;
+  --border-color: transparent;
+  --border-width: 0;
+  --inner-border-width: 0;
+  --highlight-color-focused: rgba(56, 128, 255, 0.2);
+  --highlight-color-valid: transparent;
+  --highlight-color-invalid: transparent;
+  --ripple-color: transparent;
+  --background-focused: #fff;
+  --background-hover: #fff;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.12);
+  min-height: 46px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.lista-campos ion-item:first-child {
+  margin-top: 20px;
+}
+
+.lista-campos ion-item:focus-within,
+.lista-campos ion-item.item-has-focus {
+  box-shadow: 0 4px 16px rgba(56, 128, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.lista-campos ion-item::part(native) {
+  padding-inline: 16px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.lista-campos ion-item ion-label[position="floating"] {
+  color: #5a6268;
+  font-weight: 500;
+  font-size: 14px;
+  transform: none;
+  opacity: 1;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  letter-spacing: 0.4px;
+}
+
+.lista-campos ion-item.item-has-focus ion-label[position="floating"],
+.lista-campos ion-item.item-has-value ion-label[position="floating"] {
+  transform: translateY(-14px) scale(0.85);
+  color: #2870f0;
+  font-weight: 600;
+}
+
+.lista-campos ion-item ion-input {
+  --color: #333;
+  --padding-top: 14px;
+  --padding-bottom: 6px;
+  --padding-start: 0;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* Botón */
+ion-button {
+  margin: 1.5rem auto 2rem;
+  display: block;
+  height: 38px;
+  width: 70%;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #fff !important;
+  justify-content: center;
+}
+
+/* Listado de usuarios */
+.columna-derecha h2 {
+  font-size: 1.25rem;
+  margin: 0 0 1.2rem;
+  padding-top: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.6px;
+}
+
+.columna-derecha ion-list {
+  background: transparent;
+  padding: 0.5rem 0;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.columna-derecha ion-list::-webkit-scrollbar {
+  display: none;
+}
+
+.columna-derecha ion-item {
+  --background: rgba(255, 255, 255, 0.98);
+  --border-width: 0;
+  --inner-border-width: 0;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  margin-bottom: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.columna-derecha ion-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.columna-derecha ion-item ion-label h2 {
+  color: #3066cc;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.3px;
+}
+
+.columna-derecha ion-item ion-label p {
+  font-size: 0.9rem;
+  color: #495057;
+  margin: 0.3rem 0;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+/* Listas transparentes */
+ion-list, ion-list-header {
+  background: transparent !important;
+  --background: transparent !important;
+}
