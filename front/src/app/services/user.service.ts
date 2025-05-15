@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model'; // Asegúrate de que esta ruta sea correcta
+import { User } from '../models/user.model'; // Verifica que esta ruta sea correcta
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000/usuarios'; // Ruta base del backend
+  private apiUrl = 'http://localhost:8000/usuarios'; // Ajusta la URL si tu backend está en otro puerto
 
   constructor(private http: HttpClient) {}
 
@@ -33,10 +33,13 @@ export class UserService {
   // Buscar usuarios por nombre, correo o documento
   searchUsers(query: string): Observable<User | User[]> {
     if (!isNaN(Number(query))) {
+      // Si es un número, busca por documento
       return this.http.get<User>(`${this.apiUrl}/documento/${query}`);
     } else if (query.includes('@')) {
+      // Si contiene @, busca por correo
       return this.http.get<User>(`${this.apiUrl}/correo/${query}`);
     } else {
+      // Si es texto, busca por nombre (puede devolver varios)
       return this.http.get<User[]>(`${this.apiUrl}/nombre/${query}`);
     }
   }

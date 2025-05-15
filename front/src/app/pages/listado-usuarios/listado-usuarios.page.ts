@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -7,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./listado-usuarios.page.scss'],
 })
 export class ListadoUsuariosPage {
-  usuarios: any[] = [];
+  usuarios: User[] = [];
   nuevoNombre: string = '';
   nuevoCorreo: string = '';
   nuevoDocumento: string = '';
@@ -24,14 +25,16 @@ export class ListadoUsuariosPage {
   }
 
   crearUsuario() {
-    this.userService
-      .createUser(this.nuevoNombre, this.nuevoCorreo, this.nuevoDocumento)
-      .subscribe(() => {
-        this.nuevoNombre = '';
-        this.nuevoCorreo = '';
-        this.nuevoDocumento = '';
-        this.cargarUsuarios();
-      });
+    if (this.nuevoNombre && this.nuevoCorreo && this.nuevoDocumento) {
+      this.userService
+        .createUser(this.nuevoNombre, this.nuevoCorreo, this.nuevoDocumento)
+        .subscribe(() => {
+          this.nuevoNombre = '';
+          this.nuevoCorreo = '';
+          this.nuevoDocumento = '';
+          this.cargarUsuarios();
+        });
+    }
   }
 
   eliminarUsuario(id: number) {
@@ -47,8 +50,12 @@ export class ListadoUsuariosPage {
     }
 
     this.userService.searchUsers(this.busqueda).subscribe(
-      (usuario) => {
-        this.usuarios = [usuario]; // Mostrar solo el encontrado
+      (resultado) => {
+        if (Array.isArray(resultado)) {
+          this.usuarios = resultado;
+        } else {
+          this.usuarios = [resultado];
+        }
       },
       (error) => {
         this.usuarios = [];
