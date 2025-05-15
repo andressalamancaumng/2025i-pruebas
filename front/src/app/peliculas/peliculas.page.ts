@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { IonInput, IonItem, IonList, IonContent, IonButton  } from '@ionic/angular/standalone';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PeliculasService } from '../services/peliculas.service';
@@ -10,7 +11,7 @@ import { PeliculasService } from '../services/peliculas.service';
   templateUrl: './peliculas.page.html',
   styleUrls: ['./peliculas.page.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, AsyncPipe, RouterModule],
+  imports: [IonicModule, NgFor, AsyncPipe, RouterModule, IonInput, IonItem, IonList, IonContent , IonButton ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PeliculasPage implements OnInit {
@@ -25,12 +26,14 @@ export class PeliculasPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
+
   }
 
   crearPelicula() {
     if (this.nombre && this.anio && this.director) {
-      this.peliculasService.crearPelicula(this.nombre, this.anio, this.director)
+      this.peliculasService
+        .crearPelicula(this.nombre, this.anio, this.director)
         .subscribe({
           next: () => {
             alert('Película creada exitosamente');
