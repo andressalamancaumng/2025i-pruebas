@@ -37,7 +37,7 @@ import { UserService } from '../services/user.service';
 })
 export class HomePage {
   users: any[] = [];
-  newUser = { name: '', email: '', document: '' };
+  newUser = { nombre: '', correo: '', documento: '' };
   searchQuery: string = '';
 
   constructor(private userService: UserService) {
@@ -46,15 +46,15 @@ export class HomePage {
 
   loadUsers(): void {
     this.userService.getUsers().subscribe((data) => {
-      this.users = data;
+      this.users = Array.isArray(data) ? data : [data];
     });
   }
 
   createUser(): void {
-    const { name, email, document } = this.newUser;
-    if (name && email && document) {
-      this.userService.createUser(name, email, document).subscribe(() => {
-        this.newUser = { name: '', email: '', document: '' };
+    const { nombre, correo, documento } = this.newUser;
+    if (nombre && correo && documento) {
+      this.userService.createUser(nombre, correo, documento).subscribe(() => {
+        this.newUser = { nombre: '', correo: '', documento: '' };
         this.loadUsers();
       });
     }
@@ -71,7 +71,7 @@ export class HomePage {
       this.loadUsers();
     } else {
       this.userService.searchUsers(this.searchQuery).subscribe((data) => {
-        this.users = data;
+        this.users = Array.isArray(data) ? data : [data];
       });
     }
   }

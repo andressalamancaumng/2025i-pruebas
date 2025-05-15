@@ -17,13 +17,9 @@ export class UserService {
   }
 
   // Crear un usuario (envía JSON en el body)
-  createUser(nombre: string, correo: string, documento: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/`, {
-      nombre,
-      correo,
-      documento
-    });
-  }
+  createUser(nombre: string, correo: string, documento: string) {
+  return this.http.post<User>(`${this.apiUrl}`, { nombre, correo, documento });
+}
 
   // Eliminar un usuario por ID
   deleteUser(id: number): Observable<{ message: string }> {
