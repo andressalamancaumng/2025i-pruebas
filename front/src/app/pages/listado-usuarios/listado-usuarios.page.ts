@@ -31,14 +31,14 @@ export class ListadoUsuariosPage implements OnInit {
   registrarUsuario() {
     if (this.nombre && this.email && this.documento) {
       this.userService.createUser(this.nombre, this.email, this.documento).subscribe({
-        next: res => {
+        next: () => {
           alert('Usuario creado correctamente');
           this.nombre = '';
           this.email = '';
           this.documento = '';
           this.cargarUsuarios();
         },
-        error: err => alert('Error al crear usuario'),
+        error: () => alert('Error al crear usuario'),
       });
     } else {
       alert('Completa todos los campos');
@@ -53,12 +53,16 @@ export class ListadoUsuariosPage implements OnInit {
       this.userService.searchUser(id, this.nombre, this.email, this.documento).subscribe({
         next: (res) => {
           if (res) {
-            this.usuarios = [res];
+            this.usuarios = Array.isArray(res) ? res : [res];
           } else {
             alert('No se encontró el usuario');
+            this.usuarios = [];
           }
         },
-        error: () => alert('Error al buscar el usuario'),
+        error: () => {
+          alert('Error al buscar el usuario');
+          this.usuarios = [];
+        },
       });
     } else {
       alert('Ingresa al menos un campo para buscar');
@@ -80,5 +84,6 @@ export class ListadoUsuariosPage implements OnInit {
     }
   }
 }
+
 
 

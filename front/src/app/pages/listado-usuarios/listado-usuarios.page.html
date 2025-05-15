@@ -29,16 +29,6 @@
       </div>
     </ion-accordion>
 
-    <!-- Listar todos -->
-    <ion-accordion value="read-all">
-      <ion-item slot="header">
-        <ion-label>Listar Todos los Usuarios</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">
-        <ion-button expand="block" color="primary" (click)="cargarUsuarios()">Actualizar Lista</ion-button>
-      </div>
-    </ion-accordion>
-
     <!-- Buscar Usuario -->
     <ion-accordion value="search">
       <ion-item slot="header">
@@ -49,14 +39,17 @@
           <ion-label position="floating">ID</ion-label>
           <ion-input [(ngModel)]="idUsuario" type="number"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
           <ion-input [(ngModel)]="nombre" type="text"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label position="floating">Correo</ion-label>
           <ion-input [(ngModel)]="email" type="email"></ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label position="floating">Documento</ion-label>
           <ion-input [(ngModel)]="documento" type="text"></ion-input>
@@ -83,7 +76,7 @@
 
   </ion-accordion-group>
 
-  <!-- Lista de usuarios -->
+  <!-- Lista de usuarios (igual que antes) -->
   <ion-list class="ion-margin-top">
     <ion-item *ngFor="let usuario of usuarios">
       <ion-label>
@@ -95,6 +88,8 @@
   </ion-list>
 
 </ion-content>
+
+
 
 
 
