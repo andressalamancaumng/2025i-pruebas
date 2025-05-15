@@ -40,9 +40,9 @@ def create_movie(title: str, year: int, director: str, db: Session = Depends(get
 def read_movies(db: Session = Depends(get_db)):
     return crud.get_movies(db)
 
-@app.get("/movies/{movie_id}")
-def read_movie(movie_id: int, db: Session = Depends(get_db)):
-    movie = crud.get_movie(db, movie_id = movie_id)
+@app.get("/movies/{title}/")
+def read_movie(title: str, db: Session = Depends(get_db)):
+    movie = crud.get_movie(db, title = title)
     if not movie:
         raise HTTPException(status_code=404, detail="La película no existe")
     return movie

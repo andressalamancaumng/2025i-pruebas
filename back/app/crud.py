@@ -14,8 +14,8 @@ def get_movies(db: Session):
     return db.query(Movie).all()
 
 # Funcion para obtener una película por su ID
-def get_movie(db: Session, movie_id: int):
-    return db.query(Movie).filter(Movie.id == movie_id).first()
+def get_movie(db: Session, title: str):
+    return db.query(Movie).filter(Movie.title == title).first()
 
 # Funcion para obtener una película por su título, año y director
 def get_movie_by_details(db: Session, title: str, year: int, director: str):

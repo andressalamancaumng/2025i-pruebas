@@ -1,25 +1,41 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
     <ion-title>Listado de Películas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list *ngIf="peliculas.length > 0">
-    <ion-item *ngFor="let peli of peliculas">
-      <ion-label>
-        <h2>{{ peli.title }}</h2>
-        <p>Año: {{ peli.year }}</p>
-        <p>Director: {{ peli.director }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+<ion-content class="ion-content">
 
-  <div *ngIf="peliculas.length === 0" class="no-data">
+  <ion-searchbar 
+    color="light" placeholder="Light"
+    show-clear-button="always" value="Always Show"
+    [(ngModel)]="searchTerm"
+    (ionInput)="applyFilter()"
+    placeholder="Buscar película por título"
+  ></ion-searchbar>
+
+  <ion-grid *ngIf="filteredMovies.length > 0">
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let movie of filteredMovies">
+        <ion-card color = "light ">
+          <ion-card-header>
+           <ion-card-title>Título: {{movie.title}}</ion-card-title>
+            <ion-card-subtitle>Año: {{movie.year}}</ion-card-subtitle>
+            <ion-card-subtitle>Director: {{movie.director}}</ion-card-subtitle>
+          </ion-card-header>
+         <ion-button shape = "round" fill="clear" (click)="deleteMovie(movie.id)">Eliminar Película</ion-button>
+        </ion-card>
+      </ion-col>
+   </ion-row>
+  </ion-grid>
+
+  <div *ngIf="filteredMovies.length === 0" class="no-data">
     No hay películas disponibles.
   </div>
-
-  <ion-button expand="block" routerLink="/peliculas" class="ion-margin-top">
+<div class = "button-container">
+  <ion-button shape = "round" routerLink="/peliculas" class="button">
     Crear Nueva Película
   </ion-button>
+</div>
 </ion-content>
+

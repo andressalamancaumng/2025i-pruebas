@@ -1,5 +1,26 @@
+ion-content {
+    --background:#b14646;
+  }
+
+
 .no-data {
   text-align: center;
   margin-top: 20px;
-  color: white;
+  --color: white;
 }
+
+ .button {
+  --background: #ffffff;
+  --color: #000000;
+  padding: 10px 20px; 
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+  

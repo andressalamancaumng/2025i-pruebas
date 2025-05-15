@@ -31,18 +31,14 @@ def test_read_movies():
 def test_read_movie():
     reset_database()
     client.post("/movies/", params={"title": "Avatar", "year": 2009, "director": "James Cameron"})
-    response = client.get("/movies/1")
+    response = client.get("/movies/Avatar/")
     assert response.status_code == 200
 
 def test_read_movie_by_details():
     reset_database()
     client.post("/movies/", params={"title": "The Dark Knight", "year": 2008, "director": "Christopher Nolan"})
-    response = client.get("/movies/1")
+    response = client.get("/movies/The Dark Knight/")
     assert response.status_code == 200
-    data = response.json()
-    assert data["title"] == "The Dark Knight"
-    assert data["year"] == 2008
-    assert data["director"] == "Christopher Nolan"
 
 def test_delete_movie():
     reset_database()

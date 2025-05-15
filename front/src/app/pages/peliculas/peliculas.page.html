@@ -1,32 +1,31 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
     <ion-title>Gestión de Películas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding fondo-rojo">
-  <form (submit)="crearPelicula()">
-    <ion-item>
-      <ion-label position="floating">Título</ion-label>
-      <ion-input [(ngModel)]="nuevoTitulo" name="titulo"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Año</ion-label>
-      <ion-input type="number" [(ngModel)]="nuevoAnio" name="anio"></ion-input>
-    </ion-item>
+<ion-content class = "ion-content">
+    <form (submit)="crearPelicula()">
+      <ion-list [inset]="true" lines="inset">  
+        <ion-item >
+          <ion-input label="Titulo" labelPlacement="floating" [(ngModel)]="nuevoTitulo" name="titulo"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Director</ion-label>
-      <ion-input [(ngModel)]="nuevoDirector" name="director"></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-input label="Año" labelPlacement="floating" type="number" [(ngModel)]="nuevoAnio" name="anio"></ion-input>
+        </ion-item>
 
-    <div class="botones">
-      <ion-button expand="block" type="submit" class="negro">Crear</ion-button>
-      <ion-button expand="block" (click)="leerPeliculas()" class="negro">Leer Todas</ion-button>
-      <ion-button expand="block" (click)="leerPorId()" class="negro">Leer por ID</ion-button>
-      <ion-button expand="block" (click)="eliminarPorId()" class="negro">Eliminar por ID</ion-button>
+        <ion-item>
+          <ion-input label="Director" labelPlacement="floating" [(ngModel)]="nuevoDirector" name="director"></ion-input>
+        </ion-item>
+      </ion-list>
+      <div class = "button">
+      <ion-button  shape = "round" type="submit" >Crear</ion-button>
+      <ion-button  shape = "round" color="light" routerLink="/peliculas-listado" >
+      Salir
+      </ion-button>
     </div>
-  </form>
+    </form>
 </ion-content>
 

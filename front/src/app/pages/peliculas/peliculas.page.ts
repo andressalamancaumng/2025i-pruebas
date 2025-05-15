@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , OnInit} from '@angular/core';
 import { MovieService } from '../../services/movie.service';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -12,12 +12,23 @@ import { RouterLink } from '@angular/router';
   templateUrl: './peliculas.page.html',
   styleUrls: ['./peliculas.page.scss'],
 })
-export class PeliculasPage {
+export class PeliculasPage implements OnInit {
   nuevoTitulo = '';
   nuevoAnio: number | null = null;
   nuevoDirector = '';
+  movies: any[] = [];
 
   constructor(private movieService: MovieService) {}
+
+  ngOnInit() {
+   this.leerPeliculas();
+  }
+
+  leerPeliculas() {
+    this.movieService.getMovies().subscribe(data => {
+      this.movies = data;
+    });
+  }
 
   crearPelicula() {
     if (!this.nuevoTitulo || !this.nuevoAnio || !this.nuevoDirector) {
@@ -27,42 +38,11 @@ export class PeliculasPage {
 
     this.movieService
       .createMovie(this.nuevoTitulo, this.nuevoAnio, this.nuevoDirector)
-      .subscribe({
-        next: () => {
-          alert('Película creada con éxito');
-          this.nuevoTitulo = '';
-          this.nuevoAnio = null;
-          this.nuevoDirector = '';
-        },
-        error: (err) => {
-          console.error(err);
-          alert(err.error.detail || 'Error al crear película');
-        },
-      });
-  }
-
-  leerPeliculas() {
-    this.movieService.getMovies().subscribe({
-      next: (pelis) => alert(JSON.stringify(pelis, null, 2)),
-      error: () => alert('Error al obtener películas'),
-    });
-  }
-
-  leerPorId() {
-    const id = prompt('Ingrese ID de la película:');
-    if (!id) return;
-    this.movieService.getMovieById(+id).subscribe({
-      next: (peli) => alert(JSON.stringify(peli, null, 2)),
-      error: (err) => alert(err.error.detail || 'Película no encontrada'),
-    });
-  }
-
-  eliminarPorId() {
-    const id = prompt('Ingrese ID de la película a eliminar:');
-    if (!id) return;
-    this.movieService.deleteMovie(+id).subscribe({
-      next: () => alert('Película eliminada'),
-      error: (err) => alert(err.error.detail || 'Error al eliminar'),
-    });
+      .subscribe((movie) => {
+        this.nuevoTitulo = '';
+        this.nuevoAnio = null;
+        this.nuevoDirector = '';
+        this.leerPeliculas();
+        });
   }
 }

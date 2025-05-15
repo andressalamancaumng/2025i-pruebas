@@ -1,34 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NgFor, NgIf} from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MovieService } from '../../services/movie.service'; // si usas el servicio
+import { RouterLink } from '@angular/router';
+import { MovieService } from '../../services/movie.service'; 
+import { ViewWillEnter } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-peliculas-listado',
   standalone: true,
-  imports: [
-    IonicModule,
-    CommonModule,
-    RouterModule // si usas routerLink
-  ],
+  imports: [ IonicModule,  NgFor, NgIf, FormsModule, RouterLink],
   templateUrl: './peliculas-listado.page.html',
   styleUrls: ['./peliculas-listado.page.scss'],
 })
-export class PeliculasListadoPage implements OnInit {
-  peliculas: any[] = [];
+
+export class PeliculasListadoPage implements ViewWillEnter {
+ movies: any[] = [];
+ filteredMovies: any[] = [];
+ searchTerm: string = '';
 
   constructor(private movieService: MovieService) {}
 
-  ngOnInit() {
-    this.obtenerPeliculas();
+  ionViewWillEnter(): void {
+    this.leerPeliculas();
   }
 
-  obtenerPeliculas() {
-    this.movieService.getMovies().subscribe({
-      next: (data) => this.peliculas = data,
-      error: () => alert('Error al obtener películas'),
+ leerPeliculas() {
+    this.movieService.getMovies().subscribe(data => {
+      this.movies = data;
+      this.applyFilter();
     });
   }
+
+
+ applyFilter() {
+  const term = this.searchTerm.trim().toLowerCase();
+  this.filteredMovies = this.movies.filter(movie =>
+    movie.title.toLowerCase().includes(term)
+  );
 }
 
+
+  deleteMovie(movieId: number) {
+  this.movieService.deleteMovie(movieId).subscribe(() => {
+    this.leerPeliculas();
+  });
+}
+
+}
