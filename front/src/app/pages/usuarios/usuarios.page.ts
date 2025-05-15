@@ -15,18 +15,23 @@ import { RouterLink } from '@angular/router';
 export class UsuariosPage {
   nuevoNombre = '';
   nuevoCorreo = '';
+  anioLanz = '';
+  nuevoDirector = '';
+
 
   constructor(private userService: UserService) {
   }
 
   crearUsuario() {
-    if (!this.nuevoNombre || !this.nuevoCorreo) return;
+    if (!this.nuevoNombre || !this.nuevoCorreo || !this.anioLanz || !this.nuevoDirector) return;
 
     this.userService
       .createUser(this.nuevoNombre, this.nuevoCorreo)
       .subscribe((nuevo) => {
         this.nuevoNombre = '';
         this.nuevoCorreo = '';
+        this.anioLanz = '';
+        this.nuevoDirector = '';
       });
   }
 }
