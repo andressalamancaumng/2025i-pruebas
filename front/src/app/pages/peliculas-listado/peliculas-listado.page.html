@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Listado de Películas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="peliculas.length > 0">
+    <ion-item *ngFor="let peli of peliculas">
+      <ion-label>
+        <h2>{{ peli.title }}</h2>
+        <p>Año: {{ peli.year }}</p>
+        <p>Director: {{ peli.director }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="peliculas.length === 0" class="no-data">
+    No hay películas disponibles.
+  </div>
+
+  <ion-button expand="block" routerLink="/peliculas" class="ion-margin-top">
+    Crear Nueva Película
+  </ion-button>
+</ion-content>

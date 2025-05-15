@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestión de Películas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding fondo-rojo">
+  <form (submit)="crearPelicula()">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input [(ngModel)]="nuevoTitulo" name="titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Año</ion-label>
+      <ion-input type="number" [(ngModel)]="nuevoAnio" name="anio"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Director</ion-label>
+      <ion-input [(ngModel)]="nuevoDirector" name="director"></ion-input>
+    </ion-item>
+
+    <div class="botones">
+      <ion-button expand="block" type="submit" class="negro">Crear</ion-button>
+      <ion-button expand="block" (click)="leerPeliculas()" class="negro">Leer Todas</ion-button>
+      <ion-button expand="block" (click)="leerPorId()" class="negro">Leer por ID</ion-button>
+      <ion-button expand="block" (click)="eliminarPorId()" class="negro">Eliminar por ID</ion-button>
+    </div>
+  </form>
+</ion-content>
+
