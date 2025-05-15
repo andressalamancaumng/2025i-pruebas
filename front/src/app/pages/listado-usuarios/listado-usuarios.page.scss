@@ -1,0 +1,107 @@
+// listado-usuarios.page.scss
+
+// Fondo degradado general
+ion-content.contenido-registro {
+  --background: transparent;
+  background: linear-gradient(135deg, #d9c1f2, #2575fc);
+  height: 100%;
+  margin: 0;
+  position: relative;
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+
+  // Grupo de acordeones (crear, buscar, eliminar)
+  ion-accordion-group {
+    margin-bottom: 2rem;
+  }
+
+  ion-accordion {
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    // Encabezado del acordeón (menú desplegable) con fondo blanco y texto negro
+    ion-item[slot="header"] {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+      --color: #000000;
+      --ion-color-base: #ffffff;
+      --ion-item-background: #ffffff;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      font-weight: bold;
+
+      // Flecha del acordeón en color negro
+      ion-icon {
+        color: #000000 !important;
+      }
+    }
+
+    ion-list.lista-campos,
+    .ion-padding {
+      padding: 1rem;
+    }
+
+    ion-item {
+      --inner-padding-end: 8px;
+      --highlight-color-focused: #3880ff;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    ion-input {
+      --padding-start: 10px;
+    }
+
+    ion-button {
+      margin-top: 1rem;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(37, 117, 252, 0.25);
+    }
+  }
+
+  // Título de la lista de usuarios
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  // Lista de usuarios
+  ion-list {
+    background: transparent;
+    padding: 1rem;
+
+    ion-item {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      ion-label {
+        h2 {
+          color: #2575fc;
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 0.3rem;
+        }
+
+        p {
+          font-size: 0.95rem;
+          color: #555;
+          margin: 0.1rem 0;
+        }
+      }
+    }
+  }
+}
+
