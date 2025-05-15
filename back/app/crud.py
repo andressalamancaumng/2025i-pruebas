@@ -11,4 +11,5 @@ def create_movie(db: Session, name: str, year: int, name_director:str):
 def get_movies(db: Session):
     return db.query(Movies).all()
 
-#def movie_id_or_name():
+#def movie_id_or_name(db: Session, id: int, name: str):
+    
