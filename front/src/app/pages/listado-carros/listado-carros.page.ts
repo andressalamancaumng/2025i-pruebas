@@ -16,12 +16,19 @@ import { RouterModule } from '@angular/router';
 export class ListadoCarrosPage implements OnInit {
   carros: any[] = [];
 
-  constructor(private carroService: CarsService) {} 
+  constructor(private carroService: CarsService) {}
 
   ngOnInit() {
-    this.carroService.getCars().subscribe((data) => {
-      this.carros = data;
+    this.carroService.getCarros().subscribe({
+      next: (data) => {
+        this.carros = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener carros', err);
+        this.carros = [];
+      }
     });
   }
 }
+
 

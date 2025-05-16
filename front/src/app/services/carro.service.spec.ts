@@ -38,7 +38,7 @@ describe('CarroService', () => {
   it('debería obtener carros (GET)', () => {
     const mockCarros = [{ id: 1, modelo: 2023, marca: 'Ford', serie: 'XYZ987' }];
 
-    service.getCars().subscribe(carros => {
+    service.getCarros().subscribe(carros => {
       expect(carros).toEqual(mockCarros);
     });
 

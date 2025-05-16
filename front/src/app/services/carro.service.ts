@@ -10,8 +10,8 @@ export class CarsService {
 
   constructor(private http: HttpClient) {}
 
-  getCars() {
-  return this.http.get('http://localhost:8000/carros/');
+  getCarros(): Observable<any[]> {
+  return this.http.get<any[]>('http://localhost:8000/carros/');
 }
 
   createCars(modelo: number, marca: string, serie: string) {
