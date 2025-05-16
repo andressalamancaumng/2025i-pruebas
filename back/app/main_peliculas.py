@@ -14,6 +14,10 @@ def get_db():
     finally:
         db.close()
 
+        @app.get("/")
+        def read_root():
+            return {"message": "¡Hola, mundo!"}
+
         @app.get("/peliculas")
         def leer_peliculas(db: Session = Depends(get_db)):
             return crud.get_peliculas(db)
