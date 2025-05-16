@@ -6,6 +6,6 @@ class Pelicula(Base):
     __tablename__ = "peliculas"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombrepelicula = Column(Integer, nullable=False)
+    nombrepelicula = Column(String(255), nullable=False)
     director = Column(String(255), nullable=False)
     anio = Column(Integer, nullable=False)

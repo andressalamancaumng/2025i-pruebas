@@ -1,71 +1,76 @@
-from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi import FastAPI, Depends, HTTPException, Query , Request
 from sqlalchemy.orm import Session
-from . import models, schemas, crud
+from . import models, crud
 from .database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 
-# Crea las tablas definidas en los modelos si no existen
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-from .initial_data import seed_initial_data
+models.Base.metadata.create_all(bind=engine)
 
-@app.on_event("startup")
-def startup_event():
-    
-    db = next(get_db())
-    seed_initial_data(db)
-
-# Middleware para permitir solicitudes desde cualquier origen (CORS)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Dependency para obtener DB
 def get_db():
-   
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
-@app.post("/peliculas/", response_model=schemas.Pelicula)
-def crear_pelicula(pelicula: schemas.PeliculaCreate, db: Session = Depends(get_db)):
-    
-    db_pelicula = crud.create_pelicula(db, pelicula=pelicula)
+# Middleware para CORS
+
+
+@app.post("/peliculas/")
+async def crear_pelicula(request: Request, db: Session = Depends(get_db)):
+    data = await request.json()
+    nombrepelicula = data.get("nombrepelicula")
+    director = data.get("director")
+    anio = data.get("anio")
+
+    if not all([nombrepelicula, director, anio]):
+        raise HTTPException(status_code=400, detail="Faltan datos obligatorios")
+
+    db_pelicula = crud.create_pelicula(db, nombrepelicula, director, anio)
     if db_pelicula is None:
-        raise HTTPException(status_code=400, detail="La pelicula con ese nombre y director ya existe")
-    return db_pelicula
+        raise HTTPException(status_code=400, detail="La película ya existe")
 
-@app.get("/peliculas/", response_model=list[schemas.Pelicula])
-def leer_pelicula(skip: int = 0, limit: int = 100, order_by: str = Query("id", description="Campo para ordenar: id, NombrePelicula, Director"), db: Session = Depends(get_db)):
-   
-    return crud.get_peliculas(db, skip=skip, limit=limit, order_by=order_by)
+    return {"detail": "Película creada", "pelicula": {
+        "id": db_pelicula.id,
+        "nombrepelicula": db_pelicula.nombrepelicula,
+        "director": db_pelicula.director,
+        "anio": db_pelicula.anio
+    }}
 
-@app.get("/peliculas/{pelicula_id}", response_model=schemas.Pelicula)
+
+
+@app.get("/peliculas/")
+def leer_peliculas(db: Session = Depends(get_db)):
+    return crud.get_peliculas(db)
+
+@app.get("/peliculas/{pelicula_id}")
 def leer_pelicula(pelicula_id: int, db: Session = Depends(get_db)):
-   
     db_pelicula = crud.get_pelicula(db, pelicula_id=pelicula_id)
     if not db_pelicula:
-        raise HTTPException(status_code=404, detail="Pelicula no encontrado")
+        raise HTTPException(status_code=404, detail="Película no encontrada")
     return db_pelicula
 
-@app.delete("/pelicula/")
+@app.delete("/peliculas/")
 def eliminar_pelicula_por_detalles(
-    pelicula_id: int = Query(..., description="ID de la pelicula"),
-    nombrepelicula: int = Query(...),
+    pelicula_id: int = Query(..., description="ID de la película"),
+    nombrepelicula: str = Query(...),
     director: str = Query(..., description="Director sin comillas"),
     db: Session = Depends(get_db)
 ):
-    
-    # Limpiar comillas si las hubiera en la marca
     director_limpia = director.strip('"').strip("'")
     db_pelicula = crud.delete_pelicula_by_details(db, pelicula_id=pelicula_id, nombrepelicula=nombrepelicula, director=director_limpia)
     if not db_pelicula:
-        raise HTTPException(status_code=404, detail="Pelicula no encontrada")
-    return {"message": "Pelicula eliminada por id"}
+        raise HTTPException(status_code=404, detail="Película no encontrada")
+    return {"message": "Película eliminada"}

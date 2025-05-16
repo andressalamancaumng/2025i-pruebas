@@ -1,61 +1,50 @@
-// Importaciones necesarias desde Angular e Ionic
-import { Component, OnInit } from '@angular/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { PeliculaService } from '../../services/pelicula.service.new';
 import { IonicModule } from '@ionic/angular';
-import { PeliculaService } from '../../services/pelicula.service';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-// Decorador que define los metadatos del componente
 @Component({
-  selector: 'app-listado-usuarios', // Selector del componente para su uso en HTML
-  templateUrl: './listado-usuarios.page.html', // Ruta al archivo de plantilla HTML
-  styleUrls: ['./listado-usuarios.page.scss'], // Estilos CSS/SCSS del componente
-  standalone: true, // Componente independiente (sin necesidad de módulo padre)
-  imports: [IonicModule, NgFor, AsyncPipe, NgIf, RouterModule, FormsModule], // Módulos y directivas usadas
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Permite usar elementos personalizados en la plantilla
+  selector: 'app-listado-usuarios',
+  templateUrl: './listado-usuarios.page.html',
+  imports: [CommonModule, IonicModule, FormsModule],
 })
-export class ListadoUsuariosPage implements OnInit {
-  // Propiedades del formulario
-  nombrepelicula: string = '';   // Modelo del carro (año)
-  director: string = '';           // Marca del carro
-  anio: number = 2000;          // Serie del carro
-  mensajeCreacion: string = ''; // Mensaje de confirmación tras creación exitosa
+export class ListadoUsuariosPage {
+  nombrepelicula = '';
+  director = '';
+  anio: any;
 
-  // Inyección del servicio que gestiona los carros
   constructor(private peliculaService: PeliculaService) {}
 
-  // Método que se ejecuta al inicializar el componente
-  ngOnInit() {}
-
-  // Función que se ejecuta al enviar el formulario
   crearPelicula() {
-    // Validación: todos los campos deben estar completos
-    if (this.nombrepelicula && this.director.trim() && this.anio) {
-      // Llama al servicio para crear un carro
-      this.peliculaService.createPelicula({ nombrepelicula: this.nombrepelicula, director: this.director.trim(), anio: this.anio }).subscribe(() => {
-        // Si se crea correctamente, se muestra mensaje y se limpian los campos
-        this.mensajeCreacion = 'Pelicula exitosamente creado';
-        this.nombrepelicula = '';
-        this.director = '';
-        this.anio = 2000;
-      }, (error) => {
-        // Manejo de error si la creación falla
-        console.error('Error al crear pelicula:', error);
-        alert('Error al crear pelicula: ' + error.message);
-      });
-    } else {
-      // Alerta si algún campo está vacío
-      alert('Por favor, complete todos los campos antes de crear una pelicula.');
-    }
+  const anioNum = parseInt(this.anio, 10);
+  console.log('Datos enviados:', this.nombrepelicula, this.director, anioNum);
+
+  if (!this.nombrepelicula || !this.director || isNaN(anioNum)) {
+    alert('Por favor llena todos los campos correctamente.');
+    return;
   }
 
-  // Método para cancelar la creación del carro (resetea campos)
+  this.peliculaService.crearPelicula(this.nombrepelicula, this.director, anioNum).subscribe({
+    next: (res) => {
+      console.log('Respuesta del servidor:', res);
+      alert('Película creada');
+      this.limpiarFormulario();
+    },
+    error: (err) => {
+      console.error('Error al crear película:', err);
+      alert('Error al crear película. Revisa consola para más detalles.');
+    }
+  });
+}
+
   cancelar() {
+    this.limpiarFormulario();
+  }
+
+  limpiarFormulario() {
     this.nombrepelicula = '';
     this.director = '';
-    this.anio = 2000;
-    this.mensajeCreacion = '';
+    this.anio = '';
   }
 }
