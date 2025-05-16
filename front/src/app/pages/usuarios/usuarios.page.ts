@@ -13,20 +13,24 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./usuarios.page.scss'],
 })
 export class UsuariosPage {
+  nuevaPelicula = '';
+  nuevoAno: number=0;
   nuevoNombre = '';
-  nuevoCorreo = '';
 
   constructor(private userService: UserService) {
   }
 
-  crearUsuario() {
-    if (!this.nuevoNombre || !this.nuevoCorreo) return;
+  crearPelicula() {
+    if (!this.nuevaPelicula|| !this.nuevoAno|| !this.nuevoNombre) return;
+    
+
 
     this.userService
-      .createUser(this.nuevoNombre, this.nuevoCorreo)
+      .createMovie(this.nuevoNombre, this.nuevoAno,this.nuevaPelicula)
       .subscribe((nuevo) => {
         this.nuevoNombre = '';
-        this.nuevoCorreo = '';
+        this.nuevaPelicula = '';
+        this.nuevoAno;
       });
   }
 }

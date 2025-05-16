@@ -10,13 +10,13 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/`);
+  getMovies(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/movies/`);
   }
 
-  createUser(name: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
+  createMovie(movie: string, year: number, name_director:string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/movies/`, null, {
+      params: { movie, year, name_director },
     });
   }
 }

@@ -12,7 +12,7 @@ describe('UsuariosPage', () => {
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('UserService', ['getUsers', 'createUser']);
+    const spy = jasmine.createSpyObj('UserService', ['getMovies', 'createMovie']);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -31,7 +31,7 @@ describe('UsuariosPage', () => {
     userServiceSpy = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
     // ✅ Esta línea debe ir después de obtener el userServiceSpy real
-    userServiceSpy.getUsers.and.returnValue(of([]));
+    userServiceSpy.getMovies.and.returnValue(of([]));
 
     fixture.detectChanges();
   });
@@ -41,14 +41,15 @@ describe('UsuariosPage', () => {
   });
 
   it('debería llamar a createUser con los datos correctos', () => {
-    const mockUser = { name: 'Pedro', email: 'pedro@example.com' };
+    const mockUser = { name: 'Pedro', movie: 'Rapunzel',year:2010 };
     component.nuevoNombre = mockUser.name;
-    component.nuevoCorreo = mockUser.email;
+    component.nuevaPelicula = mockUser.movie;
+    component.nuevoAno=mockUser.year
 
-    userServiceSpy.createUser.and.returnValue(of({}));
+    userServiceSpy.createMovie.and.returnValue(of({}));
 
-    component.crearUsuario();
+    component.crearPelicula();
 
-    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email);
+    expect(userServiceSpy.createMovie).toHaveBeenCalledWith(mockUser.movie,mockUser.year,mockUser.name );
   });
 });
