@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  document: string;
-}
+import { UserService, User } from '../../services/user.service';  // Importa User junto con UserService
 
 @Component({
   selector: 'app-usuarios',
