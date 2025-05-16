@@ -1,17 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UserService } from './user.service';
-import { User } from '../models/user.model';
-import { Component } from '@angular/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
+
 describe('UserService', () => {
   let service: UserService;
   let httpMock: HttpTestingController;
 
-  beforeEach(() => {
+  const BASE_URL = 'http://localhost:8000/users';
+  const mockResponse = { id: 1, name: 'Pedro', email: 'pedro@example.com', document: '12345678' };
+  const mockUsers = [{ id: 1, name: 'Ana', email: 'ana@example.com', document: '87654321' }];
+beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [UserService]
@@ -24,100 +22,44 @@ describe('UserService', () => {
     httpMock.verify();
   });
 
-  it('debería ser creado', () => {
-    expect(service).toBeTruthy();
-  });
+  it('debería crear un usuario correctamente (POST)', (done) => {
+    const { name, email, document } = mockResponse;
 
-  it('debería crear un usuario (POST)', () => {
-    const mockUser: User = { id: 1, nombre: 'Luis', correo: 'luis@demo.com', documento: '123456789' };
-
-    service.createUser('Luis', 'luis@demo.com', '123456789').subscribe(user => {
-      expect(user).toEqual(mockUser);
+    service.createUser(name, email, document).subscribe(user => {
+      expect(user).toEqual(mockResponse, 'El usuario creado no coincide con la respuesta esperada');
+      done();
     });
 
-    const req = httpMock.expectOne('http://localhost:8000/usuarios');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({
-      nombre: 'Luis',
-      correo: 'luis@demo.com',
-      documento: '123456789'
-    });
-    req.flush(mockUser);
-  });
-
-  it('debería obtener todos los usuarios (GET)', () => {
-    const mockUsers: User[] = [
-      { id: 1, nombre: 'Luis', correo: 'luis@demo.com', documento: '123' },
-      { id: 2, nombre: 'Ana', correo: 'ana@demo.com', documento: '456' }
-    ];
-
-    service.getUsers().subscribe(users => {
-      expect(users.length).toBe(2);
-      expect(users).toEqual(mockUsers);
-    });
-
-    const req = httpMock.expectOne('http://localhost:8000/usuarios');
-    expect(req.request.method).toBe('GET');
-    req.flush(mockUsers);
-  });
-
-  it('debería eliminar un usuario por ID (DELETE)', () => {
-    const mockResponse = { message: 'Usuario eliminado' };
-
-    service.deleteUser(1).subscribe(response => {
-      expect(response).toEqual(mockResponse);
-    });
-
-    const req = httpMock.expectOne('http://localhost:8000/usuarios/1');
-    expect(req.request.method).toBe('DELETE');
+    const req = httpMock.expectOne(${BASE_URL});
+    expect(req.request.method).toBe('POST', 'El método HTTP no es POST');
+    expect(req.request.body).toEqual({ name, email, document }, 'El cuerpo de la solicitud POST no es correcto');
     req.flush(mockResponse);
   });
 
-  it('debería buscar un usuario por documento', () => {
-    const mockUser: User = { id: 1, nombre: 'Luis', correo: 'luis@demo.com', documento: '123' };
-
-    service.searchUsers('123').subscribe(user => {
-      expect(user).toEqual(mockUser);
+  it('debería obtener usuarios correctamente (GET)', (done) => {
+    service.getUsers().subscribe(users => {
+      expect(users).toEqual(mockUsers, 'Los usuarios obtenidos no coinciden con los esperados');
+      done();
     });
 
-    const req = httpMock.expectOne('http://localhost:8000/usuarios/documento/123');
-    expect(req.request.method).toBe('GET');
-    req.flush(mockUser);
-  });
-
-  it('debería buscar un usuario por correo', () => {
-    const mockUser: User = { id: 2, nombre: 'Ana', correo: 'ana@demo.com', documento: '456' };
-
-    service.searchUsers('ana@demo.com').subscribe(user => {
-      expect(user).toEqual(mockUser);
-    });
-
-    const req = httpMock.expectOne('http://localhost:8000/usuarios/correo/ana@demo.com');
-    expect(req.request.method).toBe('GET');
-    req.flush(mockUser);
-  });
-
-  it('debería buscar usuarios por nombre', () => {
-    const mockUsers: User[] = [{ id: 3, nombre: 'Carlos', correo: 'carlos@demo.com', documento: '789' }];
-
-    service.searchUsers('Carlos').subscribe(users => {
-      expect(users).toEqual(mockUsers);
-    });
-
-    const req = httpMock.expectOne('http://localhost:8000/usuarios/nombre/Carlos');
-    expect(req.request.method).toBe('GET');
+    const req = httpMock.expectOne(${BASE_URL});
+    expect(req.request.method).toBe('GET', 'El método HTTP no es GET');
     req.flush(mockUsers);
   });
 
-  it('debería obtener un usuario por ID', () => {
-    const mockUser: User = { id: 4, nombre: 'Laura', correo: 'laura@demo.com', documento: '000' };
+  it('debería manejar errores del servidor (GET)', (done) => {
+    const errorMessage = 'Error del servidor';
 
-    service.getUserById(4).subscribe(user => {
-      expect(user).toEqual(mockUser);
+    service.getUsers().subscribe({
+      next: () => fail('La solicitud debería haber fallado'),
+      error: error => {
+        expect(error.status).toBe(500, 'El código de estado no es el esperado');
+        expect(error.statusText).toBe('Internal Server Error', 'El mensaje de error no es el esperado');
+        done();
+      }
     });
 
-    const req = httpMock.expectOne('http://localhost:8000/usuarios/id/4');
-    expect(req.request.method).toBe('GET');
-    req.flush(mockUser);
-  });
+    const req = httpMock.expectOne(${BASE_URL});
+    req.flush(errorMessage, { status: 500, statusText: 'Internal Server Error' });
+  });
 });

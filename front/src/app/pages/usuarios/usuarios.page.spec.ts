@@ -5,10 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Component } from '@angular/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
 describe('UsuariosPage', () => {
   let component: UsuariosPage;
   let fixture: ComponentFixture<UsuariosPage>;
@@ -44,14 +41,15 @@ describe('UsuariosPage', () => {
   });
 
   it('debería llamar a createUser con los datos correctos', () => {
-    const mockUser = { name: 'Pedro', email: 'pedro@example.com' };
+    const mockUser = { name: 'Pedro', email: 'pedro@example.com', documento: '12345678' };
     component.nuevoNombre = mockUser.name;
     component.nuevoCorreo = mockUser.email;
+    component.nuevoDocumento =mockUser.documento;
 
     userServiceSpy.createUser.and.returnValue(of({}));
 
     component.crearUsuario();
 
-    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email);
+    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email, mockUser.documento);
   });
 });

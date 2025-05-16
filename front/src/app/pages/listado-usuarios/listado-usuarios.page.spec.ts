@@ -4,11 +4,6 @@ import { UserService } from '../../services/user.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { Component } from '@angular/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
 
 describe('ListadoUsuariosPage', () => {
   let component: ListadoUsuariosPage;
@@ -24,8 +19,7 @@ describe('ListadoUsuariosPage', () => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
     userServiceSpy.getUsers.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
-
-    await TestBed.configureTestingModule({
+await TestBed.configureTestingModule({
       imports: [ListadoUsuariosPage],
       providers: [
         { provide: UserService, useValue: userServiceSpy },

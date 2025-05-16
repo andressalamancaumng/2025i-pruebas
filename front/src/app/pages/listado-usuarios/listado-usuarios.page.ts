@@ -1,69 +1,29 @@
-import { Component } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user.model';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, NgFor } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+
+
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.page.html',
   styleUrls: ['./listado-usuarios.page.scss'],
+  standalone: true,
+  imports: [IonicModule, NgFor, AsyncPipe, RouterModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ListadoUsuariosPage {
-  usuarios: User[] = [];
-  nuevoNombre: string = '';
-  nuevoCorreo: string = '';
-  nuevoDocumento: string = '';
-  busqueda: string = '';
-
+export class ListadoUsuariosPage implements OnInit {
+  usuarios: any[] = [];
   constructor(private userService: UserService) {
-    this.cargarUsuarios();
-  }
-
-  cargarUsuarios() {
-    this.userService.getUsers().subscribe((data) => {
-      this.usuarios = data;
+    this.userService.getUsers().subscribe((data) =>{
+      this.usuarios=data;
     });
+   }
+
+  ngOnInit() {
   }
 
-  crearUsuario() {
-    if (this.nuevoNombre && this.nuevoCorreo && this.nuevoDocumento) {
-      this.userService
-        .createUser(this.nuevoNombre, this.nuevoCorreo, this.nuevoDocumento)
-        .subscribe(() => {
-          this.nuevoNombre = '';
-          this.nuevoCorreo = '';
-          this.nuevoDocumento = '';
-          this.cargarUsuarios();
-        });
-    }
-  }
-
-  eliminarUsuario(id: number) {
-    this.userService.deleteUser(id).subscribe(() => {
-      this.cargarUsuarios();
-    });
-  }
-
-  buscarUsuario() {
-    if (this.busqueda.trim() === '') {
-      this.cargarUsuarios();
-      return;
-    }
-
-    this.userService.searchUsers(this.busqueda).subscribe(
-      (resultado) => {
-        if (Array.isArray(resultado)) {
-          this.usuarios = resultado;
-        } else {
-          this.usuarios = [resultado];
-        }
-      },
-      (error) => {
-        this.usuarios = [];
-        console.error('Usuario no encontrado');
-      }
-    );
-  }
 }
