@@ -1,20 +1,28 @@
+ion-toolbar{
+  --background: green;
+  height: 75px;
+  display: flex;
+  align-items: center;
+}
+
 ion-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 16px;
-  background-color: #fff; /* Color de fondo blanco para que todo resalte */
+  --justify-content: center;
+  --padding: 100px;
+  --background: #ffffff; /* Color de fondo blanco para que todo resalte */
 }
 
 form {
   display: flex;
   flex-direction: column;
+  --justify-content: center;
   gap: 16px;
 }
 
 ion-item {
   --background: #217950;
-  border-radius: 8px;
+  --border-radius: 15px;
   margin-bottom: 12px;
   padding: 8px;
 }

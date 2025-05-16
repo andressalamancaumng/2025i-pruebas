@@ -9,4 +9,4 @@ class Pelicula(Base):
     id = Column(Integer, primary_key=True, index=True)
     name_movie = Column(String(50), index=True)
     anio = Column(Integer)
-    director=Column(String(100))
+    director = Column(String(100))

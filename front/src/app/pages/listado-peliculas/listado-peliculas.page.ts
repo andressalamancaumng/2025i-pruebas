@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PeliculasService,Pelicula } from '../../services/peliculas.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,7 +19,7 @@ import { CommonModule } from '@angular/common';
 export class ListadoPeliculasPage implements OnInit {
   peliculas: Pelicula[] = [];  // Ahora usamos la clase Pelicula correctamente
 
-  constructor(private peliculasService: PeliculasService) {}
+  constructor(private peliculasService: PeliculasService, private router:Router) {}
 ngOnInit(){
   this.obtenerpeliculas();
 }
@@ -41,6 +42,10 @@ ngOnInit(){
       console.error('Error al borrar película', error);
     }
   );
+}
+
+volver(){
+  this.router.navigate(['/peliculas']);
 }
 
 }
