@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models import User, Pelicula
+from app.models import User, Peliculas
  
 
 def create_user(db: Session, name: str, email: str):
@@ -13,13 +13,13 @@ def get_users(db: Session):
     return db.query(User).all()
 
 def get_peliculas(db: Session):
-    return db.query(Pelicula).all()
+    return db.query(Peliculas).all()
 
-def get_pelicula_by_id(db: Session, pelicula_id: int):
-    return db.query(Pelicula).filter(Pelicula.id == pelicula_id).first()
+def get_peliculas_by_id(db: Session, peliculas_id: int):
+    return db.query(Peliculas).filter(Peliculas.id == peliculas_id).first()
 
-def delete_pelicula(db: Session, pelicula_id: int):
-    pelicula = db.query(Pelicula).filter(Pelicula.id == pelicula_id).first()
+def delete_peliculas(db: Session, peliculas_id: int):
+    pelicula = db.query(Peliculas).filter(Peliculas.id == peliculas_id).first()
     if pelicula:
         db.delete(pelicula)
         db.commit()
