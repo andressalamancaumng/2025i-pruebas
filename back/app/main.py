@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app import models, crud, database,schemas
+from app import models, crud, database
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -40,7 +40,7 @@ def read_pelicula(id: int, db: Session = Depends(get_db)):
 
 @app.get("/peliculas/buscar/")
 def buscar_pelicula(nombre: str = None, id: int = None, db: Session = Depends(get_db)):
-    # Si se pasa id, busca por id
+    
     if id is not None:
         pelicula = crud.get_pelicula_by_id(db, id)
         if not pelicula:
