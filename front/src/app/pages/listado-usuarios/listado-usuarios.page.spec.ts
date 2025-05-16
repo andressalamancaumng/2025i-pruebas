@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListadoUsuariosPage } from './listado-usuarios.page';
-import { UserService } from '../../services/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';

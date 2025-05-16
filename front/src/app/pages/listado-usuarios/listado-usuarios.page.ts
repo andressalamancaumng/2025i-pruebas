@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, UsuarioCreate, Usuario } from '../services/user.service';
+import { UserService, UsuarioCreate, Usuario } from 'src/app/services/user.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -21,7 +21,7 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   cargarUsuarios() {
-    this.userService.getUsuarios().subscribe((data) => {
+    this.userService.getUsuarios().subscribe((data: Usuario[]) => {
       this.usuarios = data;
     });
   }
