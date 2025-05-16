@@ -1,0 +1,33 @@
+<main class="container">
+  <div class="header-actions">
+  <h1 class="title">Películas</h1>
+  <button class="button" routerLink="/listado-peliculas">
+    Todas las películas
+  </button>
+</div>
+  <form class="formulario-pelicula" (ngSubmit)="createMovie()">
+    <div class="campo-formulario">
+      <label for="name">Nombre de la película</label>
+      <input [(ngModel)]="movieName" name="name" placeholder="Nombre de la película" required />
+    </div>
+    <div class="campo-formulario">
+      <label for="name">Año</label>
+       <input [(ngModel)]="movieYear" name="year" type="number" placeholder="Año" required />
+    </div>
+    <div class="campo-formulario">
+      <label for="name">Director</label>
+      <input [(ngModel)]="movieDirector" name="director" placeholder="Director" required />
+    </div> 
+    <button type="submit">Agregar Película</button>
+  </form>
+
+  <section class="pelicula-list">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <div class="movie-header">
+        <h2>{{ movie.name }}</h2>
+        <span class="year">{{ movie.year }}</span>
+      </div>
+      <p class="director">Director: {{ movie.director }}</p>
+    </div>
+  </section>
+</main>
