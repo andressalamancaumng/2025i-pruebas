@@ -14,6 +14,6 @@ class User(Base):
         _tablename_ = "Peliculas"
 
         id = Column(Integer, primary_key=True, index=True)
-        nombre = Column(Integer, index=True)
-        director = Column(Integer, index=True)
-        año = Column(String(20), index=True)
+        nombre = Column(String(100), index=True)
+        director = Column(String(100), index=True)
+        año = Column(String(10), index=True)
