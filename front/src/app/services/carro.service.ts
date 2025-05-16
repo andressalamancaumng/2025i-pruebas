@@ -10,13 +10,14 @@ export class CarsService {
 
   constructor(private http: HttpClient) {}
 
-  getCarros(): Observable<any[]> {
+  getCarros() {
   return this.http.get<any[]>('http://localhost:8000/carros/');
 }
 
-  createCars(modelo: number, marca: string, serie: string) {
+createCars(modelo: number, marca: string, serie: string) {
   return this.http.post('http://localhost:8000/carros/', { modelo, marca, serie });
 }
+
 }
 
 

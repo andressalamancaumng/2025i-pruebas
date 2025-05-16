@@ -1,10 +1,12 @@
-<ion-header [translucent]="true">
+ion-header>
   <ion-toolbar>
     <ion-title>Listado de carros</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+
+  <!-- Lista de carros -->
   <ion-list>
     <ion-item *ngFor="let carro of carros">
       <ion-label>
@@ -15,8 +17,27 @@
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" routerLink="/crear-carro" class="ion-margin-top" type="button">
-    Crear Carro
-  </ion-button>
+  <!-- Formulario para crear carro -->
+  <form (ngSubmit)="crearCarro()">
+    <ion-item>
+      <ion-label position="floating">Modelo</ion-label>
+      <ion-input type="number" [(ngModel)]="nuevoModelo" name="modelo" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Marca</ion-label>
+      <ion-input [(ngModel)]="nuevaMarca" name="marca" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Serie</ion-label>
+      <ion-input [(ngModel)]="nuevaSerie" name="serie" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">
+      Crear Carro
+    </ion-button>
+  </form>
 </ion-content>
+
 

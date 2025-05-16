@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'carros',
-    loadComponent: () => import('./pages/carros/carros.page').then(m => m.CrearCarroPage)
+    loadComponent: () => import('./pages/carros/carros.page').then(m => m.carrosPage)
   },
   {
     path: 'listado-carros',
