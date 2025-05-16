@@ -2,32 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface User {
+  id?: number;
+  nombre: string;
+  correo: string;
+  documento: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'http://localhost:8000/users';  // Asegúrate que esta sea la URL correcta
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/`);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/`);
   }
 
-<<<<<<< HEAD
-  createUser(name: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
-    });
-  }
-=======
   // Crear un usuario (envía JSON en el body)
-  createUser(nombre: string, correo: string, documento: string) {
-  return this.http.post<User>(`${this.apiUrl}`, { nombre, correo, documento });
-}
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
+  createUser(nombre: string, correo: string, documento: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/`, { nombre, correo, documento });
+  }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  // Método para buscar usuarios por término (opcional)
+  searchUsers(termino: string): Observable<User[] | User> {
+    return this.http.get<User[] | User>(`${this.apiUrl}/search`, {
+      params: { q: termino }
+    });
   }
 }

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
-=======
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonText,
@@ -13,14 +10,11 @@ import {
   IonButton,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.page.html',
-<<<<<<< HEAD
-=======
   styleUrls: ['./listado-usuarios.page.scss'],
   standalone: true,
   imports: [
@@ -34,14 +28,9 @@ import { UserService } from '../../services/user.service';
     IonInput,
     IonButton,
   ],
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
 })
 export class ListadoUsuariosPage implements OnInit {
   usuarios: any[] = [];
-<<<<<<< HEAD
-  nombreNuevo = '';
-  correoNuevo = '';
-=======
 
   // Propiedades para crear usuario
   nuevoNombre: string = '';
@@ -50,7 +39,6 @@ export class ListadoUsuariosPage implements OnInit {
 
   // Propiedad para búsqueda
   busqueda: string = '';
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
 
   constructor(private userService: UserService) {}
 
@@ -65,12 +53,6 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   crearUsuario() {
-<<<<<<< HEAD
-    if (!this.nombreNuevo || !this.correoNuevo) return;
-    this.userService.createUser(this.nombreNuevo, this.correoNuevo).subscribe(() => {
-      this.nombreNuevo = '';
-      this.correoNuevo = '';
-=======
     if (
       this.nuevoNombre.trim() &&
       this.nuevoCorreo.trim() &&
@@ -89,17 +71,10 @@ export class ListadoUsuariosPage implements OnInit {
 
   eliminarUsuario(id: number) {
     this.userService.deleteUser(id).subscribe(() => {
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
-      this.cargarUsuarios();
+      this.usuarios = this.usuarios.filter(u => u.id !== id);
     });
   }
 
-<<<<<<< HEAD
-  eliminarUsuario(id: number) {
-    this.userService.deleteUser(id).subscribe(() => {
-      this.usuarios = this.usuarios.filter(u => u.id !== id);
-    });
-=======
   buscarUsuario() {
     if (this.busqueda.trim() === '') {
       this.cargarUsuarios();
@@ -115,6 +90,5 @@ export class ListadoUsuariosPage implements OnInit {
         console.error('Usuario no encontrado');
       }
     );
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
   }
 }

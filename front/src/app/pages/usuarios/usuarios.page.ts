@@ -3,7 +3,13 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  document: string;
+}
 
 @Component({
   selector: 'app-usuarios',
@@ -24,10 +30,14 @@ export class UsuariosPage {
   }
 
   cargarUsuarios() {
-    this.userService.getUsers().subscribe({
-      next: (data) => this.usuarios = data,
-      error: (err) => console.error('Error al cargar usuarios', err)
-    });
+    this.userService.getUsers().subscribe(
+      (data: User[]) => {
+        this.usuarios = data;
+      },
+      (err) => {
+        console.error('Error al cargar usuarios', err);
+      }
+    );
   }
 
   crearUsuario() {
@@ -38,7 +48,7 @@ export class UsuariosPage {
 
     this.userService.createUser(this.nuevoNombre, this.nuevoCorreo, this.nuevoDocumento)
       .subscribe({
-        next: (usuarioCreado) => {
+        next: () => {
           alert('Usuario creado correctamente');
           this.nuevoNombre = '';
           this.nuevoCorreo = '';
@@ -51,9 +61,6 @@ export class UsuariosPage {
         }
       });
   }
-<<<<<<< HEAD
-}
-=======
 
   eliminarUsuario(id: number) {
     this.userService.deleteUser(id).subscribe({
@@ -62,4 +69,3 @@ export class UsuariosPage {
     });
   }
 }
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
