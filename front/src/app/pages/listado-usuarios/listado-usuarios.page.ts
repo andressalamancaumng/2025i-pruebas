@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
-
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.page.html',

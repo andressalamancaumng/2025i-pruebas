@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model'; // Verifica que esta ruta sea correcta
-
+import { Component } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { UserService } from '../../services/user.service';
+import { RouterLink } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
