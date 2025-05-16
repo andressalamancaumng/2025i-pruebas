@@ -15,7 +15,7 @@ def get_db():
         db.close()
 
         @app.get("/peliculas")
-        def leer_peliculas(db Session = Depends(get_db)):
+        def leer_peliculas(db: Session = Depends(get_db)):
             return crud.get_peliculas(db)
         
         @app.get("/peliculas/{pelicula_id}")
