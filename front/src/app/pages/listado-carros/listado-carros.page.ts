@@ -19,14 +19,14 @@ export class ListadoCarrosPage implements OnInit {
   constructor(private carroService: CarsService) {}
 
   ngOnInit() {
-    this.carroService.getCarros().subscribe({
-      next: (data) => {
-        this.carros = data;
-      },
-      error: (err) => {
-        console.error('Error al obtener carros', err);
-        this.carros = [];
-      }
+  this.carroService.getCarros().subscribe({
+    next: (data) => {
+      console.log('Carros recibidos:', data);
+      this.carros = data;
+    },
+    error: (err) => {
+      console.error('Error al obtener carros', err);
+    }
     });
   }
 }

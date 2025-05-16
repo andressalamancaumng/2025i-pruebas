@@ -18,7 +18,7 @@ describe('ListadoCarrosPage', () => {
   beforeEach(async () => {
     carroServiceSpy = jasmine.createSpyObj('CarroService', ['getCarros']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
-    carroServiceSpy.getCars.and.returnValue(of([
+    carroServiceSpy.getCarros.and.returnValue(of([
       { marca: 'Toyota', modelo: 2022, serie: 'ABC123' }
     ]));
 
@@ -52,7 +52,7 @@ describe('ListadoCarrosPage', () => {
   });
 
   it('debería manejar error al obtener carros', () => {
-    carroServiceSpy.getCars.and.returnValue(throwError(() => new Error('Error')));
+    carroServiceSpy.getCarros.and.returnValue(throwError(() => new Error('Error')));
     fixture = TestBed.createComponent(ListadoCarrosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

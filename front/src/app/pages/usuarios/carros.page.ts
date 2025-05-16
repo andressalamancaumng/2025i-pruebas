@@ -9,8 +9,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-carros', // ✅ Nuevo selector apropiado
   standalone: true,
   imports: [IonicModule, NgFor, NgIf, FormsModule, AsyncPipe, RouterLink],
-  templateUrl: './carros.page.html', // ✅ Cambia el archivo HTML si es necesario
-  styleUrls: ['./carros.page.scss'], // ✅ Cambia también el SCSS si lo renombraste
+  templateUrl: './carros.page.html', 
+  styleUrls: ['./carros.page.scss'], 
 })
 export class CarrosPage {
   nuevoModelo: number = 0;
