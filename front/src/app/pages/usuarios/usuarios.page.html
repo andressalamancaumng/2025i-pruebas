@@ -5,46 +5,22 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Formulario para crear usuario -->
-  <form (submit)="crearUsuario(); $event.preventDefault()">
+  <form (submit)="crearUsuario()">
     <ion-item>
       <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="nuevoNombre" name="nombre" required></ion-input>
+      <ion-input [(ngModel)]="nuevoNombre" name="nombre"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Correo</ion-label>
-      <ion-input [(ngModel)]="nuevoCorreo" name="correo" type="email" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Documento</ion-label>
-      <ion-input [(ngModel)]="nuevoDocumento" name="documento" required></ion-input>
+      <ion-input [(ngModel)]="nuevoCorreo" name="correo"></ion-input>
     </ion-item>
 
     <ion-button expand="block" type="submit" class="ion-margin-top">
       Crear Usuario
     </ion-button>
-
     <ion-button expand="block" color="danger" routerLink="/listado-usuarios" class="ion-margin-top">
       Cancelar
     </ion-button>
   </form>
-
-  <!-- Listado de usuarios -->
-  <ion-list *ngIf="usuarios.length > 0" class="ion-margin-top">
-    <ion-item *ngFor="let usuario of usuarios">
-      <ion-label>
-        <h2>{{ usuario.nombre }}</h2>
-        <p>{{ usuario.correo }} - {{ usuario.documento }}</p>
-      </ion-label>
-      <ion-button color="danger" slot="end" (click)="eliminarUsuario(usuario.id)">
-        Eliminar
-      </ion-button>
-    </ion-item>
-  </ion-list>
-
-  <p *ngIf="usuarios.length === 0" class="ion-text-center ion-padding-top">
-    No hay usuarios registrados.
-  </p>
 </ion-content>

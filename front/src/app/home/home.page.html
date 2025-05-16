@@ -1,53 +1,20 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Inicio - Usuarios</ion-title>
+    <ion-title>
+      Blank
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-  <!-- FORMULARIO CREAR USUARIO -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Crear Usuario</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input [(ngModel)]="nuevoNombre"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Correo</ion-label>
-        <ion-input [(ngModel)]="nuevoCorreo"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Documento</ion-label>
-        <ion-input [(ngModel)]="nuevoDocumento"></ion-input>
-      </ion-item>
-      <ion-button expand="full" (click)="crearUsuario()">Crear Usuario</ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- BÚSQUEDA -->
-  <ion-item>
-    <ion-label position="floating">Buscar por ID, Nombre, Correo o Documento</ion-label>
-    <ion-input [(ngModel)]="busqueda" (ionChange)="buscarUsuario()"></ion-input>
-  </ion-item>
-
-  <!-- LISTA DE USUARIOS -->
-  <ion-list *ngIf="usuarios.length > 0">
-    <ion-item *ngFor="let usuario of usuarios">
-      <ion-label>
-        <h2>{{ usuario.nombre }}</h2>
-        <p>Correo: {{ usuario.correo }}</p>
-        <p>Documento: {{ usuario.documento }}</p>
-      </ion-label>
-      <ion-button color="danger" slot="end" (click)="eliminarUsuario(usuario.id)">Eliminar</ion-button>
-    </ion-item>
-  </ion-list>
-
-  <ion-text color="medium" *ngIf="usuarios.length === 0">
-    <p>No hay usuarios para mostrar.</p>
-  </ion-text>
-
+  <div id="container">
+    <strong>Ready to create an app?</strong>
+    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  </div>
 </ion-content>
