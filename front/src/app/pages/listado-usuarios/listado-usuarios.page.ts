@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, UsuarioCreate, Usuario } from 'src/app/services/user.service';
-import { AlertController } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { IonicModule, AlertController } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
+import { UserService, Usuario, UsuarioCreate } from '../../services/user.service';
 
 @Component({
   selector: 'app-listado-usuarios',
-  templateUrl: 'listado-usuarios.page.html',
-  styleUrls: ['listado-usuarios.page.scss'],
+  templateUrl: './listado-usuarios.page.html',
+  styleUrls: ['./listado-usuarios.page.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule, FormsModule],
 })
 export class ListadoUsuariosPage implements OnInit {
   usuarios: Usuario[] = [];

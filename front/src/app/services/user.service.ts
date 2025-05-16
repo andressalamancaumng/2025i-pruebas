@@ -16,22 +16,22 @@ export interface UsuarioCreate {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'http://localhost:8000/usuarios'; // Cambia esta URL si tu backend está en otro lugar
 
   constructor(private http: HttpClient) {}
 
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/`);
+    return this.http.get<Usuario[]>(this.apiUrl);
   }
 
   crearUsuario(usuario: UsuarioCreate): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/usuarios/`, usuario);
+    return this.http.post<Usuario>(this.apiUrl, usuario);
   }
 
-  eliminarUsuario(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/usuarios/${id}`);
+  eliminarUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
