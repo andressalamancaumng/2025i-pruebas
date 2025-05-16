@@ -202,6 +202,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+venv
 
 # System files
 .DS_Store
@@ -214,4 +215,3 @@ __pycache__
 
 .vscode
 
-venv
