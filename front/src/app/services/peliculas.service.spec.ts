@@ -56,10 +56,10 @@ const nuevaPelicula = { name_movie, anio, director };
 
   it('debería borrar pelicula (DELETE)', () => {
   const id = 1;
-  const mockResponse = null;  // Si el servidor no devuelve nada, puedes usar `null`.
+  const mockResponse = null; 
 
   service.borrarPelicula(id).subscribe(response => {
-    expect(response).toBeNull();  // Asegúrate de que la respuesta sea `null` si el servidor no responde con datos.
+    expect(response).toBeNull(); 
   });
 
   const req = httpMock.expectOne(req =>
@@ -67,6 +67,6 @@ const nuevaPelicula = { name_movie, anio, director };
     req.url === `http://127.0.0.1:8000/peliculas/1`
   );
   expect(req.request.method).toBe('DELETE');
-  req.flush(mockResponse, { status: 204, statusText: 'No Content' });  // El código de estado 204 indica que no hay contenido.
+  req.flush(mockResponse, { status: 204, statusText: 'No Content' });  
 });
 });

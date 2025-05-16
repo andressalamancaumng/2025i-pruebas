@@ -30,11 +30,11 @@ export class Peliculas {
     this.peliculasService.crearPelicula(nuevaPelicula).subscribe(
       (response) => {
         console.log('Película creada exitosamente:', response);
-        // Puedes redirigir o mostrar un mensaje de éxito aquí
+      
       },
       (error) => {
         console.error('Error al crear la película:', error);
-        // Muestra un mensaje de error al usuario si ocurre algún problema
+        
       }
     );
   }

@@ -17,7 +17,7 @@ describe('Peliculas', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        Peliculas, // standalone component
+        Peliculas, 
         IonicModule.forRoot(),
         HttpClientTestingModule,
         RouterTestingModule

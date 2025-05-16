@@ -10,7 +10,7 @@ ion-content {
   flex-direction: column;
   --justify-content: center;
   --padding: 100px;
-  --background: #ffffff; /* Color de fondo blanco para que todo resalte */
+  --background: #ffffff; 
 }
 
 form {
@@ -30,13 +30,13 @@ ion-item {
 ion-input, ion-textarea {
   --padding-start: 12px;
   --padding-end: 12px;
-  font-size: 16px; /* Aumenta el tamaño de la fuente para que sea más legible */
+  font-size: 16px; 
 }
 
 ion-button {
   border-radius: 8px;
   font-weight: bold;
-  padding: 12px; /* Aumenta el tamaño del botón para hacerlo más fácil de presionar */
+  padding: 12px; 
 }
 
 ion-button[color="danger"] {

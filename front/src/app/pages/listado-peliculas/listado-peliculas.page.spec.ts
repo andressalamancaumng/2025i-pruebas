@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
+
 describe('ListadoPeliculaspage', () => {
   let component: ListadoPeliculasPage;
   let fixture: ComponentFixture<ListadoPeliculasPage>;
@@ -16,9 +17,14 @@ describe('ListadoPeliculaspage', () => {
   };
 
   beforeEach(async () => {
-    peliculasServiceSpy = jasmine.createSpyObj('PeliculasService', ['obtenerPeliculas']);
+     peliculasServiceSpy = jasmine.createSpyObj('PeliculasService', [
+  'obtenerPeliculas',
+  'obtenerPeliculaPorId',
+  'borrarPelicula'
+]);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
     peliculasServiceSpy.obtenerPeliculas.and.returnValue(of([{ id:1 ,name_movie: 'Inception', anio:2010, director:'Chritopher Nolan' }]));
+   
 
     await TestBed.configureTestingModule({
       imports: [ListadoPeliculasPage],
@@ -59,4 +65,33 @@ expect(listItems[0].textContent).toContain('Chritopher Nolan');
     fixture.detectChanges();
     expect(component.peliculas).toEqual([]);
   });
+
+  it('debería encontrar película con ID válido', () => {
+    const peliculaMock = { id: 1, name_movie: 'Inception', anio: 2010, director: 'Christopher Nolan' };
+    peliculasServiceSpy.obtenerPeliculaPorId.and.returnValue(of(peliculaMock));
+    
+    component.idBuscado = 1;
+    component.buscarPeliculaPorId();
+
+    expect(component.peliculaEncontrada).toEqual(peliculaMock);
+    expect(component.errorBusqueda).toBe('');
+  });
+   it('debería borrar película por ID correctamente y mostrar mensaje', () => {
+    component.idABorrar = 1;
+    component.peliculas = [
+      { id: 1, name_movie: 'Inception', anio: 2010, director: 'Nolan' },
+      { id: 2, name_movie: 'Matrix', anio: 1999, director: 'Wachowski' }
+    ];
+
+   
+    peliculasServiceSpy.borrarPelicula.and.returnValue(of(void 0));
+    component.borrarPorId();
+
+    expect(peliculasServiceSpy.borrarPelicula).toHaveBeenCalledWith(1);
+    expect(component.mensajeBorrar).toBe('Película con ID 1 borrada correctamente.');
+    expect(component.peliculas.length).toBe(1);
+    expect(component.errorBorrar).toBe('');
+  });
 });
+
+  

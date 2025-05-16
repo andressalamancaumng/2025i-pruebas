@@ -67,7 +67,7 @@ ngOnInit(){
       this.mensajeBorrar = `Película con ID ${this.idABorrar} borrada correctamente.`;
       this.peliculas = this.peliculas.filter(p => p.id !== this.idABorrar); // actualizar listado
       this.peliculaEncontrada = null;
-      this.idABorrar = 0; // limpiar caja
+      this.idABorrar = 0; 
     },
     (error) => {
       console.error('Error al borrar película', error);
