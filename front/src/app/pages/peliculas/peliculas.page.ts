@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf, AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { MovieService } from '../../services/pelicula.service';
+import { MovieService } from '../../services/movie.service';
 import { RouterLink } from '@angular/router';
 
 @Component({

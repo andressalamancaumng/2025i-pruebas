@@ -1,8 +1,11 @@
 .container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: full;
   margin: 0 auto;
   padding: 4rem 2rem;
+  align-items: center;
   font-family: 'Georgia', serif;
   background: linear-gradient(200deg, #000000 50%, #fa9e9e 100%);
   min-height: 100vh;
@@ -25,8 +28,11 @@
 .header-actions {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -43,7 +49,7 @@
   background: #f11414;
   color: #fff;
   border: none;
-  padding: 1rem 1.4rem;
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
@@ -56,22 +62,13 @@
 }
 
 .search-bar {
-  display: block;
-  margin: 0 auto 2rem auto;
-  width: 420px;
-  padding: 0.9rem 1.1rem;
+  display: flex;
+  height: 2rem;
+  width: 400px;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 10px;
-  color: #1f2937;
-  border: 1px solid #ccc;
-  background: #fff;
   transition: all 0.3s ease;
-
-  &:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-    outline: none;
-  }
 }
 
 .movie-form {

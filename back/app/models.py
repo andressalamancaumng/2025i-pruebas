@@ -3,10 +3,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-class Pelicula(Base):
-    __tablename__ = "peliculas"
+class Movie(Base):
+    __tablename__ = "movies"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String(100), index=True)
-    año = Column(Integer)
+    name = Column(String(100), index=True)
+    year = Column(Integer)
     director = Column(String(100))

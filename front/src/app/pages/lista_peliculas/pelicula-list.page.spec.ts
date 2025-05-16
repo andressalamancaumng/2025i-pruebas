@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MovieListPage } from './pelicula-list.page';
-import { MovieService } from '../../services/pelicula.service';
+import { MovieService } from '../../services/movie.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';

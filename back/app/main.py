@@ -22,25 +22,24 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/peliculas/")
-def create_pelicula(nombre: str, año: int, director: str, db: Session = Depends(get_db)):
-    return crud.create_pelicula(db, nombre, año, director)
+@app.post("/movies/")
+def create_movie(name: str, year: int, name_director: str, db: Session = Depends(get_db)):
+    return crud.create_movie(db, name, year, name_director)
 
-@app.get("/peliculas/")
-def read_peliculas(db: Session = Depends(get_db)):
-    return crud.get_peliculas(db)
+@app.get("/movies/")
+def read_movies(db: Session = Depends(get_db)):
+    return crud.get_movies(db)
 
-@app.get("/peliculas/{pelicula_id}")
-def read_pelicula(pelicula_id: int, db: Session = Depends(get_db)):
-    pelicula = crud.get_pelicula(db, pelicula_id)
-    if pelicula is None:
-        raise HTTPException(status_code=404, detail="Película no encontrada")
-    return pelicula
+@app.get("/movies/{value}")
+def read_movie(value: str, db: Session = Depends(get_db)):
+    movie = crud.get_movie_by_id_or_name(db, value)
+    if not movie:
+        return {"error": "Movie not found"}
+    return movie
 
-@app.delete("/peliculas/{pelicula_id}")
-def delete_pelicula(pelicula_id: int, db: Session = Depends(get_db)):
-    pelicula = crud.delete_pelicula(db, pelicula_id)
-    if pelicula is None:
-        raise HTTPException(status_code=404, detail="Película no encontrada")
-    return pelicula
-
+@app.delete("/movies/{movie_id}")
+def delete_movie(movie_id: int, db: Session = Depends(get_db)):
+    movie = crud.delete_movie(db, movie_id)
+    if not movie:
+        return {"error": "Movie not found"}
+    return {"message": "Movie deleted successfully"}

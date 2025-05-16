@@ -1,23 +1,30 @@
 from sqlalchemy.orm import Session
-from app.models import Pelicula
+from app.models import Movie
 
-def create_pelicula(db: Session, nombre: str, año: int, director: str):
-    db_pelicula = Pelicula(nombre=nombre, año=año, director=director)
-    db.add(db_pelicula)
+def create_movie(db: Session, name: str, year: int, director: str):
+    db_movie = Movie(name=name, year=year, director=director)
+    db.add(db_movie)
     db.commit()
-    db.refresh(db_pelicula)
-    return db_pelicula
+    db.refresh(db_movie)
+    return db_movie
 
-def get_peliculas(db: Session):
-    return db.query(Pelicula).all()
+def get_movies(db: Session):
+    return db.query(Movie).all()
 
-def get_pelicula(db: Session, pelicula_id: int):
-    return db.query(Pelicula).filter(Pelicula.id == pelicula_id).first()
+def get_movie(db: Session, name: str):
+    return db.query(Movie).filter(Movie.name == name).first()
 
-def delete_pelicula(db: Session, pelicula_id: int):
-    pelicula = db.query(Pelicula).filter(Pelicula.id == pelicula_id).first()
-    if pelicula:
-        db.delete(pelicula)
+def get_movie_by_details(db: Session, name: str, year: int, director: str):
+    return db.query(Movie).filter(
+        Movie.name == name,
+        Movie.year == year,
+        Movie.director == director
+    ).first()
+
+def delete_movie(db: Session, movie_id: int):
+    db_movie = db.query(Movie).filter(Movie.id == movie_id).first()
+    if db_movie:
+        db.delete(db_movie)
         db.commit()
-        return pelicula
-    return None
+        return True
+    return False

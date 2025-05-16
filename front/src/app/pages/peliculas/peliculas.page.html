@@ -20,14 +20,3 @@
     </div> 
     <button type="submit">Agregar Película</button>
   </form>
-
-  <section class="pelicula-list">
-    <div class="movie-card" *ngFor="let movie of movies">
-      <div class="movie-header">
-        <h2>{{ movie.name }}</h2>
-        <span class="year">{{ movie.year }}</span>
-      </div>
-      <p class="director">Director: {{ movie.director }}</p>
-    </div>
-  </section>
-</main>

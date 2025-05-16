@@ -2,23 +2,17 @@
   <h1 class="title">Lista de películas</h1>
   <div class="header-actions">
     <button class="nav-button" routerLink="/peliculas">
-      Volver al CRUD
+      Agregar Pelicula
     </button>
-    <button class="nav-button" routerLink="/movies">
-      Volver al CRUD
-    </button>
-    <button class="nav-button" routerLink="/movies">
-      Volver al CRUD
-    </button>
-  </div>
-
-  <input
+    <input
     [(ngModel)]="searchTerm"
     (ngModelChange)="applyFilter()"
     type="text"
     class="search-bar"
-    placeholder="Buscar por nombre..."
+    placeholder="Buscar pelicula"
   />
+  </div>
+
   <section class="movie-list">
     <div class="movie-card" *ngFor="let movie of filteredMovies">
       <div class="movie-header">

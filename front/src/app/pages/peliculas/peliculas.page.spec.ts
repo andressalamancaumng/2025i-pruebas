@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MoviesPage } from './peliculas.page';
-import { MovieService } from '../../services/pelicula.service';
+import { MovieService } from '../../services/movie.service';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
