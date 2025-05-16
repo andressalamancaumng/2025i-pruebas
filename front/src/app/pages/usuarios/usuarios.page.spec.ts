@@ -5,7 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { Component } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 describe('UsuariosPage', () => {
   let component: UsuariosPage;
   let fixture: ComponentFixture<UsuariosPage>;

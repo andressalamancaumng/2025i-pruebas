@@ -4,6 +4,11 @@ import { UserService } from '../../services/user.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { Component } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { RouterLink } from '@angular/router';
 
 describe('ListadoUsuariosPage', () => {
   let component: ListadoUsuariosPage;
