@@ -32,7 +32,7 @@ const nuevaPelicula = { name_movie, anio, director };
 
     const req = httpMock.expectOne(req =>
       req.method === 'POST' &&
-      req.url.startsWith('http://localhost:8000/peliculas')
+      req.url.startsWith('http://127.0.0.1:8000/peliculas')
     );
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ name_movie, anio, director });
@@ -48,7 +48,7 @@ const nuevaPelicula = { name_movie, anio, director };
 
     const req = httpMock.expectOne(req =>
       req.method === 'GET' &&
-      req.url.startsWith('http://localhost:8000/listado_peliculas')
+      req.url.startsWith('http://127.0.0.1:8000/peliculas/listado_peliculas/')
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockPeliculas);
@@ -64,7 +64,7 @@ const nuevaPelicula = { name_movie, anio, director };
 
   const req = httpMock.expectOne(req =>
     req.method === 'DELETE' &&
-    req.url === `http://localhost:8000/peliculas/${id}`
+    req.url === `http://127.0.0.1:8000/peliculas/1`
   );
   expect(req.request.method).toBe('DELETE');
   req.flush(mockResponse, { status: 204, statusText: 'No Content' });  // El código de estado 204 indica que no hay contenido.

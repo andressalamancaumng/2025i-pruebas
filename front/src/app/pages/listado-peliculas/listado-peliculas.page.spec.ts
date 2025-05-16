@@ -44,11 +44,12 @@ describe('ListadoPeliculaspage', () => {
 
    it('debería mostrar las películas en la vista', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const listItems = compiled.querySelectorAll('ion-item');
+    const listItems = compiled.querySelectorAll('ion-list ion-item');
     expect(listItems.length).toBeGreaterThan(0);
-    expect(listItems[0].textContent).toContain('I');
-    expect(listItems[0].textContent).toContain('2022');
-    expect(listItems[0].textContent).toContain('Ana');
+    expect(listItems[0].textContent).toContain('Inception');
+expect(listItems[0].textContent).toContain('2010');
+expect(listItems[0].textContent).toContain('Chritopher Nolan');
+
   });
 
   it('debería manejar error al obtener peliculas', () => {

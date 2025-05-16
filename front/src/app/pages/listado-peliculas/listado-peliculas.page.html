@@ -1,6 +1,31 @@
 <ion-content class="ion-padding">
-  <ion-button expand="block" (click)="obtenerpeliculas()">Obtener películas</ion-button>
 
+  <ion-item>
+    <ion-label position="floating">Id de la pelicula</ion-label>
+    <ion-input
+     type="number" [(ngModel)]="idBuscado" placeholder="Ej:4"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="buscarPeliculaPorId()">
+    Buscar pelicula por ID
+  </ion-button>
+     <ion-button expand="block" (click)="obtenerpeliculas()">Obtener películas</ion-button>
+ <div *ngIf="peliculaEncontrada">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ peliculaEncontrada.name_movie }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Director:</strong> {{ peliculaEncontrada.director }}</p>
+        <p><strong>Año:</strong> {{ peliculaEncontrada.anio }}</p>
+        <p><strong>ID:</strong> {{ peliculaEncontrada.id }}</p>
+      </ion-card-content>
+     <ion-button expand="block" (click)="borrarPelicula(peliculaEncontrada.id)">Borrar</ion-button>
+    </ion-card>
+  </div>
+   <p *ngIf="errorBusqueda" style="color: red; text-align: center;">
+    {{ errorBusqueda }}
+  </p>
   <!-- Depuración adicional -->
   <p>Películas cargadas: {{ peliculas.length }}</p>
 
@@ -19,8 +44,22 @@
   <ng-template #sinPeliculas>
     <p style="text-align: center; margin-top: 20px;">No hay películas para mostrar.</p>
   </ng-template>
+<ion-item>
+  <ion-label position="floating">ID de la película a borrar</ion-label>
+  <ion-input type="number" [(ngModel)]="idABorrar" placeholder="Ej: 5"></ion-input>
+</ion-item>
+
+<ion-button expand="block" color="danger" size="small" (click)="borrarPorId()">Borrar por ID</ion-button>
+
+<ion-text color="success" *ngIf="mensajeBorrar">
+  <p style="text-align: center;">{{ mensajeBorrar }}</p>
+</ion-text>
+
+<ion-text color="danger" *ngIf="errorBorrar">
+  <p style="text-align: center;">{{ errorBorrar }}</p>
+</ion-text>
 
   <ion-button expand="block" (click)="volver()">
-    Volver
+    Agregar pelicula
   </ion-button>
 </ion-content>

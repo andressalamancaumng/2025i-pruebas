@@ -5,3 +5,9 @@ class PeliculaCreate(BaseModel):
     name_movie: str
     anio: int
     director: str
+
+class Pelicula(BaseModel):
+    id: int
+    name_movie: str
+    director: str
+    anio: int

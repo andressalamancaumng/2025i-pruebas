@@ -1,63 +1,31 @@
-/* listado-peliculas.page.scss */
-
-ion-header {
-  --background: #f4f4f4;
+ion-item, ion-card, ion-list {
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
-ion-toolbar {
-  --background: #3d495f;
-  color: white;
+ion-list ion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-ion-title {
-  font-size: 1.5rem;
-  font-weight: bold;
+ion-list ion-item ion-label {
+  flex: 1;
+  color: #ffffff; /* texto visible */
 }
-
 ion-content {
-  --background: #fff;
-  padding: 10px; /* Espaciado adicional para un mejor diseño */
+  color: white; /* Esto pone el texto blanco en todo ion-content */
 }
-
-ion-item {
-  margin-bottom: 15px;
-  background-color: #fafafa;
-  border-radius: 8px;
-  padding: 15px; /* Aumento el padding para mayor espacio */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Mejor sombra */
-  transition: background-color 0.3s ease; /* Efecto suave al cambiar color */
-}
-
-ion-item:hover {
-  background-color: #f1f1f1; /* Color más oscuro al pasar el cursor */
-}
-
-ion-item h2 {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #3880ff;
-  margin-bottom: 5px; /* Un poco de espacio debajo del título */
-}
-
-ion-item p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 10px; /* Espacio entre el texto */
-}
-
-ion-button {
-  background-color: #60e905;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 5px; /* Espacio entre los botones */
-  border-radius: 8px; /* Bordes redondeados */
-}
-
-ion-button:hover {
-  background-color: #051100;
-}
-
-ion-label {
-  padding-left: 10px;
+ion-list ion-item ion-button {
+  flex-shrink: 0;
+  margin-left: 6px;
+  min-width: auto;
+  padding: 0 12px;
+  height: 30px;
+  font-size: 0.85rem;
+  --background: #3880ff;
+  --background-hover: #3171e0;
+  --color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
 }

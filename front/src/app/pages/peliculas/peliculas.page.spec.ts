@@ -12,7 +12,8 @@ describe('Peliculas', () => {
   let peliculasServiceSpy: jasmine.SpyObj<PeliculasService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('PeliculaService', ['getPelicula', 'createPelicula']);
+   const spy = jasmine.createSpyObj('PeliculasService', ['obtenerPeliculas', 'crearPelicula']);
+
 
     await TestBed.configureTestingModule({
       imports: [

@@ -4,7 +4,7 @@ from app import models, crud, database
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 from app import schemas
-
+from fastapi import Path
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -68,3 +68,11 @@ def delete_pelicula(pelicula_id:int,db:Session=Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="ERRO ELIMINAR PELI"
         )
+    
+@app.get("/peliculas/{pelicula_id}",response_model=schemas.Pelicula)
+def read_pelicula(pelicula_id: int=Path(...,gt=0),db:Session=Depends(get_db)):
+    pelicula =crud.get_peliculas_id(db,pelicula_id)
+
+    if pelicula is None:
+        raise HTTPException(status_code=404,detail="Pelicula no encontrada m")
+    return pelicula
