@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import models, crud, database
-from .schemas import CarroCreate
+from app import models, crud, database
+from app.schemas import CarroCreate
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

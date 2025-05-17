@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
 from app.models import User, Carro
 
 # ------------------- FUNCIONES DE USUARIO -------------------
@@ -14,6 +15,11 @@ def get_users(db: Session):
 
 # ------------------- FUNCIONES DE CARRO ---------------------
 def crear_carro(db: Session, modelo: str, marca: str, serie: str):
+    # Validar si ya existe un carro con esa serie
+    carro_existente = db.query(Carro).filter(Carro.serie == serie).first()
+    if carro_existente:
+        raise HTTPException(status_code=400, detail=f"Ya existe un carro con la serie '{serie}'")
+
     nuevo_carro = Carro(modelo=modelo, marca=marca, serie=serie)
     db.add(nuevo_carro)
     db.commit()
@@ -24,11 +30,17 @@ def obtener_todos_los_carros(db: Session):
     return db.query(Carro).all()
 
 def obtener_carro_por_id(db: Session, id_carro: int):
-    return db.query(Carro).filter(Carro.id == id_carro).first()
+    carro = db.query(Carro).filter(Carro.id == id_carro).first()
+    if not carro:
+        raise HTTPException(status_code=404, detail="Carro no encontrado")
+    return carro
 
 def eliminar_carro(db: Session, id_carro: int):
     carro = db.query(Carro).filter(Carro.id == id_carro).first()
-    if carro:
-        db.delete(carro)
-        db.commit()
+    if not carro:
+        raise HTTPException(status_code=404, detail="Carro no encontrado")
+    db.delete(carro)
+    db.commit()
     return carro
+
+
