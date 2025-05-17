@@ -83,7 +83,7 @@ export class ListadoUsuariosPage implements OnInit {
       );
     }
   }
-
+  
   limpiarBusqueda() {
     this.nombreBuscar = '';
     this.correoBuscar = '';
