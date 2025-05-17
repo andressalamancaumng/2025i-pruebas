@@ -3,9 +3,10 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 class PeliculaBase(BaseModel):
-    name_movie: str = Field(..., json_schema_extra={"example": "Inception"})
-    anio: int = Field(..., gt=1800, lt=2100, json_schema_extra={"example": 2010})
-    director: str = Field(..., json_schema_extra={"example": "Christopher Nolan"})
+    nombre: str = Field(..., example="Inception")
+    anio: int = Field(..., gt=1800, lt=2100, example=2010)
+    director: str = Field(..., example="Christopher Nolan")
+
 
 class PeliculaCreate(PeliculaBase):
     pass

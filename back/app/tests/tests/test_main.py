@@ -5,13 +5,14 @@ client = TestClient(app)
 
 def test_create_pelicula():
     response = client.post(
-        "/peliculas/",
-        json={
-            "name_movie": "Inception",
-            "anio": 2010,
-            "director": "Christopher Nolan"
-        }
-    )
+    "/peliculas/",
+    json={
+        "nombre": "Inception",
+        "anio": 2010,
+        "director": "Christopher Nolan"
+    }
+)
+
     assert response.status_code == 200
 
     data = response.json()
