@@ -19,5 +19,3 @@ class Pelicula(PeliculaBase):
 
     class Config:
         orm_mode = True
-
-

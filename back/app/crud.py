@@ -3,7 +3,6 @@ from app.models import Pelicula
 
 def create_pelicula(db: Session, nombre: str, anio: int, director: str):
     db_pelicula = Pelicula(nombre=nombre, anio=anio, director=director)
-
     db.add(db_pelicula)
     db.commit()
     db.refresh(db_pelicula)
@@ -12,13 +11,14 @@ def create_pelicula(db: Session, nombre: str, anio: int, director: str):
 def get_peliculas(db: Session):
     return db.query(Pelicula).all()
 
-def get_peliculas_id(db: Session, pelicula_id: int):
+def get_pelicula_by_id(db: Session, pelicula_id: int):
     return db.query(Pelicula).filter(Pelicula.id == pelicula_id).first()
 
 def borrar_pelicula(db: Session, pelicula_id: int):
-    pelicula = db.query(Pelicula).filter(Pelicula.id == pelicula_id).first()
+    pelicula = get_pelicula_by_id(db, pelicula_id)
     if pelicula:
         db.delete(pelicula)
         db.commit()
     return pelicula
+
 
