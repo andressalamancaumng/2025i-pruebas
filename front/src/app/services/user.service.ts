@@ -13,7 +13,7 @@ export interface Usuario {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000/usuarios'; // Cambia la URL si es diferente
+  private apiUrl = 'http://localhost:8000/usuarios'; // Asegúrate de que esta URL coincida con tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -40,5 +40,18 @@ export class UserService {
 
   getUserByDocumento(documento: string): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}/buscar?documento=${documento}`);
+  }
+
+  
+  buscarUsuarios(nombre?: string, correo?: string, documento?: string): Observable<Usuario[]> {
+    let queryParams = [];
+
+    if (nombre) queryParams.push(`nombre=${nombre}`);
+    if (correo) queryParams.push(`correo=${correo}`);
+    if (documento) queryParams.push(`documento=${documento}`);
+
+    const queryString = queryParams.length ? `?${queryParams.join('&')}` : '';
+
+    return this.http.get<Usuario[]>(`${this.apiUrl}/buscar${queryString}`);
   }
 }

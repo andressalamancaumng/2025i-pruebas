@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgFor, AsyncPipe } from '@angular/common';
-import { UserService, Usuario } from '../services/user.service';
+import { UserService, Usuario } from '../../services/user.service';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -26,15 +26,15 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   cargarUsuarios() {
-    this.userService.getUsuarios().subscribe(
-      (data) => {
-        this.usuarios = data;
-      },
-      (error) => {
-        console.error('Error al cargar usuarios', error);
-      }
-    );
-  }
+  this.userService.getAllUsers().subscribe(
+    (data: Usuario[]) => {
+      this.usuarios = data;
+    },
+    (error: any) => {
+      console.error('Error al cargar usuarios', error);
+    }
+  );
+}
 
   buscarUsuario() {
     if (!this.nombreBuscar && !this.correoBuscar && !this.documentoBuscar) {
@@ -76,7 +76,7 @@ export class ListadoUsuariosPage implements OnInit {
           alert('Usuario eliminado');
           this.cargarUsuarios();
         },
-        error => {
+        (error:any) => {
           alert('Error al eliminar usuario');
           console.error(error);
         }
