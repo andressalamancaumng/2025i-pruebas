@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+</ion-buttons>
+    <ion-title>Lista de Carros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-text color="success" *ngIf="mensaje.includes('correctamente')">
+    <p>{{ mensaje }}</p>
+  </ion-text>
+  <ion-text color="danger" *ngIf="mensaje.includes('Error')">
+    <p>{{ mensaje }}</p>
+  </ion-text>
+
+  <ion-list *ngIf="carros.length > 0; else vacio">
+    <ion-item *ngFor="let carro of carros">
+      <ion-label>
+        <h2>{{ carro.marca }} - {{ carro.modelo }}</h2>
+        <p>Serie: {{ carro.serie }}</p>
+      </ion-label>
+      <ion-button fill="clear" color="danger" slot="end" (click)="eliminarCarro(carro.id)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #vacio>
+    <ion-text>No hay carros registrados.</ion-text>
+  </ng-template>
+
+  <ion-button expand="full" routerLink="/crear-carro" class="ion-margin-top">Agregar nuevo carro</ion-button>
+</ion-content>

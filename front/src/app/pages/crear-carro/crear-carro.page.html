@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+</ion-buttons>
+    <ion-title>Crear Carro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="crear()">
+    <ion-item>
+      <ion-label position="floating">Modelo</ion-label>
+      <ion-input [(ngModel)]="carro.modelo" name="modelo" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Marca</ion-label>
+      <ion-input [(ngModel)]="carro.marca" name="marca" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Serie</ion-label>
+      <ion-input [(ngModel)]="carro.serie" name="serie" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" class="ion-margin-top">Guardar</ion-button>
+    <ion-button expand="full" color="medium" routerLink="/listar-carros">Ver Carros</ion-button>
+
+    <ion-text *ngIf="mensaje" color="danger">
+      <p>{{ mensaje }}</p>
+    </ion-text>
+  </form>
+</ion-content>
