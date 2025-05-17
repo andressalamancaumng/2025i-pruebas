@@ -19,8 +19,7 @@ describe('ListadoUsuariosPage', () => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
     userServiceSpy.getUsers.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
-
-    await TestBed.configureTestingModule({
+await TestBed.configureTestingModule({
       imports: [ListadoUsuariosPage],
       providers: [
         { provide: UserService, useValue: userServiceSpy },
