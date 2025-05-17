@@ -6,15 +6,15 @@ import { UserService } from '../../services/user.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-usuarios',
+  selector: 'app-peliculas',
   standalone: true,
   imports: [IonicModule, NgFor, NgIf, FormsModule, AsyncPipe, RouterLink],
-  templateUrl: './usuarios.page.html',
-  styleUrls: ['./usuarios.page.scss'],
+  templateUrl: './peliculas.page.html',
+  styleUrls: ['./peliculas.page.scss'],
 })
 export class UsuariosPage {
   nuevaPelicula = '';
-  nuevoAno: number=0;
+  nuevoAno: number | null=null;
   nuevoNombre_director = '';
   movies: any[] = [];
 
@@ -33,15 +33,21 @@ export class UsuariosPage {
       this.movies = data;
     });
     }
-  crearPelicula() {
-    if (!this.nuevaPelicula|| !this.nuevoAno|| !this.nuevoNombre_director) return;
+    crearPelicula() {
+    if (!this.nuevaPelicula|| this.nuevoAno==null|| !this.nuevoNombre_director) {
+      alert("Por favor, complete todos los campos.");
+      return;
+
+    }
+
     this.userService
       .createMovie(this.nuevoNombre_director, Number(this.nuevoAno),this.nuevaPelicula)
       .subscribe(() => {
         this.nuevoNombre_director = '';
         this.nuevaPelicula = '';
-        this.nuevoAno=0;
+        this.nuevoAno=null;
         this.loadMovies();
+        alert("Película creada con éxito");
       });
   }
 }

@@ -15,7 +15,7 @@ export class UserService {
   }
 
   createMovie(name: string, year: number, name_director:string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/movies/`,null,{params: { name, year:year.toString(), name_director }});
+    return this.http.post(`${this.apiUrl}/movies/`,null,{params: { name, year, name_director }});
   }
 
   getMovie(value: string | number):Observable<any> {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UsuariosPage } from './usuarios.page';
+import { UsuariosPage } from './peliculas.page';
 import { UserService } from '../../services/user.service';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';

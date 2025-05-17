@@ -8,9 +8,9 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'app-listado-usuarios',
-  templateUrl: './listado-usuarios.page.html',
-  styleUrls: ['./listado-usuarios.page.scss'],
+  selector: 'app-listado-peliculas',
+  templateUrl: './listado-peliculas.page.html',
+  styleUrls: ['./listado-peliculas.page.scss'],
   standalone: true,
   imports: [IonicModule, NgFor, AsyncPipe, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -8,7 +8,7 @@
   <form (ngSubmit)="crearPelicula()">
     <ion-item>
       <ion-label position="floating">Nombre Película</ion-label>
-      <ion-input [(ngModel)]="nuevaPelicula" name="Película"></ion-input>
+      <ion-input  [(ngModel)]="nuevaPelicula" name="Película"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -24,8 +24,8 @@
     <ion-button expand="block" type="submit" class="ion-margin-top">
       Agregar Película
     </ion-button>
-    <ion-button expand="block" routerLink="/listado-usuarios" class="ion-margin-top">
-      Volver
+    <ion-button expand="block" routerLink="/listado-peliculas" class="ion-margin-top">
+      Lista de Películas
     </ion-button>
   </form>
 </ion-content>
