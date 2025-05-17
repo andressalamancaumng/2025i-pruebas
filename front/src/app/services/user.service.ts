@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Usuario {
@@ -13,37 +13,32 @@ export interface Usuario {
   providedIn: 'root'
 })
 export class UserService {
+  private apiUrl = 'http://localhost:8000/usuarios'; // Cambia la URL si es diferente
 
-  private apiUrl = 'http://localhost:8000/usuarios'; // Cambia al puerto y URL de tu FastAPI
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  // Obtener todos los usuarios
-  getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl + '/');
+  getAllUsers(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.apiUrl);
   }
 
-  // Buscar usuarios por criterio (nombre, correo o documento)
-  buscarUsuarios(criterio: string, valor: string): Observable<Usuario[]> {
-    let url = '';
-    switch(criterio) {
-      case 'nombre':
-        url = `${this.apiUrl}/nombre/${valor}`;
-        break;
-      case 'correo':
-        url = `${this.apiUrl}/correo/${valor}`;
-        break;
-      case 'documento':
-        url = `${this.apiUrl}/documento/${valor}`;
-        break;
-      default:
-        url = `${this.apiUrl}/`;
-    }
-    return this.http.get<Usuario[]>(url);
+  createUser(nombre: string, correo: string, documento: string): Observable<Usuario> {
+    const nuevoUsuario = { nombre, correo, documento };
+    return this.http.post<Usuario>(this.apiUrl, nuevoUsuario);
   }
 
-  // Eliminar usuario por ID
-  eliminarUsuario(id: number): Observable<any> {
+  deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  getUserByNombre(nombre: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/buscar?nombre=${nombre}`);
+  }
+
+  getUserByCorreo(correo: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/buscar?correo=${correo}`);
+  }
+
+  getUserByDocumento(documento: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/buscar?documento=${documento}`);
   }
 }

@@ -1,41 +1,58 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Listado de Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
-  <ion-item>
-    <ion-label position="floating">Buscar por Nombre</ion-label>
-    <ion-input [(ngModel)]="nombreBuscar" type="text"></ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Buscar Usuario</ion-card-title>
+    </ion-card-header>
 
-  <ion-item>
-    <ion-label position="floating">Buscar por Correo</ion-label>
-    <ion-input [(ngModel)]="correoBuscar" type="email"></ion-input>
-  </ion-item>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombreBuscar"></ion-input>
+      </ion-item>
 
-  <ion-item>
-    <ion-label position="floating">Buscar por Documento</ion-label>
-    <ion-input [(ngModel)]="documentoBuscar" type="text"></ion-input>
-  </ion-item>
+      <ion-item>
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input [(ngModel)]="correoBuscar"></ion-input>
+      </ion-item>
 
-  <ion-button expand="block" (click)="buscarUsuario()">Buscar</ion-button>
-  <ion-button expand="block" color="medium" (click)="limpiarBusqueda()">Limpiar</ion-button>
+      <ion-item>
+        <ion-label position="floating">Documento</ion-label>
+        <ion-input [(ngModel)]="documentoBuscar"></ion-input>
+      </ion-item>
 
-  <ion-list>
+      <div class="ion-text-center ion-margin-top">
+        <ion-button expand="block" (click)="buscarUsuario()">Buscar</ion-button>
+        <ion-button expand="block" color="medium" (click)="limpiarBusqueda()">Limpiar</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="usuarios.length > 0">
+    <ion-list-header>
+      <ion-label>Usuarios encontrados</ion-label>
+    </ion-list-header>
+
     <ion-item *ngFor="let usuario of usuarios">
       <ion-label>
         <h2>{{ usuario.nombre }}</h2>
-        <p>Correo: {{ usuario.correo }}</p>
-        <p>Documento: {{ usuario.documento }}</p>
-        <p>ID: {{ usuario.id }}</p>
+        <p>{{ usuario.correo }}</p>
+        <p>{{ usuario.documento }}</p>
       </ion-label>
-      <ion-button color="danger" slot="end" (click)="eliminarUsuario(usuario.id)">
+      <ion-button fill="clear" color="danger" slot="end" (click)="eliminarUsuario(usuario.id)">
         Eliminar
       </ion-button>
     </ion-item>
   </ion-list>
+
+  <div *ngIf="usuarios.length === 0" class="ion-text-center ion-margin-top">
+    <p>No hay usuarios que mostrar.</p>
+  </div>
 
 </ion-content>

@@ -1,24 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncPipe, NgFor } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { UserService, Usuario } from '../services/user.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-@NgModule({
-  declarations: [ListadoUsuariosPage],
-  imports: [
-    IonicModule,
-    FormsModule,
-    CommonModule
-  ],
-})
-export class ListadoUsuariosPageModule {}
+import { FormsModule } from '@angular/forms';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { UserService, Usuario } from '../services/user.service';
 
 @Component({
   selector: 'app-listado-usuarios',
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule, NgFor],
   templateUrl: './listado-usuarios.page.html',
   styleUrls: ['./listado-usuarios.page.scss'],
 })
@@ -47,13 +37,11 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   buscarUsuario() {
-    // Validar que al menos un campo esté lleno
     if (!this.nombreBuscar && !this.correoBuscar && !this.documentoBuscar) {
       alert('Por favor ingresa al menos un criterio para buscar');
       return;
     }
 
-    // Prioridad de búsqueda: nombre, correo, documento
     if (this.nombreBuscar) {
       this.userService.buscarUsuarios('nombre', this.nombreBuscar).subscribe(
         data => this.usuarios = data,
@@ -102,5 +90,4 @@ export class ListadoUsuariosPage implements OnInit {
     this.documentoBuscar = '';
     this.cargarUsuarios();
   }
-
 }
