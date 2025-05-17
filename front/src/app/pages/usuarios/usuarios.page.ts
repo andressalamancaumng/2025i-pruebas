@@ -14,8 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class UsuariosPage {
   nuevoNombre = '';
-  nuevoID = '';
-  anioLanz = '';
+  anioLanz = null;
   nuevoDirector = '';
 
 
@@ -23,14 +22,22 @@ export class UsuariosPage {
   }
 
   crearPelicula() {
-    if (!this.nuevoNombre || !this.nuevoID || !this.anioLanz || !this.nuevoDirector) return;
+    if (!this.nuevoNombre || !this.anioLanz || !this.nuevoDirector) return;
+
+    const cPeli = {
+      titulo: this.nuevoNombre,
+      ID: 0,
+      anio: this.anioLanz,
+      director: this.nuevoDirector
+
+    };
 
     this.userService
-      .crearPelis(this.nuevoNombre, this.nuevoID, this.anioLanz, this.nuevoDirector)
+      .crearPelis(cPeli)
       .subscribe((nuevo) => {
+        alert("Película creada exitosamente")
         this.nuevoNombre = '';
-        this.nuevoID = '';
-        this.anioLanz = '';
+        this.anioLanz = null;
         this.nuevoDirector = '';
       });
   }

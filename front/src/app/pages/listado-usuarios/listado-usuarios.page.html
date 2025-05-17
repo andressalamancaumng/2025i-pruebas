@@ -23,32 +23,47 @@
   </div>
 
   <div>
-    <ion-button  class="ion-margin-top" type="button">
+    <ion-button (click)="traerPelis()" class="ion-margin-top" type="button">
       Traer todos
     </ion-button>
   </div>
 
   <div>
-    <ion-button (click)="buscaID('busca')" class="ion-margin-top" type="button">
-      Traer por id
-    </ion-button>
+    <ion-item>
+      <ion-label position="floating">Digita el ID de la pelúcula a buscar</ion-label>
+      <ion-input [(ngModel)]="IDb"></ion-input>
+      <ion-button (click)="buscaPelicula()" type="button">Buscar</ion-button>
+    </ion-item>
   </div>
   
   <div>
-    <ion-button (click)="buscaID('elimina')"  class="ion-margin-top" type="button" color="danger">
-      Eliminar por id
-    </ion-button>
+   <ion-item>
+    <ion-label position="floating">Digita el ID de la película a eliminar</ion-label>
+    <ion-input [(ngModel)]="IDe"></ion-input>
+     <ion-button (click)="eliminaPelicula()" type="button" color="danger">Eliminar</ion-button>
+   </ion-item>
+  
   </div>
 
   <div *ngIf="busca">
     <ion-item>
       <ion-label position="floating">Digita el ID de la película</ion-label>
-      <ion-input [(ngModel)]="ID"></ion-input>
+      <ion-input [(ngModel)]="IDb"></ion-input>
     </ion-item>
     <ion-button (click)="buscaPelicula()" class="ion-margin-top" type="button">Buscar</ion-button>
   </div>
   <div *ngIf="encontrar">
-    <p>PELICULA ENCONTRADA</p>
+   <!--Se va a crear una ion-card para visualizar los datos solicitados-->
+   <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{encontrar.titulo}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>ID: </strong> {{encontrar.ID}}</p>
+      <p><strong>Año: </strong> {{encontrar.year}}</p>
+      <p><strong>Director: </strong> {{encontrar.director}}</p>
+    </ion-card-content>
+   </ion-card>
   </div>
 
 </ion-content>
