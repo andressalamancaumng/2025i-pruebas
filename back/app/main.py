@@ -1,6 +1,7 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import models, crud, database
+
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -22,9 +23,9 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/")
-def create_user(name: str, email: str, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email)
+@app.post("/peliculas/")
+def create_pelicula(nombre: str, anio: int, director: str, db: Session = Depends(get_db)):
+    return crud.create_pelicula(db, nombre, anio, director)
 
 @app.get("/peliculas/")
 def read_peliculas(db: Session = Depends(get_db)):
@@ -36,7 +37,6 @@ def read_pelicula(id: int, db: Session = Depends(get_db)):
     if not pelicula:
         raise HTTPException(status_code=404, detail="Pelicula no encontrada")
     return pelicula
-
 @app.delete("/peliculas/{id}")
 def delete_pelicula(id: int, db: Session = Depends(get_db)):
     try:
@@ -44,4 +44,4 @@ def delete_pelicula(id: int, db: Session = Depends(get_db)):
         return {"message": f"Película con ID {id} eliminada y IDs ajustados."}
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
-
+ 
