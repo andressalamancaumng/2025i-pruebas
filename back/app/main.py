@@ -31,7 +31,7 @@ def read_movies(db: Session = Depends(get_db)):
     return crud.get_movies(db)
 
 @app.get("/movies/search/")
-def movie_by_id_or_name(movie_id: int, name: str,db:Session = Depends(get_db)):
+def movie_by_id_or_name(movie_id: int=None, name: str=None,db:Session = Depends(get_db)):
     return crud.movie_id_or_name(db,movie_id,name)
 
 @app.delete("/movies/{movie_id}")
