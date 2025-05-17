@@ -1,0 +1,27 @@
+<ion-content class="modal-wrapper ion-padding">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Nuevo Usuario</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="close()">Cerrar</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item>
+    <ion-input placeholder="Nombre" [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Correo" [(ngModel)]="email" type="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Documento" [(ngModel)]="document"></ion-input>
+  </ion-item>
+
+<ion-button 
+  expand="block" 
+  (click)="save()" 
+  [disabled]="!name || !email || !document">
+  Guardar
+</ion-button>
+</ion-content>

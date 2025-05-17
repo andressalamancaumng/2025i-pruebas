@@ -2,8 +2,18 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import models, crud, database
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 user_id = None
 
 models.Base.metadata.create_all(bind=database.engine)
@@ -15,7 +25,7 @@ def get_db():
     finally:
         db.close()
 
-# Pydantic model for input validation
+
 class UserCreate(BaseModel):
     name: str
     email: str
@@ -42,6 +52,6 @@ def search_user(
     db: Session = Depends(get_db)
 ):
     result = crud.get_user_by_fields(db, id, name, email, document)
-    if result is None:
+    if not result:
         raise HTTPException(status_code=404, detail="User not found")
     return result

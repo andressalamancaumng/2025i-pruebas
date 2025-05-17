@@ -42,6 +42,6 @@ def get_user_by_fields(db: Session, id: int = None, name: str = None, email: str
         filters.append(User.document == document)
 
     if not filters:
-        return []  # o podrías devolver todos los usuarios, dependiendo del caso
+        return []  
 
     return db.query(User).filter(or_(*filters)).all()

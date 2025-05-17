@@ -1,20 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Test de Pruebas Unitarias</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="content-bg">
+  <div class="container">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Sección de búsqueda -->
+    <ion-card class="section-card">
+      <ion-card-header>
+        <ion-card-title>Buscar Usuario</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-input
+            [(ngModel)]="searchTerm"
+            placeholder="Buscar por nombre"
+            class="full-width"
+          ></ion-input>
+        </ion-item>
+        <div class="center">
+          <ion-button expand="block" (click)="search()" color="primary">Buscar</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Sección de lista -->
+    <ion-card class="section-card">
+      <ion-card-header>
+        <ion-card-title>Lista de Usuarios</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let user of users" lines="full">
+            <ion-label>
+              <h2>{{ user.name }}</h2>
+              <p>Email: {{ user.email }}</p>
+              <p>Documento: {{ user.document }}</p>
+            </ion-label>
+            <ion-button
+              fill="clear"
+              color="danger"
+              (click)="deleteUser(user.id)"
+              slot="end"
+            >
+              Eliminar
+            </ion-button>
+          </ion-item>
+
+          <ion-item *ngIf="users.length === 0">
+            <ion-label>No se encontraron usuarios.</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botón para agregar usuario -->
+    <div class="center">
+      <ion-button expand="block" (click)="openAddUserModal()" color="danger">
+        Agregar Usuario
+      </ion-button>
+    </div>
+
   </div>
 </ion-content>
