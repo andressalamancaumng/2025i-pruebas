@@ -1,20 +1,30 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input [(ngModel)]="nuevoNombre" placeholder="Nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input [(ngModel)]="nuevoCorreo" placeholder="Correo"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="crearUsuario()">Crear Usuario</ion-button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-list>
+    <ion-item *ngFor="let user of usuarios">
+      {{ user.name }} - {{ user.email }}
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-list>
+  <ion-item *ngFor="let user of users">
+    <ion-label>
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.email }} - Documento: {{ user.documento }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
