@@ -30,7 +30,7 @@ def get_db():
 @app.post("/peliculas/")
 def create_pelicula(pelicula: schemas.PeliculaCreate, db: Session = Depends(get_db)):
     try:
-        nueva_pelicula = crud.create_pelicula(db, pelicula.name_movie, pelicula.anio, pelicula.director)
+        nueva_pelicula = crud.create_pelicula(db, pelicula.nombre, pelicula.anio, pelicula.director)
         return nueva_pelicula
     except Exception as e:
         logger.error(f"Error al crear la película: {str(e)}")
