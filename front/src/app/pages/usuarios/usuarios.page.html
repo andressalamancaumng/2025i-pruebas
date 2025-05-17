@@ -1,16 +1,24 @@
+<!-- Encabezado de la página -->
 <ion-header>
   <ion-toolbar>
+    <!-- Título que se muestra en la barra superior -->
     <ion-title>Películas Guardadas</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- Contenido principal de la página -->
 <ion-content>
+  <!-- Grid que muestra las películas si hay alguna en la lista -->
   <ion-grid *ngIf="peliculas.length > 0; else sinPeliculas">
     <ion-row>
+      <!-- Columna por cada película. Se adapta según el tamaño de pantalla -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pelicula of peliculas">
+        <!-- Tarjeta para mostrar detalles de la película -->
         <ion-card class="rosita">
           <ion-card-header>
+            <!-- Título de la tarjeta: nombre de la película -->
             <ion-card-title>{{ pelicula.nombrepelicula }}</ion-card-title>
+            <!-- Subtítulo con el director y año -->
             <ion-card-subtitle>{{ pelicula.director }} - {{ pelicula.anio }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
@@ -21,8 +29,10 @@
     </ion-row>
   </ion-grid>
 
+  <!-- Plantilla alternativa si no hay películas -->
   <ng-template #sinPeliculas>
     <ion-text color="medium">
+      <!-- Mensaje que aparece si la lista de películas está vacía -->
       <p class="ion-padding">No hay películas registradas.</p>
     </ion-text>
   </ng-template>

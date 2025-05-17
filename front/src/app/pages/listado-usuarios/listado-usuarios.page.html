@@ -1,37 +1,42 @@
 <ion-header>
   <!-- Encabezado superior de la página -->
   <ion-toolbar>
-    <ion-title>Listado de Peliculas</ion-title>
+    <!-- Título principal de la pantalla -->
+    <ion-title>Listado de Películas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- Formulario para crear un -->
+  <!-- Formulario para crear una nueva película -->
   <form (ngSubmit)="crearPelicula()">
     
-    <!-- Campo para ingresar el modelo del carro -->
+    <!-- Campo para ingresar el nombre de la película -->
     <ion-item>
-      <ion-label position="floating">Nombre de la pelicula</ion-label>
+      <ion-label position="floating">Nombre de la película</ion-label>
       <ion-input type="text" [(ngModel)]="nombrepelicula" name="nombrepelicula" required></ion-input>
     </ion-item>
 
-    <!-- Campo para ingresar la marca del carro -->
+    <!-- Campo para ingresar el director de la película -->
     <ion-item>
       <ion-label position="floating">Director</ion-label>
       <ion-input type="text" [(ngModel)]="director" name="director" required></ion-input>
     </ion-item>
 
-    <!-- -->
+    <!-- Campo para ingresar el año de la película -->
     <ion-item>
       <ion-label position="floating">Año</ion-label>
       <ion-input type="text" [(ngModel)]="anio" name="anio" required></ion-input>
     </ion-item>
 
-    <!-- Botón para enviar el formulario y crear -->
-    <ion-button expand="block" type="submit" [disabled]="!nombrepelicula || !director.trim() || !anio">Crear Pelicula</ion-button>
+    <!-- Botón para enviar el formulario y crear la película -->
+    <ion-button expand="block" type="submit" [disabled]="!nombrepelicula || !director.trim() || !anio">
+      Crear Película
+    </ion-button>
 
-    <!-- Botón para cancelar el proceso de creación -->
-    <ion-button expand="block" color="medium" type="button" (click)="cancelar()">Listas de peliculas</ion-button>
-    
+    <!-- Botón para cancelar y volver a la lista de películas -->
+    <ion-button expand="block" color="medium" type="button" (click)="cancelar()">
+      Lista de películas
+    </ion-button>
+
   </form>
 </ion-content>
