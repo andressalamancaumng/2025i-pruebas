@@ -15,12 +15,12 @@
 
   <section class="movie-list">
     <div class="movie-card" *ngFor="let movie of filteredMovies">
-      <div class="movie-header">
-        <h2>{{ movie.name }}</h2>
-        <span class="year">{{ movie.year }}</span>
-      </div>
-      <p class="director">Director: {{ movie.director }}</p>
-      <button class="btn-delete" (click)="deleteMovie(movie.id)">Eliminar</button>
-    </div>
+  <div class="movie-content">
+    <h2 class="movie-name">{{ movie.name }}</h2>
+    <p class="movie-director">Director: {{ movie.director }}</p>
+    <span class="year">Año: {{ movie.year }}</span>
+  </div>
+  <button class="btn-delete" (click)="deleteMovie(movie.id)">Eliminar</button>
+</div>
   </section>
 </main>

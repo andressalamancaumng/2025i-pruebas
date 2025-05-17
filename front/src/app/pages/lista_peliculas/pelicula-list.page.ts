@@ -30,12 +30,15 @@ export class MovieListPage implements OnInit {
     });
   }
 
-  applyFilter() {
-    const term = this.searchTerm.toLowerCase();
-    this.filteredMovies = this.movies.filter((movie) =>
-      movie.name.toLowerCase().includes(term)
-    );
-  }
+applyFilter() {
+  const term = this.searchTerm.toLowerCase();
+  this.filteredMovies = this.movies.filter((movie: any) =>
+    movie.name.toLowerCase().includes(term) ||
+    movie.director.toLowerCase().includes(term) ||
+    movie.year.toString().includes(term) ||
+    movie.id.toString().includes(term)
+  );
+}
 
   deleteMovie(id: number) {
     this.movieService.deleteMovie(id).subscribe(() => {

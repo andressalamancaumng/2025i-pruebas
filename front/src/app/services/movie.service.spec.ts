@@ -19,7 +19,7 @@ describe('MovieService', () => {
     httpMock.verify();
   });
 
-  it('should create a movie (POST)', () => {
+  it('debería crear una película (POST)', () => {
     const name = 'Interstellar';
     const year = 2014;
     const director = 'Christopher Nolan';
@@ -29,30 +29,25 @@ describe('MovieService', () => {
       expect(movie).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(req =>
-      req.method === 'POST' &&
-      req.url.startsWith('http://localhost:8000/movies')
-    );
+    const req = httpMock.expectOne('http://localhost:8000/movies');
     expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ name, year, director });
     req.flush(mockResponse);
   });
 
-  it('should get all movies (GET)', () => {
+  it('debería obtener todas las películas (GET)', () => {
     const mockMovies = [{ id: 1, name: 'Interstellar', year: 2014, director: 'Christopher Nolan' }];
 
     service.getMovies().subscribe(movies => {
       expect(movies).toEqual(mockMovies);
     });
 
-    const req = httpMock.expectOne(req =>
-      req.method === 'GET' &&
-      req.url.startsWith('http://localhost:8000/movies')
-    );
+    const req = httpMock.expectOne('http://localhost:8000/movies');
     expect(req.request.method).toBe('GET');
     req.flush(mockMovies);
   });
 
-  it('should get a movie by ID or name (GET)', () => {
+  it('debería obtener una película por ID o nombre (GET)', () => {
     const mockMovie = { id: 1, name: 'Interstellar', year: 2014, director: 'Christopher Nolan' };
 
     service.getMovie(1).subscribe(movie => {
@@ -64,13 +59,15 @@ describe('MovieService', () => {
     req.flush(mockMovie);
   });
 
-  it('should delete a movie (DELETE)', () => {
+  it('debería eliminar una película (DELETE)', () => {
+    const responseMessage = { message: 'Movie deleted successfully' };
+
     service.deleteMovie(1).subscribe(response => {
-      expect(response).toEqual({ message: 'Movie deleted successfully' });
+      expect(response).toEqual(responseMessage);
     });
 
     const req = httpMock.expectOne('http://localhost:8000/movies/1');
     expect(req.request.method).toBe('DELETE');
-    req.flush({ message: 'Movie deleted successfully' });
+    req.flush(responseMessage);
   });
 });
