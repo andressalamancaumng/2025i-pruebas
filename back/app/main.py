@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List
 from pydantic import BaseModel
 from app import crud, models, database
 
@@ -13,7 +13,7 @@ app = FastAPI()
 # CORS para permitir acceso desde Angular/Ionic
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8100", "http://localhost:4200"],
+    allow_origins=["http://localhost:8100"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,10 +41,14 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
+# Ruta raíz para verificar que el backend está corriendo
+@app.get("/")
+def root():
+    return {"message": "API de usuarios funcionando correctamente"}
+
 # Crear usuario
 @app.post("/usuarios/", response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    # Validar duplicados
     if crud.obtener_usuario_por_correo(db, user.correo):
         raise HTTPException(status_code=400, detail="Correo ya registrado")
     if crud.obtener_usuario_por_documento(db, user.documento):
@@ -56,7 +60,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
 def get_users(db: Session = Depends(get_db)):
     return crud.obtener_usuarios(db)
 
-# Obtener por ID
+# Obtener usuario por ID
 @app.get("/usuarios/id/{user_id}", response_model=User)
 def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
     user = crud.obtener_usuario_por_id(db, user_id)
@@ -64,7 +68,7 @@ def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return user
 
-# Buscar usuario por nombre, correo o documento (con uno solo basta)
+# Buscar usuario por nombre, correo o documento
 @app.get("/usuarios/buscar/", response_model=List[User])
 def buscar_usuario(query: str, db: Session = Depends(get_db)):
     results = crud.buscar_usuarios(db, query)
@@ -75,7 +79,6 @@ def buscar_usuario(query: str, db: Session = Depends(get_db)):
 # Eliminar usuario por cualquier campo
 @app.delete("/usuarios/eliminar/")
 def eliminar_usuario(query: str, db: Session = Depends(get_db)):
-    # Intenta buscar por cada campo
     user = (
         crud.obtener_usuario_por_correo(db, query)
         or crud.obtener_usuario_por_documento(db, query)
