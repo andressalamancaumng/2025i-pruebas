@@ -26,15 +26,15 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   cargarUsuarios() {
-  this.userService.getAllUsers().subscribe(
-    (data: Usuario[]) => {
-      this.usuarios = data;
-    },
-    (error: any) => {
-      console.error('Error al cargar usuarios', error);
-    }
-  );
-}
+    this.userService.getAllUsers().subscribe(
+      (data: Usuario[]) => {
+        this.usuarios = data;
+      },
+      (error: any) => {
+        console.error('Error al cargar usuarios', error);
+      }
+    );
+  }
 
   buscarUsuario() {
     if (!this.nombreBuscar && !this.correoBuscar && !this.documentoBuscar) {
@@ -43,7 +43,7 @@ export class ListadoUsuariosPage implements OnInit {
     }
 
     if (this.nombreBuscar) {
-      this.userService.buscarUsuarios('nombre', this.nombreBuscar).subscribe(
+      this.userService.buscarUsuarios(this.nombreBuscar).subscribe(
         data => this.usuarios = data,
         error => {
           this.usuarios = [];
@@ -51,7 +51,7 @@ export class ListadoUsuariosPage implements OnInit {
         }
       );
     } else if (this.correoBuscar) {
-      this.userService.buscarUsuarios('correo', this.correoBuscar).subscribe(
+      this.userService.buscarUsuarios(undefined, this.correoBuscar).subscribe(
         data => this.usuarios = data,
         error => {
           this.usuarios = [];
@@ -59,7 +59,7 @@ export class ListadoUsuariosPage implements OnInit {
         }
       );
     } else if (this.documentoBuscar) {
-      this.userService.buscarUsuarios('documento', this.documentoBuscar).subscribe(
+      this.userService.buscarUsuarios(undefined, undefined, this.documentoBuscar).subscribe(
         data => this.usuarios = data,
         error => {
           this.usuarios = [];
@@ -71,12 +71,12 @@ export class ListadoUsuariosPage implements OnInit {
 
   eliminarUsuario(id: number) {
     if (confirm('¿Estás seguro que deseas eliminar este usuario?')) {
-      this.userService.eliminarUsuario(id).subscribe(
+      this.userService.deleteUser(id).subscribe(
         () => {
           alert('Usuario eliminado');
           this.cargarUsuarios();
         },
-        (error:any) => {
+        (error: any) => {
           alert('Error al eliminar usuario');
           console.error(error);
         }
