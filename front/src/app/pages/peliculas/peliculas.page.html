@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Creación de Peliculas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form (submit)= "agregarPelicula()">
+    <ion-item>
+      <ion-input label="Titulo" labelPlacement="floating" [(ngModel)]="tituloNuevo" name="titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Año" labelPlacement="floating" type="number" [(ngModel)]="yearNuevo" name="year"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Director" labelPlacement="floating" [(ngModel)]="directorNuevo" name="director"></ion-input>
+    </ion-item>
+
+    <div class = "button">
+      <ion-button   type="submit" >Crear</ion-button>
+      <ion-button   color="light" routerLink="/listado-peliculas" >
+      Salir
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -22,10 +22,30 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/")
-def create_user(name: str, email: str, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email)
+## Rutas para la API
+# 
+# Post para crear una pelicula      
+@app.post("/peliculas/")
+def crear_pelicula(titulo: str, year: int, director: str, db: Session = Depends(get_db)):
+    pelicula = crud.crear_pelicula(db , titulo , year , director)
+    return {"detail": "Pelicula creada", "pelicula": pelicula}
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+# Get para obtener todas las peliculas
+@app.get("/peliculas/")
+def obtener_peliculas(db: Session = Depends(get_db)):
+    return crud.obtener_peliculas(db)
+
+# Get para obtener una pelicula por id
+@app.get("/peliculas/{pelicula_id}")
+def obtener_pelicula(pelicula_id: int, db: Session = Depends(get_db)):
+    pelicula = crud.obtener_pelicula(db, pelicula_id)
+    if pelicula is None:
+        return {"detail": "Pelicula no encontrada"}
+    return pelicula
+
+# Delete para eliminar una pelicula por id
+@app.delete("/peliculas/{pelicula_id}")
+def eliminar_pelicula(pelicula_id: int, db: Session = Depends(get_db)):
+    if not crud.eliminar_pelicula(db, pelicula_id) :
+        return {"detail": "Pelicula no encontrada"}
+    return {"detail": "Pelicula eliminada"}

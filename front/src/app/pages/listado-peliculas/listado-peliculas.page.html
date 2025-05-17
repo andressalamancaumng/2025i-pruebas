@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Peliculas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    
+  <ion-list *ngIf="PeliculasFiltradas.length > 0">
+    <ion-item *ngFor="let pelicula of PeliculasFiltradas">
+      <ion-label>Titulo:  {{pelicula.titulo}}</ion-label>
+      <ion-label>Año: {{pelicula.year}}</ion-label>
+      <ion-label>Director: {{pelicula.director}}</ion-label>
+       <ion-button  fill="clear" (click)="borrarPelicula(pelicula.id)">Eliminar Película</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="PeliculasFiltradas.length == 0">
+    <ion-item>
+      <ion-label>No hay películas disponibles</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class = "button-container">
+  <ion-button  routerLink="/peliculas" class="button">
+    Crear Nueva Película
+  </ion-button>
+</div>
+  </ion-content>
