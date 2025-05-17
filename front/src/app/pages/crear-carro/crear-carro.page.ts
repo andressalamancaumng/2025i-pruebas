@@ -1,9 +1,20 @@
 import { Component } from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+
 import { CarroService, Carro } from 'src/app/services/carro.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-carro',
+  standalone: true,
+  imports: [
+    CommonModule,       
+    FormsModule,         
+    RouterModule,        
+    IonicModule          
+  ],
   templateUrl: './crear-carro.page.html',
   styleUrls: ['./crear-carro.page.scss'],
 })
@@ -36,4 +47,8 @@ export class CrearCarroPage {
     });
   }
 }
+
+
+
+
 

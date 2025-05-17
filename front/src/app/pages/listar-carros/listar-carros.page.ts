@@ -1,8 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import {
+  IonicModule,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonToolbar,
+  IonButtons,
+  IonMenuButton,
+  IonTitle,
+  IonHeader,
+  IonContent,
+  IonText
+} from '@ionic/angular';
+
 import { CarroService } from 'src/app/services/carro.service';
 
 @Component({
   selector: 'app-listar-carros',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    IonicModule,
+    NgIf,
+    NgFor,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonButton,
+    IonToolbar,
+    IonButtons,
+    IonMenuButton,
+    IonTitle,
+    IonHeader,
+    IonContent,
+    IonText
+  ],
   templateUrl: './listar-carros.page.html',
   styleUrls: ['./listar-carros.page.scss'],
 })
@@ -21,7 +57,7 @@ export class ListarCarrosPage implements OnInit {
       next: (data) => {
         this.carros = data;
       },
-      error: (err) => {
+      error: () => {
         this.mensaje = 'Error al cargar los carros';
       }
     });
@@ -31,7 +67,7 @@ export class ListarCarrosPage implements OnInit {
     this.carroService.eliminarCarro(id).subscribe({
       next: () => {
         this.mensaje = 'Carro eliminado correctamente';
-        this.cargarCarros(); // recargar la lista
+        this.cargarCarros();
       },
       error: () => {
         this.mensaje = 'Error al eliminar el carro';
@@ -39,3 +75,8 @@ export class ListarCarrosPage implements OnInit {
     });
   }
 }
+
+
+
+
+

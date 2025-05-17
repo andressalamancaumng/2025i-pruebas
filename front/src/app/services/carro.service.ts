@@ -1,32 +1,33 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Carro {
-  id?: number;
   modelo: string;
   marca: string;
   serie: string;
+  id?: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarroService {
-  private apiUrl = 'http://127.0.0.1:8000';
+  private API_URL = 'http://localhost:8000'; // Ajusta el puerto según tu backend FastAPI
 
   constructor(private http: HttpClient) {}
 
+  crearCarro(carro: Carro): Observable<Carro> {
+    return this.http.post<Carro>(`${this.API_URL}/carros/`, carro);
+  }
+
   obtenerCarros(): Observable<Carro[]> {
-    return this.http.get<Carro[]>(`${this.apiUrl}/carros/`);
+    return this.http.get<Carro[]>(`${this.API_URL}/carros/`);
   }
 
   eliminarCarro(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/carros/${id}`);
-  }
-
-  crearCarro(carro: Carro): Observable<any> {
-    return this.http.post(`${this.apiUrl}/carros/`, carro);
+    return this.http.delete(`${this.API_URL}/carros/${id}`);
   }
 }
+
 

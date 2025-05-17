@@ -1,35 +1,77 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-  <ion-menu-button></ion-menu-button>
-</ion-buttons>
-    <ion-title>Lista de Carros</ion-title>
-  </ion-toolbar>
-</ion-header>
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import {
+  IonicModule,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonToolbar,
+  IonButtons,
+  IonMenuButton,
+  IonTitle,
+  IonHeader,
+  IonContent,
+  IonText
+} from '@ionic/angular';
 
-<ion-content class="ion-padding">
-  <ion-text color="success" *ngIf="mensaje.includes('correctamente')">
-    <p>{{ mensaje }}</p>
-  </ion-text>
-  <ion-text color="danger" *ngIf="mensaje.includes('Error')">
-    <p>{{ mensaje }}</p>
-  </ion-text>
+import { CarroService } from 'src/app/services/carro.service';
 
-  <ion-list *ngIf="carros.length > 0; else vacio">
-    <ion-item *ngFor="let carro of carros">
-      <ion-label>
-        <h2>{{ carro.marca }} - {{ carro.modelo }}</h2>
-        <p>Serie: {{ carro.serie }}</p>
-      </ion-label>
-      <ion-button fill="clear" color="danger" slot="end" (click)="eliminarCarro(carro.id)">
-        Eliminar
-      </ion-button>
-    </ion-item>
-  </ion-list>
+@Component({
+  selector: 'app-listar-carros',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    IonicModule,
+    NgIf,
+    NgFor,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonButton,
+    IonToolbar,
+    IonButtons,
+    IonMenuButton,
+    IonTitle,
+    IonHeader,
+    IonContent,
+    IonText
+  ],
+  templateUrl: './listar-carros.page.html',
+  styleUrls: ['./listar-carros.page.scss'],
+})
+export class ListarCarrosPage implements OnInit {
+  carros: any[] = [];
+  mensaje = '';
 
-  <ng-template #vacio>
-    <ion-text>No hay carros registrados.</ion-text>
-  </ng-template>
+  constructor(private carroService: CarroService) {}
 
-  <ion-button expand="full" routerLink="/crear-carro" class="ion-margin-top">Agregar nuevo carro</ion-button>
-</ion-content>
+  ngOnInit() {
+    this.cargarCarros();
+  }
+
+  cargarCarros() {
+    this.carroService.obtenerCarros().subscribe({
+      next: (data) => {
+        this.carros = data;
+      },
+      error: () => {
+        this.mensaje = 'Error al cargar los carros';
+      }
+    });
+  }
+
+  eliminarCarro(id: number) {
+    this.carroService.eliminarCarro(id).subscribe({
+      next: () => {
+        this.mensaje = 'Carro eliminado correctamente';
+        this.cargarCarros();
+      },
+      error: () => {
+        this.mensaje = 'Error al eliminar el carro';
+      }
+    });
+  }
+}
