@@ -3,20 +3,20 @@ from sqlalchemy.orm import Session
 from app import models, crud, database
 from fastapi.middleware.cors import CORSMiddleware
 
-
 app = FastAPI()
 
+# crea las tablas (usa el Base de models)
 models.Base.metadata.create_all(bind=database.engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
+    allow_origins=["*"],        # cámbialo a ["http://localhost:8100"] si prefieres
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Dependencia para obtener sesión de base de datos
+# dependencia de sesión
 def get_db():
     db = database.SessionLocal()
     try:
@@ -24,8 +24,11 @@ def get_db():
     finally:
         db.close()
 
+# ---------- ENDPOINTS ---------- #
+
 @app.post("/carros/")
 def crear_carro(modelo: int, marca: str, serie: str, db: Session = Depends(get_db)):
+    # << el error era "dx|b" → debe ser "db"
     return crud.crear_carro(db, modelo, marca, serie)
 
 @app.get("/carros/")
@@ -45,3 +48,4 @@ def eliminar_carro(carro_id: int, db: Session = Depends(get_db)):
     if carro is None:
         raise HTTPException(status_code=404, detail="Carro no encontrado")
     return {"mensaje": "Carro eliminado"}
+
