@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app import models, crud, database
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Query
+from fastapi import HTTPException
 
 
 app = FastAPI()
@@ -41,7 +42,7 @@ def read_movies(db: Session = Depends(get_db)):
 def read_movie(value: str, db: Session = Depends(get_db)):
     movie = crud.get_movie_by_id_or_name(db, value)
     if not movie:
-        return {"error": "Movie not found"}
+        raise HTTPException(status_code=404, detail="Movie not found")
     return movie
 
 @app.delete("/movies/{movie_id}")

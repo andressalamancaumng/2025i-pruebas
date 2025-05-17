@@ -28,3 +28,8 @@ def delete_movie(db: Session, movie_id: int):
         db.commit()
         return True
     return False
+
+def get_movie_by_id_or_name(db: Session, value: str):
+    if value.isdigit():
+        return db.query(Movie).filter(Movie.id == int(value)).first()
+    return db.query(Movie).filter(Movie.name == value).first()
