@@ -41,6 +41,6 @@ def eliminar_usuario(db: Session, user_id: int):
 def buscar_usuarios(db: Session, query: str):
     return db.query(User).filter(
         User.nombre.ilike(f"%{query}%") |  # Filtrar por nombre
-        User.correo.ilike(f"%{query}%") |   # Filtrar por correo
+        User.correo.ilike(f"%{query}%") |  # Filtrar por correo
         User.documento.ilike(f"%{query}%")  # Filtrar por documento
-    ).all()
+    ).all()
