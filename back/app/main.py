@@ -1,14 +1,14 @@
 from fastapi import FastAPI, Depends
-from fastapi.middleware.cors import CORSMiddleware  # ← ESTA ES LA IMPORTACIÓN QUE FALTABA
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from app import models, crud, database
 
+
 app = FastAPI()
 
-# Middleware para permitir peticiones desde Angular (localhost:4200)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],  # Cambia esta URL si tu frontend está en otra dirección
+    allow_origins=["http://localhost:8100"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
