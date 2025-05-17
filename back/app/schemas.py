@@ -1,21 +1,16 @@
 from typing import Optional
 from pydantic import BaseModel, Field, ConfigDict
 
+
 class PeliculaBase(BaseModel):
-    nombre: str = Field(..., example="Inception")
-    anio: int = Field(..., gt=1800, lt=2100, example=2010)
-    director: str = Field(..., example="Christopher Nolan")
+    name_movie: str = Field(..., json_schema_extra={"example": "Inception"})
+    anio: int = Field(..., gt=1800, lt=2100, json_schema_extra={"example": 2010})
+    director: str = Field(..., json_schema_extra={"example": "Christopher Nolan"})
 
 class PeliculaCreate(PeliculaBase):
     pass
 
-class PeliculaUpdate(BaseModel):
-    nombre: Optional[str] = None
-    anio: Optional[int] = Field(None, gt=1800, lt=2100)
-    director: Optional[str] = None
-
 class Pelicula(PeliculaBase):
     id: int
 
-    class Config:
-      model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True)
