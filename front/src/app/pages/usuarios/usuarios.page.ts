@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class UsuariosPage {
   nuevoNombre = '';
-  nuevoCorreo = '';
+  nuevoID = '';
   anioLanz = '';
   nuevoDirector = '';
 
@@ -22,14 +22,14 @@ export class UsuariosPage {
   constructor(private userService: UserService) {
   }
 
-  crearUsuario() {
-    if (!this.nuevoNombre || !this.nuevoCorreo || !this.anioLanz || !this.nuevoDirector) return;
+  crearPelicula() {
+    if (!this.nuevoNombre || !this.nuevoID || !this.anioLanz || !this.nuevoDirector) return;
 
     this.userService
-      .createUser(this.nuevoNombre, this.nuevoCorreo)
+      .crearPelis(this.nuevoNombre, this.nuevoID, this.anioLanz, this.nuevoDirector)
       .subscribe((nuevo) => {
         this.nuevoNombre = '';
-        this.nuevoCorreo = '';
+        this.nuevoID = '';
         this.anioLanz = '';
         this.nuevoDirector = '';
       });

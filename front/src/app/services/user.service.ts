@@ -10,6 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  /*
   getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/`);
   }
@@ -18,5 +19,25 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/users/`, null, {
       params: { name, email },
     });
+  } */
+
+
+  crearPelis(pelicula: any, nombre: any, ID: any, nuevoDirector: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, pelicula);
   }
+
+  getPelis(): Observable<any> {
+    return this.http.get(`${this.apiUrl}`);
+  }
+
+  getPeliID(ID: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${ID}`);
+  }
+
+  eliminarPelicula(ID: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${ID}`);
+  }
+
+  
+
 }
