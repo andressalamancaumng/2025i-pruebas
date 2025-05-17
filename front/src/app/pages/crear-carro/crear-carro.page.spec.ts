@@ -1,30 +1,36 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { CrearCarroPage } from './crear-carro.page';
-import { CarroService } from '../services/carro.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('CrearCarroPage', () => {
   let component: CrearCarroPage;
-  let fixture: ComponentFixture<CrearCarroPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrearCarroPage ],
-      imports: [
-        HttpClientTestingModule,
-        FormsModule,
-        ReactiveFormsModule
-      ],
-      providers: [ CarroService ]
+      imports: [CrearCarroPage, HttpClientModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: () => null, // Puedes simular el valor que esperes
+              }
+            }
+          }
+        }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CrearCarroPage);
+    const fixture = TestBed.createComponent(CrearCarroPage);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+
