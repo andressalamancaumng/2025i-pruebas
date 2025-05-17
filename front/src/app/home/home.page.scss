@@ -25,3 +25,37 @@
 #container a {
   text-decoration: none;
 }
+:host {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+ion-card,
+ion-list,
+ion-item,
+ion-toolbar,
+ion-label,
+ion-input,
+ion-title,
+ion-text {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.toolbar{
+ --background: #666;
+  --color: #f0f0d0;
+}
+
+:host {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+ion-card,
+ion-list,
+ion-item,
+ion-toolbar,
+ion-label,
+ion-input,
+ion-title,
+ion-text {
+  font-family: 'Courier New', Courier, monospace;
+}

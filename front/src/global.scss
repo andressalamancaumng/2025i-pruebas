@@ -35,3 +35,85 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* GLOBAL SCSS */
+
+/* Claro */
+body {
+  background-color: #ffff00;
+  color: #222;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+ion-card,
+ion-toolbar,
+ion-button {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+ion-card-title{
+    --color: #000000;
+}
+ion-toolbar {
+  --background: #3a3a3a;
+  --color: #f1f1f1;
+}
+
+ion-title {
+  --color: #f1f1f1;
+}
+
+ion-card {
+  border: 2px solid #222;
+  background-color: #f0f0d0;
+  color: #222;
+}
+
+ion-button {
+  border: 2px solid #222;
+  font-weight: bold;
+  --background: #666;
+  --color: #f0f0d0;
+}
+
+ion-button:hover {
+  --background: #999;
+}
+
+ion-button img {
+  filter: invert(0);
+  transition: filter 0.3s ease;
+}
+
+/* Oscuro */
+body.dark {
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+}
+body.dark ion-card-title{
+    --color: #e0e0e0;
+}
+
+body.dark ion-toolbar {
+  --background: #1a1a1a;
+  --color: #e0e0e0;
+}
+
+body.dark ion-card {
+  background-color: #2a2a2a;
+  border: 2px solid #555;
+  color: #f0f0f0;
+}
+
+body.dark ion-button {
+  --background: #444;
+  --color: #f8f8f8;
+  border: 2px solid #777;
+}
+
+body.dark ion-button:hover {
+  --background: #666;
+}
+
+body.dark ion-button img {
+  filter: invert(0);
+  transition: filter 0.3s ease;
+}

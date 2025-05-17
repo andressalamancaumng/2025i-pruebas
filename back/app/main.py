@@ -11,7 +11,7 @@ app = FastAPI()
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
-    "http://localhost:8100",  # URL de tu frontend Ionic
+    "*",  # URL de tu frontend Ionic http://localhost:8100 que puede cambiar
     # Si quieres permitir todos los orígenes para pruebas, usa "*"
     # "*"
 ]
