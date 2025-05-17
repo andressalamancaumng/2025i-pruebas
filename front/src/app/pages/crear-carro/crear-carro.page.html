@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="crear()" #form="ngForm">
+  <form (ngSubmit)="crear()">
     <ion-item>
       <ion-label position="floating">Modelo</ion-label>
       <ion-input [(ngModel)]="carro.modelo" name="modelo" required></ion-input>
@@ -32,4 +32,5 @@
     </ion-text>
   </form>
 </ion-content>
+
 

@@ -13,22 +13,23 @@ export interface Carro {
   providedIn: 'root'
 })
 export class CarroService {
-  private apiUrl = 'http://localhost:8000'; // Cambia si tu backend tiene otro puerto o dominio
+  private url = 'http://localhost:8000/carros/';
 
   constructor(private http: HttpClient) {}
 
   obtenerCarros(): Observable<Carro[]> {
-    return this.http.get<Carro[]>(`${this.apiUrl}/carros`);
+    return this.http.get<Carro[]>(this.url);
   }
 
   crearCarro(carro: Carro): Observable<Carro> {
-    return this.http.post<Carro>(`${this.apiUrl}/carros`, carro);
+    return this.http.post<Carro>(this.url, carro);
   }
 
-  eliminarCarro(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/carros/${id}`);
+  eliminarCarro(id: number): Observable<any> {
+    return this.http.delete(`${this.url}${id}`);
   }
 }
+
 
 
 

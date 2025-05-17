@@ -8,45 +8,32 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <!-- Mensaje de éxito -->
   <ion-text color="success" *ngIf="mensaje.includes('correctamente')">
     <p>{{ mensaje }}</p>
   </ion-text>
 
-  <!-- Mensaje de error -->
   <ion-text color="danger" *ngIf="mensaje.includes('Error')">
     <p>{{ mensaje }}</p>
   </ion-text>
 
-  <!-- Lista de carros -->
   <ion-list *ngIf="carros.length > 0; else vacio">
     <ion-item *ngFor="let carro of carros">
       <ion-label>
         <h2>{{ carro.marca }} - {{ carro.modelo }}</h2>
         <p>Serie: {{ carro.serie }}</p>
       </ion-label>
-
-      <!-- Solo mostrar el botón si el ID existe -->
-      <ion-button
-        *ngIf="carro.id !== undefined"
-        fill="clear"
-        color="danger"
-        slot="end"
-        (click)="eliminarCarro(carro.id!)">
+      <ion-button *ngIf="carro.id !== undefined" fill="clear" color="danger" slot="end" (click)="eliminarCarro(carro.id!)">
         Eliminar
       </ion-button>
     </ion-item>
   </ion-list>
 
-  <!-- Cuando no hay carros -->
   <ng-template #vacio>
     <ion-text>No hay carros registrados.</ion-text>
   </ng-template>
 
-  <!-- Botón para crear un nuevo carro -->
   <ion-button expand="full" routerLink="/crear-carro" class="ion-margin-top">
     Agregar nuevo carro
   </ion-button>
-
 </ion-content>
+

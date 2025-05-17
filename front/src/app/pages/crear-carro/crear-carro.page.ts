@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-
 import { CarroService, Carro } from 'src/app/services/carro.service';
 
 @Component({
   selector: 'app-crear-carro',
   standalone: true,
   imports: [
-    CommonModule,       
-    FormsModule,         
-    RouterModule,        
-    IonicModule          
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    IonicModule
   ],
   templateUrl: './crear-carro.page.html',
   styleUrls: ['./crear-carro.page.scss'],
@@ -24,7 +23,6 @@ export class CrearCarroPage {
     marca: '',
     serie: ''
   };
-
   mensaje = '';
 
   constructor(private carroService: CarroService, private router: Router) {}
@@ -38,7 +36,6 @@ export class CrearCarroPage {
     this.carroService.crearCarro(this.carro).subscribe({
       next: () => {
         this.mensaje = 'Carro creado correctamente 🚗';
-        this.carro = { modelo: '', marca: '', serie: '' };
         this.router.navigate(['/listar-carros']);
       },
       error: (err) => {
@@ -47,6 +44,7 @@ export class CrearCarroPage {
     });
   }
 }
+
 
 
 

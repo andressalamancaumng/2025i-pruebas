@@ -7,6 +7,12 @@ import { IonicModule } from '@ionic/angular';
 import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideHttpClient()]
+  providers: [
+    provideRouter(routes),
+    importProvidersFrom(IonicModule.forRoot()),
+    provideHttpClient()
+  ]
 });
+
+
 
