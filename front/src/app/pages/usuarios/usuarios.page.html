@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-toolbar>
     <ion-title>Usuarios</ion-title>
@@ -5,7 +6,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (submit)="crearUsuario()">
+  <form (ngSubmit)="crearUsuario()">
     <ion-item>
       <ion-label position="floating">Nombre</ion-label>
       <ion-input [(ngModel)]="nuevoNombre" name="nombre"></ion-input>
@@ -14,6 +15,11 @@
     <ion-item>
       <ion-label position="floating">Correo</ion-label>
       <ion-input [(ngModel)]="nuevoCorreo" name="correo"></ion-input>
+    </ion-item>
+
+        <ion-item>
+      <ion-label position="floating">Documento</ion-label>
+      <ion-input [(ngModel)]="nuevoDocumento" name="documento"></ion-input>
     </ion-item>
 
     <ion-button expand="block" type="submit" class="ion-margin-top">

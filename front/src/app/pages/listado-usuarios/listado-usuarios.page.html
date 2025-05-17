@@ -1,20 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Listado usuarios</ion-title>
+    <ion-title>Buscar y Eliminar Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let usuario of usuarios">
-      <ion-label>
-        <h2>{{ usuario.name }}</h2>
-        <p>{{ usuario.email }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
 
-  <ion-button expand="block" routerLink="/usuarios" class="ion-margin-top" type="button">
-    Crear Usuario
-  </ion-button>
+  <!-- BUSCAR USUARIO -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Buscar Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">ID, nombre, correo o documento</ion-label>
+        <ion-input [(ngModel)]="valorBusqueda"></ion-input>
+      </ion-item>
+      <ion-button expand="full" (click)="buscarUsuario()">Buscar</ion-button>
+
+      <ion-text color="danger">
+        <p *ngIf="mensajeBusqueda">{{ mensajeBusqueda }}</p>
+      </ion-text>
+
+      <ion-card *ngIf="resultado">
+        <ion-card-header>
+          <ion-card-subtitle>ID: {{ resultado.id }}</ion-card-subtitle>
+          <ion-card-title>{{ resultado.nombre }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>Correo:</strong> {{ resultado.correo }}</p>
+          <p><strong>Documento:</strong> {{ resultado.documento }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ELIMINAR USUARIO -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Eliminar Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">ID del usuario a eliminar</ion-label>
+        <ion-input type="number" [(ngModel)]="idEliminar"></ion-input>
+      </ion-item>
+      <ion-button color="danger" expand="full" (click)="eliminarUsuario()">Eliminar</ion-button>
+
+      <ion-text color="primary">
+        <p *ngIf="mensajeEliminacion">{{ mensajeEliminacion }}</p>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
+ 
