@@ -15,22 +15,33 @@ import { RouterLink } from '@angular/router';
 export class UsuariosPage {
   nuevaPelicula = '';
   nuevoAno: number=0;
-  nuevoNombre = '';
+  nuevoNombre_director = '';
+  movies: any[] = [];
 
   constructor(private userService: UserService) {
   }
+    ngOnInit() {
+    this.loadMovies(); // Carga inicial
+    }
 
+    ionViewWillEnter() {
+    this.loadMovies(); // Carga cada vez que se entra en la página
+    }
+
+    loadMovies() {
+    this.userService.getMovies().subscribe((data: any) => {
+      this.movies = data;
+    });
+    }
   crearPelicula() {
-    if (!this.nuevaPelicula|| !this.nuevoAno|| !this.nuevoNombre) return;
-    
-
-
+    if (!this.nuevaPelicula|| !this.nuevoAno|| !this.nuevoNombre_director) return;
     this.userService
-      .createMovie(this.nuevoNombre, this.nuevoAno,this.nuevaPelicula)
-      .subscribe((nuevo) => {
-        this.nuevoNombre = '';
+      .createMovie(this.nuevoNombre_director, Number(this.nuevoAno),this.nuevaPelicula)
+      .subscribe(() => {
+        this.nuevoNombre_director = '';
         this.nuevaPelicula = '';
-        this.nuevoAno;
+        this.nuevoAno=0;
+        this.loadMovies();
       });
   }
 }

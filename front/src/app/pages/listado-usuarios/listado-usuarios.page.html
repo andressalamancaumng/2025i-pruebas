@@ -1,20 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Listado usuarios</ion-title>
+    <ion-title>Listado Peliculas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let usuario of usuarios">
+    <ion-item *ngFor="let pelicula of peliculas">
       <ion-label>
-        <h2>{{ usuario.name }}</h2>
-        <p>{{ usuario.email }}</p>
+        <h2>{{pelicula.name }}</h2>
+        <p>{{pelicula.name_director }}</p>
+        <p>{{pelicula.year}}</p>
+        <p>{{pelicula.id}}</p>
       </ion-label>
+      <ion-button expand="block" class="btn-delete" type="button" (click)="delete(pelicula.id)">
+        Borrar
+      </ion-button>
     </ion-item>
   </ion-list>
 
   <ion-button expand="block" routerLink="/usuarios" class="ion-margin-top" type="button">
-    Crear Usuario
+    Agregar Pelicula
   </ion-button>
+
+
 </ion-content>

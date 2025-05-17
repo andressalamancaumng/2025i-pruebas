@@ -14,9 +14,15 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/movies/`);
   }
 
-  createMovie(movie: string, year: number, name_director:string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/movies/`, null, {
-      params: { movie, year, name_director },
-    });
+  createMovie(name: string, year: number, name_director:string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/movies/`,null,{params: { name, year:year.toString(), name_director }});
+  }
+
+  getMovie(value: string | number):Observable<any> {
+    return this.http.get(`${this.apiUrl}/movies/${value}`);
+  }
+
+  delete(id:number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/movies/${id}`);
   }
 }

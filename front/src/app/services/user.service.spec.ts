@@ -1,4 +1,3 @@
-
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UserService } from './user.service';
@@ -20,35 +19,37 @@ describe('UserService', () => {
     httpMock.verify();
   });
 
-  it('debería crear usuario (POST)', () => {
-    const name = 'Pedro';
-    const email = 'pedro@example.com';
-    const mockResponse = { id: 1, name, email };
+  it('debería crear película (POST)', () => {
+    const name = 'Inception';
+    const year = 2010;
+    const name_Director = 'Christopher Nolan';
+    const mockResponse = { id: 1, name, year, name_Director };
 
-    service.createUser(name, email).subscribe(user => {
-      expect(user).toEqual(mockResponse);
+    service.createMovie(name, year, name_Director).subscribe(movie => {
+      expect(movie).toEqual(mockResponse);
     });
 
     const req = httpMock.expectOne(req =>
       req.method === 'POST' &&
-      req.url.startsWith('http://localhost:8000/users')
+      req.url.startsWith('http://localhost:8000/movies')
     );
     expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ name, year, name_Director }); // Verifica el cuerpo de la solicitud
     req.flush(mockResponse);
   });
 
-  it('debería obtener usuarios (GET)', () => {
-    const mockUsers = [{ id: 1, name: 'Ana', email: 'ana@example.com' }];
+  it('debería obtener películas (GET)', () => {
+    const mockMovies = [{ id: 1, name: 'Inception', year: 2010, name_Director: 'Christopher Nolan' }];
 
-    service.getUsers().subscribe(users => {
-      expect(users).toEqual(mockUsers);
+    service.getMovies().subscribe(movies => {
+      expect(movies).toEqual(mockMovies);
     });
 
     const req = httpMock.expectOne(req =>
       req.method === 'GET' &&
-      req.url.startsWith('http://localhost:8000/users')
+      req.url.startsWith('http://localhost:8000/movies')
     );
     expect(req.request.method).toBe('GET');
-    req.flush(mockUsers);
+    req.flush(mockMovies);
   });
 });

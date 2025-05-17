@@ -16,9 +16,9 @@ describe('ListadoUsuariosPage', () => {
   };
 
   beforeEach(async () => {
-    userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
+    userServiceSpy = jasmine.createSpyObj('UserService', ['getMovies']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
-    userServiceSpy.getUsers.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
+    userServiceSpy.getMovies.and.returnValue(of([{ name: 'Inception', year: 2010, name_Director: 'Christopher Nolan' }]));
 
     await TestBed.configureTestingModule({
       imports: [ListadoUsuariosPage],
@@ -46,14 +46,15 @@ describe('ListadoUsuariosPage', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const listItems = compiled.querySelectorAll('ion-item');
     expect(listItems.length).toBeGreaterThan(0);
-    expect(listItems[0].textContent).toContain('Ana');
+    expect(listItems[0].textContent).toContain('Inception');
+    expect(listItems[0].textContent).toContain('2010');
   });
 
   it('debería manejar error al obtener usuarios', () => {
-    userServiceSpy.getUsers.and.returnValue(throwError(() => new Error('Error')));
+    userServiceSpy.getMovies.and.returnValue(throwError(() => new Error('Error')));
     fixture = TestBed.createComponent(ListadoUsuariosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    expect(component.usuarios).toEqual([]);
+    expect(component.peliculas).toEqual([]);
   });
 });

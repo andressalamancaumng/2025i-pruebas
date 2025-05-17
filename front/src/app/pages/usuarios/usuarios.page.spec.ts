@@ -41,8 +41,8 @@ describe('UsuariosPage', () => {
   });
 
   it('debería llamar a createUser con los datos correctos', () => {
-    const mockUser = { name: 'Pedro', movie: 'Rapunzel',year:2010 };
-    component.nuevoNombre = mockUser.name;
+    const mockUser = { movie: 'Inception', year: 2010, name: 'Christopher Nolan'};
+    component.nuevoNombre_director = mockUser.name;
     component.nuevaPelicula = mockUser.movie;
     component.nuevoAno=mockUser.year
 

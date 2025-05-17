@@ -5,27 +5,27 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (submit)="crearUsuario()">
+  <form (ngSubmit)="crearPelicula()">
     <ion-item>
-      <ion-label position="floating">Nombre Pelicula</ion-label>
+      <ion-label position="floating">Nombre Película</ion-label>
       <ion-input [(ngModel)]="nuevaPelicula" name="Película"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Ano</ion-label>
-      <ion-input [(ngModel)]="nuevoAno" name="Año"></ion-input>
+      <ion-label position="floating">Año</ion-label>
+      <ion-input [(ngModel)]="nuevoAno" name="Año" type="number"></ion-input>
     </ion-item>
     
     <ion-item>
-      <ion-label position="floating">Nombre del director</ion-label>
+      <ion-label position="floating">Nombre del Director</ion-label>
       <ion-input [(ngModel)]="nuevoNombre_director" name="Director"></ion-input>
     </ion-item>
 
     <ion-button expand="block" type="submit" class="ion-margin-top">
-      Crear Usuario
+      Agregar Película
     </ion-button>
-    <ion-button expand="block" color="danger" routerLink="/listado-usuarios" class="ion-margin-top">
-      Cancelar
+    <ion-button expand="block" routerLink="/listado-usuarios" class="ion-margin-top">
+      Volver
     </ion-button>
   </form>
 </ion-content>
