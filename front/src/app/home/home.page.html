@@ -1,20 +1,52 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Gestión de Carros</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registrar nuevo carro</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (submit)="agregarCarro()">
+        <ion-item>
+          <ion-label position="floating">Modelo</ion-label>
+          <ion-input type="number" [(ngModel)]="nuevoCarro.modelo" name="modelo" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Marca</ion-label>
+          <ion-input [(ngModel)]="nuevoCarro.marca" name="marca" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Serie</ion-label>
+          <ion-input [(ngModel)]="nuevoCarro.serie" name="serie" required></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" color="success">Agregar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Lista de Carros Registrados</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let carro of carros">
+      <ion-label>
+        <h2>{{ carro.modelo }} - {{ carro.marca }}</h2>
+        <p>Serie: {{ carro.serie }}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" color="danger" (click)="eliminarCarro(carro.id)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+
