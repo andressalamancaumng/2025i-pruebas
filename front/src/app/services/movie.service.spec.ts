@@ -20,9 +20,9 @@ describe('MovieService', () => {
   });
 
   it('debería crear una película (POST)', () => {
-    const name = 'Interstellar';
-    const year = 2014;
-    const director = 'Christopher Nolan';
+    const name = 'Toy Story';
+    const year = 1995;
+    const director = 'John Lasseter';
     const mockResponse = { id: 1, name, year, director };
 
     service.createMovie(name, year, director).subscribe(movie => {
@@ -36,7 +36,7 @@ describe('MovieService', () => {
   });
 
   it('debería obtener todas las películas (GET)', () => {
-    const mockMovies = [{ id: 1, name: 'Interstellar', year: 2014, director: 'Christopher Nolan' }];
+    const mockMovies = [{ id: 1, name: 'Toy Story', year: 1995, director: 'John Lasseter' }];
 
     service.getMovies().subscribe(movies => {
       expect(movies).toEqual(mockMovies);
