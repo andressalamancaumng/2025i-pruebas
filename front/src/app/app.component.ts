@@ -27,8 +27,8 @@ import {
     IonItem
   ]
 })
-export class AppComponent {
-  constructor() {}
-}
+export class AppComponent {}
+
+
 
 

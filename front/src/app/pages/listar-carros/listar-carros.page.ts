@@ -1,49 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import {
-  IonicModule,
-  IonList,
-  IonItem,
-  IonLabel,
-  IonButton,
-  IonToolbar,
-  IonButtons,
-  IonMenuButton,
-  IonTitle,
-  IonHeader,
-  IonContent,
-  IonText
-} from '@ionic/angular';
-
 import { CarroService } from 'src/app/services/carro.service';
+
+interface Carro {
+  id?: number; // ← id puede ser opcional
+  modelo: string;
+  marca: string;
+  serie: string;
+}
 
 @Component({
   selector: 'app-listar-carros',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
     IonicModule,
+    RouterModule,
     NgIf,
     NgFor,
-    IonList,
-    IonItem,
-    IonLabel,
-    IonButton,
-    IonToolbar,
-    IonButtons,
-    IonMenuButton,
-    IonTitle,
-    IonHeader,
-    IonContent,
-    IonText
   ],
   templateUrl: './listar-carros.page.html',
   styleUrls: ['./listar-carros.page.scss'],
 })
 export class ListarCarrosPage implements OnInit {
-  carros: any[] = [];
+  carros: Carro[] = [];
   mensaje = '';
 
   constructor(private carroService: CarroService) {}
@@ -54,7 +36,7 @@ export class ListarCarrosPage implements OnInit {
 
   cargarCarros() {
     this.carroService.obtenerCarros().subscribe({
-      next: (data) => {
+      next: (data: Carro[]) => {
         this.carros = data;
       },
       error: () => {
@@ -64,6 +46,7 @@ export class ListarCarrosPage implements OnInit {
   }
 
   eliminarCarro(id: number) {
+    if (id === undefined) return; // Protección adicional
     this.carroService.eliminarCarro(id).subscribe({
       next: () => {
         this.mensaje = 'Carro eliminado correctamente';
@@ -75,6 +58,14 @@ export class ListarCarrosPage implements OnInit {
     });
   }
 }
+
+
+
+
+
+
+
+
 
 
 
