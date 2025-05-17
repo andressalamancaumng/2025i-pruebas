@@ -8,6 +8,22 @@ from app import models, crud, database, schemas
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "http://localhost:8100",  # URL de tu frontend Ionic
+    # Si quieres permitir todos los orígenes para pruebas, usa "*"
+    # "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,      # o ["*"] para permitir todos
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 models.Base.metadata.create_all(bind=database.engine)
 
 def get_db():

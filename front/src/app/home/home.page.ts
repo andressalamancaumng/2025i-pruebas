@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
   IonCardHeader, IonCardTitle, IonCardContent, IonItem,
   IonLabel, IonInput, IonButton, IonList, IonListHeader,
-  IonIcon
+  IonIcon, IonText
 } from '@ionic/angular/standalone';
 
 import { FormsModule } from '@angular/forms';
@@ -20,7 +21,7 @@ import { CarroService } from '../services/carro.service';
     IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
     IonCardHeader, IonCardTitle, IonCardContent, IonItem,
     IonLabel, IonInput, IonButton, IonList, IonListHeader,
-    IonIcon
+    IonIcon, IonText
   ]
 })
 
@@ -32,7 +33,7 @@ export class HomePage {
     serie: ''
   };
 
-  constructor(private carroService: CarroService) {
+  constructor(private carroService: CarroService, private cd: ChangeDetectorRef) {
     this.obtenerCarros();
   }
 

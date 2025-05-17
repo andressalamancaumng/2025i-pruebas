@@ -27,7 +27,12 @@ export class CarroService {
   }
 
   crearCarro(carro: Carro): Observable<Carro> {
-    return this.http.post<Carro>(`${this.apiUrl}/`, carro);  // ajusta el endpoint si usas create_carro_manual
+    const params = {
+      modelo: carro.modelo?.toString() || '',
+      marca: carro.marca,
+      serie: carro.serie
+    };
+    return this.http.post<Carro>(`${this.apiUrl}/`, null, { params });
   }
 
   eliminarCarro(id: number): Observable<Carro> {

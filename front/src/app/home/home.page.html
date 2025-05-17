@@ -11,28 +11,48 @@
       <ion-card-title>Registrar nuevo carro</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form (submit)="agregarCarro()">
+      <form (ngSubmit)="agregarCarro()" #carroForm="ngForm">
         <ion-item>
           <ion-label position="floating">Modelo</ion-label>
-          <ion-input type="number" [(ngModel)]="nuevoCarro.modelo" name="modelo" required></ion-input>
+          <ion-input
+            type="number"
+            [(ngModel)]="nuevoCarro.modelo"
+            name="modelo"
+            required
+            ngModel>
+          </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Marca</ion-label>
-          <ion-input [(ngModel)]="nuevoCarro.marca" name="marca" required></ion-input>
+          <ion-input
+            type="text"
+            [(ngModel)]="nuevoCarro.marca"
+            name="marca"
+            required
+            ngModel>
+          </ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Serie</ion-label>
-          <ion-input [(ngModel)]="nuevoCarro.serie" name="serie" required></ion-input>
+          <ion-input
+            type="text"
+            [(ngModel)]="nuevoCarro.serie"
+            name="serie"
+            required
+            ngModel>
+          </ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" color="success">Agregar</ion-button>
+        <ion-button expand="block" type="submit" color="success">
+          Agregar
+        </ion-button>
       </form>
     </ion-card-content>
   </ion-card>
 
-  <ion-list>
+  <ion-list *ngIf="carros.length > 0; else sinCarros">
     <ion-list-header>
       <ion-label>Lista de Carros Registrados</ion-label>
     </ion-list-header>
@@ -48,5 +68,15 @@
     </ion-item>
   </ion-list>
 
-</ion-content>
+  <ng-template #sinCarros>
+    <ion-text color="medium"><p class="ion-padding">No hay carros registrados.</p></ion-text>
+  </ng-template>
 
+
+  <ion-card *ngIf="carros.length === 0">
+    <ion-card-content class="ion-text-center">
+      No hay carros registrados.
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
