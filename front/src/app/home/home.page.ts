@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular'; // ✅ Importar IonicModule aquí
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
+  standalone: true, // ✅ Muy importante
+  imports: [CommonModule, IonicModule],
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
