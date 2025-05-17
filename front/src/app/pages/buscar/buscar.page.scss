@@ -1,3 +1,14 @@
+ion-segment-button {
+  --indicator-color: #350099;
+}
+
+/* Material Design styles */
+ion-segment-button.md {
+  --color: white;
+  --color-checked: #350099;
+  --indicator-height: 4px;
+}
+
 .Button-Action{
  --background: #6203c5;
   --background-hover: black;

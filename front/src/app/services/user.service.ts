@@ -14,9 +14,19 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/users/`);
   }
 
-  createUser(name: string, email: string): Observable<any> {
+  createUser(name: string, email: string,document:string): Observable<any> {
     return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
+      params: { name, email,document },
     });
+  }
+  searchUser( id: number, name: string, email: string ,document: string): Observable<any> {
+  
+  const params: any = {};
+  if (id !== undefined) params.id = id;
+  if (name) params.name = name;
+  if (email) params.email = email;
+  if (document) params.document = document;
+
+  return this.http.get(`${this.apiUrl}/users/search`, { params });
   }
 }

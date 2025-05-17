@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Buscar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Buscar</ion-title>
+    </ion-toolbar>
+  </ion-header> 
+
+  <ion-segment [(ngModel)]="Button" name="BusquedaPor">
+    <ion-segment-button value="Id">
+      Por Id
+    </ion-segment-button>
+    <ion-segment-button value="Name">
+      Por Nombre
+    </ion-segment-button>
+    <ion-segment-button value="Document">
+      Por Documento
+    </ion-segment-button>
+    <ion-segment-button value="Email">
+      Por Correo
+    </ion-segment-button>
+  </ion-segment>
+
+    <!-- Opción: Id -->
+    <div *ngIf="Button === 'Id'">
+      <ion-input [(ngModel)]="IdUser" name="idUser" label="Id" label-placement="floating" fill="outline" >
+      </ion-input>
+    </div>
+    <!-- Opción: Nombre -->
+    <div *ngIf="Button === 'Name'">
+      <ion-input [(ngModel)]="NameUser" name="nameUser" label="Nombre" label-placement="floating" fill="outline" >
+      </ion-input>
+    </div>
+    <!-- Opción: Documento -->
+    <div *ngIf="Button === 'Document'">
+      <ion-input [(ngModel)]="DocumentUser" name="documentUser" label="Documento" label-placement="floating" fill="outline" >
+        </ion-input>
+    </div>
+    <!-- Opción: Correo -->
+    <div *ngIf="Button === 'Email'">
+  <ion-input [(ngModel)]="EmailUser" name="emailUser" label="Correo" label-placement="floating"  fill="outline">
+  </ion-input>
+</div>
+  <br/>
+  <ion-button expand="block" type="submit" class="Button-Action">
+   Buscar Usuario
+  </ion-button>
+  <ion-button expand="block" type="button" (click)="volverAListado()" class="Button-Action">
+    Volver
+  </ion-button>
+
+
+</ion-content>

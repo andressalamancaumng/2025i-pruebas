@@ -18,5 +18,15 @@ export const routes: Routes = [
     redirectTo: 'listado-usuarios',
     pathMatch: 'full',
   },
+  {
+    path: 'buscar',
+    loadComponent: () => import('./pages/buscar/buscar.page').then( m => m.BuscarPage)
+  },
+  {
+    path: 'eliminar-usuario',
+    loadComponent: () => import('./pages/eliminar-usuario/eliminar-usuario.page').then( m => m.EliminarUsuarioPage)
+  },
+
+
   
 ];

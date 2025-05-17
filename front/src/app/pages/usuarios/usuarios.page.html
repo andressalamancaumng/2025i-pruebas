@@ -6,21 +6,19 @@
 
 <ion-content class="ion-padding">
   <form (submit)="crearUsuario()">
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="nuevoNombre" name="nombre"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Correo</ion-label>
-      <ion-input [(ngModel)]="nuevoCorreo" name="correo"></ion-input>
-    </ion-item>
-
-    <ion-button expand="block" type="submit" class="ion-margin-top">
+      <ion-input [(ngModel)]="nuevoNombre" name="nombre" label="Nombre" label-placement="floating" fill="outline" >
+    </ion-input>
+    
+    <ion-input [(ngModel)]="nuevoCorreo" name="correo" label="Correo" label-placement="floating" fill="outline" >
+    </ion-input>  
+     <ion-input [(ngModel)]="nuevoDocumento" name="Documento" label="Documento" label-placement="floating" fill="outline" >
+    </ion-input>
+    <br/>
+    <ion-button expand="block" type="submit" class="Button-Action">
       Crear Usuario
     </ion-button>
-    <ion-button expand="block" color="danger" routerLink="/listado-usuarios" class="ion-margin-top">
-      Cancelar
+    <ion-button expand="block" routerLink="/listado-usuarios" class="Button-Action">
+      Volver
     </ion-button>
   </form>
 </ion-content>
