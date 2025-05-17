@@ -3,12 +3,17 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_create_user():
-    response = client.post("/users/", params={"name": "juan", "email": "juan@example.com"})
+def test_create_pelicula():
+    response = client.post(
+        "/peliculas/",
+        json={
+            "nombre": "Inception",
+            "anio": 2010,
+            "director": "Christopher Nolan"
+        }
+    )
     assert response.status_code == 200
-    assert response.json()["name"] == "juan"
-
-    def test_read_users():
-        response = client.get("/users/")
-        assert response.status_code == 200
-        assert isinstance(response.json(), list)
+    data = response.json()
+    assert data["nombre"] == "Inception"
+    assert data["anio"] == 2010
+    assert data["director"] == "Christopher Nolan"
