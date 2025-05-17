@@ -29,3 +29,4 @@ def delete_pelicula(db: Session, id: int):
     else:
         raise Exception("Película no encontrada")
 
+

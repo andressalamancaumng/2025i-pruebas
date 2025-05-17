@@ -44,3 +44,4 @@ def delete_pelicula(id: int, db: Session = Depends(get_db)):
         return {"message": f"Película con ID {id} eliminada y IDs ajustados."}
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
