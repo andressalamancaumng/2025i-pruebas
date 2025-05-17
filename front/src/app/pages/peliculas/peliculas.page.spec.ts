@@ -40,14 +40,14 @@ describe('MoviesPage', () => {
   });
 
   it('should call createMovie with correct data', () => {
-    component.movieName = 'Matrix';
-    component.movieYear = 1999;
-    component.movieDirector = 'Wachowskis';
+    component.movieName = 'Toy Story';
+    component.movieYear = 1995;
+    component.movieDirector = 'John Lasseter';
 
     movieServiceSpy.createMovie.and.returnValue(of({}));
 
     component.createMovie();
 
-    expect(movieServiceSpy.createMovie).toHaveBeenCalledWith('Matrix', 1999, 'Wachowskis');
+    expect(movieServiceSpy.createMovie).toHaveBeenCalledWith('Toy Story', 1995, 'John Lasseter');
   });
 });

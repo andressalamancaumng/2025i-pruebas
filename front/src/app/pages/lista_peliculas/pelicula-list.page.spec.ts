@@ -19,7 +19,7 @@ describe('MovieListPage', () => {
     movieServiceSpy = jasmine.createSpyObj('MovieService', ['getMovies']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
     movieServiceSpy.getMovies.and.returnValue(of([
-      { id: 1, name: 'Interstellar', year: 2014, director: 'Christopher Nolan' }
+      { id: 1, name: 'Toy Story', year: 1995, director: 'John Lasseter' }
     ]));
 
     await TestBed.configureTestingModule({
@@ -48,7 +48,7 @@ describe('MovieListPage', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const listItems = compiled.querySelectorAll('ion-item');
     expect(listItems.length).toBeGreaterThan(0);
-    expect(listItems[0].textContent).toContain('Interstellar');
+    expect(listItems[0].textContent).toContain('Toy Story');
   });
 
   it('debería manejar error al obtener películas', () => {
