@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,6 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
   imports: [IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class HomePage {
-<<<<<<< HEAD
-  constructor() {}
-}
-=======
   users: any[] = [];
   newUser = { nombre: '', correo: '', documento: '' };
   searchQuery: string = '';
@@ -52,4 +49,3 @@ export class HomePage {
     }
   }
 }
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de

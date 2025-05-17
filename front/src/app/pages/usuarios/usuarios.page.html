@@ -5,11 +5,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-<<<<<<< HEAD
-  <form (submit)="crearUsuario()">
-=======
   <form (submit)="crearUsuario(); $event.preventDefault()">
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
     <ion-item>
       <ion-label position="floating">Nombre</ion-label>
       <ion-input [(ngModel)]="nuevoNombre" name="nombre"></ion-input>
@@ -20,16 +16,14 @@
       <ion-input [(ngModel)]="nuevoCorreo" name="correo"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label position="floating">Documento</ion-label>
+      <ion-input [(ngModel)]="nuevoDocumento" name="documento"></ion-input>
+    </ion-item>
+
     <ion-button expand="block" type="submit" class="ion-margin-top">
       Crear Usuario
     </ion-button>
-<<<<<<< HEAD
-    <ion-button expand="block" color="danger" routerLink="/listado-usuarios" class="ion-margin-top">
-      Cancelar
-    </ion-button>
-  </form>
-</ion-content>
-=======
   </form>
 
   <ion-list *ngIf="usuarios.length > 0" class="ion-margin-top">
@@ -38,7 +32,10 @@
         <h2>{{ usuario.nombre }}</h2>
         <p>{{ usuario.correo }} - {{ usuario.documento }}</p>
       </ion-label>
-      <ion-button color="danger" slot="end" (click)="eliminarUsuario(usuario.id)">
+      <ion-button 
+        color="danger" 
+        slot="end" 
+        (click)="usuario.id !== undefined && eliminarUsuario(usuario.id)">
         Eliminar
       </ion-button>
     </ion-item>
@@ -48,4 +45,3 @@
     No hay usuarios registrados.
   </p>
 </ion-content>
->>>>>>> 0588082311a5b810d900046bcb4052ee7d9b75de
