@@ -4,7 +4,18 @@ import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserService, Usuario } from '../services/user.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
+@NgModule({
+  declarations: [ListadoUsuariosPage],
+  imports: [
+    IonicModule,
+    FormsModule,
+    CommonModule
+  ],
+})
+export class ListadoUsuariosPageModule {}
 
 @Component({
   selector: 'app-listado-usuarios',
