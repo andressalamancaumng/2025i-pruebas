@@ -1,31 +1,53 @@
-<ion-header>
+<ion-header> 
   <ion-toolbar>
-    <ion-title>Películas</ion-title>
+    <ion-title class="ion-text-center">Películas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <form (ngSubmit)="crearPelicula()">
-    <ion-item>
-      <ion-label position="floating">Nombre Película</ion-label>
-      <ion-input  [(ngModel)]="nuevaPelicula" name="Película"></ion-input>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="8" offset-md="2">
+          <ion-item>
+            <ion-label position="floating">Nombre Película</ion-label>
+            <ion-input [(ngModel)]="nuevaPelicula" name="Película"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-label position="floating">Año</ion-label>
-      <ion-input [(ngModel)]="nuevoAno" name="Año" type="number"></ion-input>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label position="floating">Nombre del Director</ion-label>
-      <ion-input [(ngModel)]="nuevoNombre_director" name="Director"></ion-input>
-    </ion-item>
+      <ion-row>
+        <ion-col size="12" size-md="8" offset-md="2">
+          <ion-item>
+            <ion-label position="floating">Año</ion-label>
+            <ion-input [(ngModel)]="nuevoAno" name="Año" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-button expand="block" type="submit" class="ion-margin-top">
-      Agregar Película
-    </ion-button>
-    <ion-button expand="block" routerLink="/listado-peliculas" class="ion-margin-top">
-      Lista de Películas
-    </ion-button>
+      <ion-row>
+        <ion-col size="12" size-md="8" offset-md="2">
+          <ion-item>
+            <ion-label position="floating">Nombre del Director</ion-label>
+            <ion-input [(ngModel)]="nuevoNombre_director" name="Director"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" size-md="8" offset-md="2">
+          <ion-button class="boton-blanco boton-centrado" type="submit" expand="block">
+            Agregar Película
+          </ion-button>
+          <ion-button class="boton-blanco boton-centrado" routerLink="/listado-peliculas" expand="block">
+            Lista de Películas
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
+
+  <div #carrusel class="mini-carrusel">
+    <img *ngFor="let img of imagenes.concat(imagenes)" [src]="img" class="mini-img" />
+  </div>
 </ion-content>

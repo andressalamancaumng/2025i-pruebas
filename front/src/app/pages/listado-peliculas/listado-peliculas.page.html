@@ -1,27 +1,51 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Listado Peliculas</ion-title>
+    <ion-title class="ion-text-center">Listado Películas</ion-title>
   </ion-toolbar>
+
+  <!-- Barra de búsqueda centrada -->
+  <div class="listado-contenedor contenedor-busqueda">
+    <ion-input
+      [(ngModel)]="searchTerm"
+      placeholder="Buscar por nombre, director, año o ID"
+      fill="outline"
+      class="input-busqueda">
+    </ion-input>
+    <ion-button (click)="filter()">Buscar</ion-button>
+    <ion-button color="medium" (click)="limpiarBusqueda()">Limpiar</ion-button>
+  </div>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let pelicula of peliculas">
+  <ion-list class="listado-contenedor">
+    <ion-item *ngFor="let pelicula of filtro_Pelicula" class="item-pelicula">
       <ion-label>
-        <h2>{{pelicula.name }}</h2>
-        <p>{{pelicula.name_director }}</p>
-        <p>{{pelicula.year}}</p>
-        <p>{{pelicula.id}}</p>
+        <h2>Nombre: {{ pelicula.name_director }}</h2>
+        <p>Director: {{ pelicula.name }}</p>
+        <p>Año: {{ pelicula.year }}</p>
+        <p>ID: {{ pelicula.id }}</p>
       </ion-label>
-      <ion-button expand="block" class="btn-delete" type="button" (click)="delete(pelicula.id)">
+      <ion-button
+        class="btn-delete-redondo"
+        size="small"
+        fill="outline"
+        shape="round"
+        color="danger"
+        (click)="delete(pelicula.id)">
         Borrar
       </ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" routerLink="/peliculas" class="ion-margin-top" type="button">
+  <ion-button
+    class="boton-blanco boton-centrado ion-margin-top"
+    expand="block"
+    routerLink="/peliculas"
+    type="button">
     Volver
   </ion-button>
 
-
+  <div #carrusel class="mini-carrusel">
+    <img *ngFor="let img of imagenes.concat(imagenes).concat(imagenes)" [src]="img" class="mini-img" />
+  </div>
 </ion-content>
