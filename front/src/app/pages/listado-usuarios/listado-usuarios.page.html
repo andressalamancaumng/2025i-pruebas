@@ -5,31 +5,37 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
   <ion-item>
-    <ion-input [(ngModel)]="nombre" placeholder="Buscar por nombre"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input [(ngModel)]="correo" placeholder="Buscar por correo"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input [(ngModel)]="documento" placeholder="Buscar por documento"></ion-input>
+    <ion-label position="floating">Buscar por Nombre</ion-label>
+    <ion-input [(ngModel)]="nombreBuscar" type="text"></ion-input>
   </ion-item>
 
-  <ion-button expand="block" (click)="buscar()">Buscar</ion-button>
-  <ion-button expand="block" color="medium" (click)="limpiarCampos()">Limpiar</ion-button>
+  <ion-item>
+    <ion-label position="floating">Buscar por Correo</ion-label>
+    <ion-input [(ngModel)]="correoBuscar" type="email"></ion-input>
+  </ion-item>
 
-  <ion-text color="danger" *ngIf="mensaje">
-    <p>{{ mensaje }}</p>
-  </ion-text>
+  <ion-item>
+    <ion-label position="floating">Buscar por Documento</ion-label>
+    <ion-input [(ngModel)]="documentoBuscar" type="text"></ion-input>
+  </ion-item>
 
-  <ion-list *ngIf="usuarios.length">
-    <ion-item *ngFor="let user of usuarios">
+  <ion-button expand="block" (click)="buscarUsuario()">Buscar</ion-button>
+  <ion-button expand="block" color="medium" (click)="limpiarBusqueda()">Limpiar</ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let usuario of usuarios">
       <ion-label>
-        <h2>{{ user.nombre }}</h2>
-        <p>Correo: {{ user.correo }}</p>
-        <p>Documento: {{ user.documento }}</p>
+        <h2>{{ usuario.nombre }}</h2>
+        <p>Correo: {{ usuario.correo }}</p>
+        <p>Documento: {{ usuario.documento }}</p>
+        <p>ID: {{ usuario.id }}</p>
       </ion-label>
-      <ion-button slot="end" color="danger" (click)="eliminar(user.id)">Eliminar</ion-button>
+      <ion-button color="danger" slot="end" (click)="eliminarUsuario(usuario.id)">
+        Eliminar
+      </ion-button>
     </ion-item>
   </ion-list>
+
 </ion-content>

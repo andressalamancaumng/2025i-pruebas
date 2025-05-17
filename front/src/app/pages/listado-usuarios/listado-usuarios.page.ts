@@ -5,16 +5,18 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserService, Usuario } from '../services/user.service';
 
+
 @Component({
   selector: 'app-listado-usuarios',
   templateUrl: './listado-usuarios.page.html',
+  styleUrls: ['./listado-usuarios.page.scss'],
 })
 export class ListadoUsuariosPage implements OnInit {
+
   usuarios: Usuario[] = [];
-  nombre = '';
-  correo = '';
-  documento = '';
-  mensaje = '';
+  nombreBuscar: string = '';
+  correoBuscar: string = '';
+  documentoBuscar: string = '';
 
   constructor(private userService: UserService) {}
 
@@ -23,53 +25,71 @@ export class ListadoUsuariosPage implements OnInit {
   }
 
   cargarUsuarios() {
-    this.userService.getUsuarios().subscribe((data) => {
-      this.usuarios = data;
-    });
+    this.userService.getUsuarios().subscribe(
+      (data) => {
+        this.usuarios = data;
+      },
+      (error) => {
+        console.error('Error al cargar usuarios', error);
+      }
+    );
   }
 
-  buscar() {
-    this.mensaje = '';
-    if (this.nombre) {
-      this.userService.buscarPorNombre(this.nombre).subscribe({
-        next: (res) => (this.usuarios = res),
-        error: () => (this.mensaje = 'No se encontró por nombre.'),
-      });
-    } else if (this.correo) {
-      this.userService.buscarPorCorreo(this.correo).subscribe({
-        next: (res) => (this.usuarios = [res]),
-        error: () => (this.mensaje = 'No se encontró por correo.'),
-      });
-    } else if (this.documento) {
-      this.userService.buscarPorDocumento(this.documento).subscribe({
-        next: (res) => (this.usuarios = [res]),
-        error: () => (this.mensaje = 'No se encontró por documento.'),
-      });
-    } else {
-      this.mensaje = 'Ingresa al menos un criterio de búsqueda.';
+  buscarUsuario() {
+    // Validar que al menos un campo esté lleno
+    if (!this.nombreBuscar && !this.correoBuscar && !this.documentoBuscar) {
+      alert('Por favor ingresa al menos un criterio para buscar');
+      return;
+    }
+
+    // Prioridad de búsqueda: nombre, correo, documento
+    if (this.nombreBuscar) {
+      this.userService.buscarUsuarios('nombre', this.nombreBuscar).subscribe(
+        data => this.usuarios = data,
+        error => {
+          this.usuarios = [];
+          alert('No se encontraron usuarios con ese nombre');
+        }
+      );
+    } else if (this.correoBuscar) {
+      this.userService.buscarUsuarios('correo', this.correoBuscar).subscribe(
+        data => this.usuarios = data,
+        error => {
+          this.usuarios = [];
+          alert('No se encontraron usuarios con ese correo');
+        }
+      );
+    } else if (this.documentoBuscar) {
+      this.userService.buscarUsuarios('documento', this.documentoBuscar).subscribe(
+        data => this.usuarios = data,
+        error => {
+          this.usuarios = [];
+          alert('No se encontraron usuarios con ese documento');
+        }
+      );
     }
   }
 
-  eliminar(id: number) {
-    if (confirm('¿Seguro que quieres eliminar este usuario?')) {
-      this.userService.eliminarUsuario(id).subscribe({
-        next: () => {
-          this.mensaje = 'Usuario eliminado correctamente.';
+  eliminarUsuario(id: number) {
+    if (confirm('¿Estás seguro que deseas eliminar este usuario?')) {
+      this.userService.eliminarUsuario(id).subscribe(
+        () => {
+          alert('Usuario eliminado');
           this.cargarUsuarios();
         },
-        error: () => {
-          this.mensaje = 'Error al eliminar usuario.';
-        },
-      });
+        error => {
+          alert('Error al eliminar usuario');
+          console.error(error);
+        }
+      );
     }
   }
 
-  limpiarCampos() {
-    this.nombre = '';
-    this.correo = '';
-    this.documento = '';
-    this.mensaje = '';
+  limpiarBusqueda() {
+    this.nombreBuscar = '';
+    this.correoBuscar = '';
+    this.documentoBuscar = '';
     this.cargarUsuarios();
   }
-}
 
+}
