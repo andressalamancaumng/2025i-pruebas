@@ -26,6 +26,21 @@ def get_db():
 def create_user(name: str, email: str, db: Session = Depends(get_db)):
     return crud.create_user(db, name, email)
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+@app.get("/peliculas/")
+def read_peliculas(db: Session = Depends(get_db)):
+    return crud.get_peliculas(db)
+
+@app.get("/peliculas/{id}")
+def read_pelicula(id: int, db: Session = Depends(get_db)):
+    pelicula = crud.get_pelicula_by_id(db, id)
+    if not pelicula:
+        raise HTTPException(status_code=404, detail="Pelicula no encontrada")
+    return pelicula
+
+@app.delete("/peliculas/{id}")
+def delete_pelicula(id: int, db: Session = Depends(get_db)):
+    try:
+        crud.delete_pelicula(db, id)
+        return {"message": f"Película con ID {id} eliminada y IDs ajustados."}
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
