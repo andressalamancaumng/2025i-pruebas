@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 import { PeliculaService } from '../../services/pelicula.service';
 
-
 @Component({
   selector: 'app-peliculas',
   standalone: true,
@@ -14,38 +13,18 @@ import { PeliculaService } from '../../services/pelicula.service';
   styleUrls: ['./usuarios.page.scss'],
 })
 export class PeliculasPage implements OnInit {
-  nuevoNombrepelicula: string = '';
-  nuevaDirector: string = '';
-  nuevaAnio: number | null = null;
-  peliculas: any[] = [];
+  peliculas: any[] = []; // ✅ Lista de películas para mostrar
 
   constructor(private peliculaService: PeliculaService) {}
 
   ngOnInit() {
-    this.cargarPeliculas();
+    this.cargarPeliculas(); // ✅ Carga inicial al entrar a la página
   }
 
   cargarPeliculas() {
+    // ✅ Llama al servicio para obtener las películas desde el backend
     this.peliculaService.getPeliculas().subscribe((data) => {
       this.peliculas = data;
     });
-  }
-
-  crearPelicula(event: Event) {
-    event.preventDefault();
-    if (!this.nuevoNombrepelicula || !this.nuevaDirector || !this.nuevaAnio) return;
-
-    this.peliculaService
-      .createPelicula({
-        nombrepelicula: this.nuevoNombrepelicula,
-        director: this.nuevaDirector,
-        anio: this.nuevaAnio,
-      })
-      .subscribe(() => {
-        this.nuevoNombrepelicula = '';
-        this.nuevaDirector = '';
-        this.nuevaAnio = null;
-        this.cargarPeliculas(); // Recargar la lista después de crear
-      });
   }
 }

@@ -11,19 +11,19 @@
     
     <!-- Campo para ingresar el modelo del carro -->
     <ion-item>
-      <ion-label position="floating">nombrepelicula</ion-label>
+      <ion-label position="floating">Nombre de la pelicula</ion-label>
       <ion-input type="text" [(ngModel)]="nombrepelicula" name="nombrepelicula" required></ion-input>
     </ion-item>
 
     <!-- Campo para ingresar la marca del carro -->
     <ion-item>
-      <ion-label position="floating">director</ion-label>
+      <ion-label position="floating">Director</ion-label>
       <ion-input type="text" [(ngModel)]="director" name="director" required></ion-input>
     </ion-item>
 
     <!-- -->
     <ion-item>
-      <ion-label position="floating">anio</ion-label>
+      <ion-label position="floating">Año</ion-label>
       <ion-input type="text" [(ngModel)]="anio" name="anio" required></ion-input>
     </ion-item>
 
@@ -31,7 +31,7 @@
     <ion-button expand="block" type="submit" [disabled]="!nombrepelicula || !director.trim() || !anio">Crear Pelicula</ion-button>
 
     <!-- Botón para cancelar el proceso de creación -->
-    <ion-button expand="block" color="medium" type="button" (click)="cancelar()">Cancelar</ion-button>
+    <ion-button expand="block" color="medium" type="button" (click)="cancelar()">Listas de peliculas</ion-button>
     
   </form>
 </ion-content>

@@ -1,23 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Peliculas</ion-title>
+    <ion-title>Películas Guardadas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form (submit)="crearPelicula($event)">
-    <ion-item>
-      <ion-label position="floating">Nombrepelicula</ion-label>
-      <ion-input type="text" [(ngModel)]="nuevoNombrepelicula" name="nombrepelicula"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Director</ion-label>
-      <ion-input type="text" [(ngModel)]="nuevaDirector" name="director"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Anio</ion-label>
-      <ion-input type="number" [(ngModel)]="nuevaAnio" name="anio"></ion-input>
-    </ion-item>
-    <ion-button expand="full" type="submit">Crear Pelicula</ion-button>
-  </form>
+  <ion-grid *ngIf="peliculas.length > 0; else sinPeliculas">
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pelicula of peliculas">
+        <ion-card class="rosita">
+          <ion-card-header>
+            <ion-card-title>{{ pelicula.nombrepelicula }}</ion-card-title>
+            <ion-card-subtitle>{{ pelicula.director }} - {{ pelicula.anio }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- Aquí podrías agregar más info o botones, si quieres -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ng-template #sinPeliculas>
+    <ion-text color="medium">
+      <p class="ion-padding">No hay películas registradas.</p>
+    </ion-text>
+  </ng-template>
 </ion-content>

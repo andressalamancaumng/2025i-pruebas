@@ -7,3 +7,19 @@ ion-content {
 ion-item {
   margin-bottom: 12px;
 }
+
+/* Estilos para las tarjetas de películas rosita claro */
+.rosita {
+  --background: #bb5a81; // fondo rosita claro
+  border-radius: 12px;
+  --box-shadow: 0 2px 6px rgba(136, 72, 82, 0.3);
+  transition: transform 0.2s ease-in-out;
+
+  // Asegurar que el texto sea negro
+  color: #000 !important;
+}
+
+.rosita:hover {
+  transform: scale(1.03);
+  --box-shadow: 0 4px 12px rgba(151, 70, 82, 0.5);
+}
