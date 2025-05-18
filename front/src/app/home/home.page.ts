@@ -6,7 +6,7 @@ import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
   IonCardHeader, IonCardTitle, IonCardContent, IonItem,
   IonLabel, IonInput, IonButton, IonList, IonListHeader,
-  IonIcon, IonText, IonButtons
+  IonIcon, IonText, IonButtons, IonCardSubtitle, IonFooter
 } from '@ionic/angular/standalone';
 
 import { FormsModule } from '@angular/forms';
@@ -22,11 +22,12 @@ import { CarroService } from '../services/carro.service';
     IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
     IonCardHeader, IonCardTitle, IonCardContent, IonItem,
     IonLabel, IonInput, IonButton, IonList, IonListHeader,
-    IonIcon, IonText, IonButtons
+    IonIcon, IonText, IonButtons, IonCardSubtitle, IonFooter
   ]
 })
 
 export class HomePage {
+  today = new Date().toLocaleDateString();
   isDarkMode = false;
   carros: any[] = [];
   nuevoCarro = {
@@ -34,10 +35,13 @@ export class HomePage {
     marca: '',
     serie: ''
   };
+  mensaje = '';
 
   constructor(private carroService: CarroService, private cd: ChangeDetectorRef, private platform: Platform) {
+    platform.ready().then(() => {
+    this.toggleDarkTheme(); // Puedes mantener esto aquí si quieres el modo oscuro desde el inicio
     this.obtenerCarros();
-    this.toggleDarkTheme();
+    });
   }
   get iconMode(): string {
     return this.isDarkMode ? 'assets/sun-pixel.png' : 'assets/moon-pixel.png';
@@ -47,7 +51,14 @@ export class HomePage {
     this.isDarkMode = !this.isDarkMode;
     document.body.classList.toggle('dark', this.isDarkMode);
   }
-  
+  camposCompletos(): boolean {
+  const { marca, modelo, serie } = this.nuevoCarro;
+  return (
+    marca.trim() !== '' &&
+    modelo !== null &&
+    serie.trim() !== ''
+  );
+}
   obtenerCarros() {
     this.carroService.getCarros().subscribe(data => {
       this.carros = data;
@@ -61,6 +72,8 @@ export class HomePage {
     this.carroService.crearCarro(this.nuevoCarro).subscribe(() => {
       this.nuevoCarro = { modelo: null, marca: '', serie: '' };
       this.obtenerCarros();
+      this.mensaje = '✅ Carro agregado exitosamente';
+      setTimeout(() => this.mensaje = '', 2000);
     });
   }
 }

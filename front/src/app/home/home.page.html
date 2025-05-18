@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Gestor de Carros</ion-title>
+    <ion-title>🚗Gestor de Carros🚗</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="toggleDarkTheme()" fill="clear">
@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" style="display: flex; flex-direction: row; gap: 20px;">
+<ion-content class="ion-padding" style="display: flex; flex-direction: row; gap: 20px; ">
 
   <!-- Panel Izquierdo: Registro -->
   <ion-card style="flex: 1; min-width: 300px;">
@@ -18,6 +18,9 @@
       <ion-card-title>Registrar nuevo carro</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <ion-text *ngIf="mensaje" color="success">
+        <p style="margin: 0 0 12px 0;">{{ mensaje }}</p>
+      </ion-text>
       <form (ngSubmit)="agregarCarro()" #carroForm="ngForm">
         <ion-item>
           <ion-label position="floating">Modelo</ion-label>
@@ -34,8 +37,12 @@
           <ion-input type="text" [(ngModel)]="nuevoCarro.serie" name="serie" required></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" color="success">
-          Agregar
+        <ion-button expand="full" (click)="agregarCarro()" [disabled]="!camposCompletos()" [color]="camposCompletos() ? 'success' : 'warning'" style="--border-radius: 12px; font-weight: bold; transition: 1s;">
+          Agregar Carro
+        </ion-button>
+
+        <ion-button expand="full" fill="clear" color="warning" (click)="nuevoCarro = { modelo: null, marca: '', serie: '' }">
+          Limpiar formulario
         </ion-button>
       </form>
     </ion-card-content>
@@ -46,6 +53,8 @@
     <ion-card-header>
       <ion-card-title>Lista de Carros Registrados</ion-card-title>
     </ion-card-header>
+
+    <ion-card-subtitle class="ion-padding">Total: {{ carros.length }} carros registrados</ion-card-subtitle>
 
     <ion-list *ngIf="carros.length > 0; else sinCarros">
       <ion-item *ngFor="let carro of carros">
@@ -63,5 +72,9 @@
       <ion-text color="medium"><p class="ion-padding">No hay carros registrados.</p></ion-text>
     </ng-template>
   </ion-card>
-
+  
 </ion-content>
+
+<ion-footer class="ion-padding" style="text-align: center; color: #888;">
+    <small>Hecho con ❤️ por Valentina Vargas y Nicolás García · {{ today }}</small>
+  </ion-footer>
