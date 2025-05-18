@@ -9,6 +9,9 @@ def create_pelicula(db: Session, nombre: str, anio: int, director: str):
     db.refresh(pelicula)
     return pelicula
 
+def get_pelicula_by_id(db: Session, id: int):
+    return db.query(Pelicula).filter(Pelicula.id == id).first()
+
 def get_peliculas(db: Session):
     return db.query(Pelicula).all()
 

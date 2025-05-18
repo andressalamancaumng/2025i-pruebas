@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import models, crud, database
-
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -10,7 +10,7 @@ models.Base.metadata.create_all(bind=database.engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
+    allow_origins=["http://localhost:4200"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -22,11 +22,13 @@ def get_db():
         yield db
     finally:
         db.close()
-
+class PeliculaCreate(BaseModel):
+    nombre: str
+    anio: int
+    director: str
 @app.post("/peliculas/")
-def create_pelicula(nombre: str, anio: int, director: str, db: Session = Depends(get_db)):
-    return crud.create_pelicula(db, nombre, anio, director)
-
+def create_pelicula(pelicula: PeliculaCreate, db: Session = Depends(get_db)):
+    return crud.create_pelicula(db, pelicula.nombre, pelicula.anio, pelicula.director)
 @app.get("/peliculas/")
 def read_peliculas(db: Session = Depends(get_db)):
     return crud.get_peliculas(db)

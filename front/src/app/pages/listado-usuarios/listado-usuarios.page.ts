@@ -4,7 +4,9 @@ import { IonicModule } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {IonCard, IonCardTitle, IonCardContent} from '@ionic/angular/standalone';
+import { IonCard, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
+
 
 
 @Component({
@@ -12,8 +14,9 @@ import {IonCard, IonCardTitle, IonCardContent} from '@ionic/angular/standalone';
   templateUrl: './listado-usuarios.page.html',
   styleUrls: ['./listado-usuarios.page.scss'],
   standalone: true,
-  imports: [IonicModule, NgFor, AsyncPipe, RouterModule, IonCard, IonCardTitle, IonCardContent],
+  imports: [IonicModule, NgFor, AsyncPipe, RouterModule, IonCard, IonCardTitle, IonCardContent, CommonModule,   IonicModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class ListadoUsuariosPage implements OnInit {
   peliculas: any[] = [];

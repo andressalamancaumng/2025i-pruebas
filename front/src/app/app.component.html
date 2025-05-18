@@ -1,3 +1,92 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<div class="container">
+  <h1 class="title">🎬 Gestión de Películas</h1>
+
+  <!-- Sección: Buscar película por ID -->
+  <div class="card">
+    <h2>🔍 Buscar Película por ID</h2>
+    <form (ngSubmit)="buscarPelicula()" class="form">
+      <div class="form-group">
+        <label for="buscarId">ID:</label>
+        <input id="buscarId"
+               type="number"
+               [(ngModel)]="buscarId"
+               name="buscarId"
+               placeholder="Ingrese el ID"
+               required
+               class="input" />
+      </div>
+      <button type="submit" class="button button-primary">Buscar</button>
+    </form>
+
+    <div *ngIf="peliculaEncontrada" class="result">
+      <h3>🎥 Resultado:</h3>
+      <p>
+        <strong>{{ peliculaEncontrada.nombre }}</strong> ({{ peliculaEncontrada.anio }})
+      </p>
+      <p>Director: {{ peliculaEncontrada.director }}</p>
+    </div>
+
+    <div *ngIf="peliculaNoEncontrada" class="result error">
+      <p>No se encontró ninguna película con ese ID.</p>
+    </div>
+  </div>
+
+  <!-- Sección: Lista de películas -->
+  <div class="card">
+    <h2>📋 Lista de Películas</h2>
+    <ul class="movie-list">
+      <li *ngFor="let peli of peliculas" class="movie-item">
+        <div class="movie-info">
+          <span><strong>{{ peli.nombre }}</strong> ({{ peli.anio }})</span>
+          <span>Director: {{ peli.director }}</span>
+        </div>
+        <button (click)="eliminarPelicula(peli.id)" class="button button-danger">
+          Eliminar
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sección: Formulario para agregar una película -->
+  <div class="card">
+    <h2>➕ Agregar Nueva Película</h2>
+    <form (ngSubmit)="agregarPelicula()" #formAgregar="ngForm" class="form">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre"
+               name="nombre"
+               [(ngModel)]="nuevaPelicula.nombre"
+               placeholder="Ingrese el nombre de la película"
+               required
+               class="input" />
+      </div>
+      <div class="form-group">
+        <label for="anio">Año:</label>
+        <input id="anio"
+               name="anio"
+               type="number"
+               [(ngModel)]="nuevaPelicula.anio"
+               placeholder="Ingrese el año"
+               required
+               class="input" />
+      </div>
+      <div class="form-group">
+        <label for="director">Director:</label>
+        <input id="director"
+               name="director"
+               [(ngModel)]="nuevaPelicula.director"
+               placeholder="Ingrese el nombre del director"
+               required
+               class="input" />
+      </div>
+      <button type="submit"
+              class="button button-primary"
+              [disabled]="formAgregar.invalid">
+        Agregar Película
+      </button>
+    </form>
+    <div *ngIf="errorAgregar" class="error">
+      <p>Error al agregar la película: {{ errorAgregar }}</p>
+    </div>
+  </div>
+</div>
