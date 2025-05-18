@@ -6,13 +6,13 @@ import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('UsuariosPage', () => {
+describe('CarrosPage', () => {
   let component: CarrosPage;
   let fixture: ComponentFixture<CarrosPage>;
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('UserService', ['getUsers', 'createUser']);
+    const spy = jasmine.createSpyObj('UserService', ['getCars', 'createCar']);
 
     await TestBed.configureTestingModule({
       imports: [

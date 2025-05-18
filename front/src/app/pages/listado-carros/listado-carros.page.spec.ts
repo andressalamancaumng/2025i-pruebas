@@ -16,9 +16,9 @@ describe('ListadocarrosPage', () => {
   };
 
   beforeEach(async () => {
-    userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
+    userServiceSpy = jasmine.createSpyObj('UserService', ['getCars']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
-    userServiceSpy.getCars.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
+    userServiceSpy.getCars.and.returnValue(of([{ modelo: '2010', marca: 'Ford', serie: 'Explorer' }]));
 
     await TestBed.configureTestingModule({
       imports: [ListadoCarrosPage],
@@ -46,7 +46,7 @@ describe('ListadocarrosPage', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const listItems = compiled.querySelectorAll('ion-item');
     expect(listItems.length).toBeGreaterThan(0);
-    expect(listItems[0].textContent).toContain('Ana');
+    expect(listItems[0].textContent).toContain('2010');
   });
 
   it('debería manejar error al obtener usuarios', () => {

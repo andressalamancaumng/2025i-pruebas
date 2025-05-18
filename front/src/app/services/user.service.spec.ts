@@ -22,24 +22,24 @@ describe('UserService', () => {
 
   it('debería crear usuario (POST)', () => {
     const modelo = '2010';
-    const marca = 'Audi';
-    const serie ='Q5'
-    const mockResponse = { id: 1,modelo,serie,marca };
+    const marca = 'Ford';
+    const serie ='Explorer'
+    const mockResponse = {modelo,serie,marca };
 
-    service.createCar(modelo, serie, marca).subscribe(user => {
-      expect(user).toEqual(mockResponse);
+    service.createCar(modelo, marca, serie).subscribe(cars => {
+      expect(cars).toEqual(mockResponse);
     });
 
     const req = httpMock.expectOne(req =>
       req.method === 'POST' &&
-      req.url.startsWith('http://localhost:8000/users')
+      req.url.startsWith('http://localhost:8000/cars/')
     );
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
 
   it('debería obtener usuarios (GET)', () => {
-    const mockUsers = [{ id: 1, modelo: '2010', marca: 'Audi', serie: 'Q5' }];
+    const mockUsers = [{ modelo: '2010', marca: 'Ford', serie: 'Explorer' }];
 
     service.getCars().subscribe(users => {
       expect(users).toEqual(mockUsers);
@@ -47,7 +47,7 @@ describe('UserService', () => {
 
     const req = httpMock.expectOne(req =>
       req.method === 'GET' &&
-      req.url.startsWith('http://localhost:8000/users')
+      req.url.startsWith('http://localhost:8000/cars/')
     );
     expect(req.request.method).toBe('GET');
     req.flush(mockUsers);
