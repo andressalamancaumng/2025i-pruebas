@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UsuariosPage } from './usuarios.page';
+import { CarrosPage } from './carros.page';
 import { UserService } from '../../services/user.service';
 import { IonicModule } from '@ionic/angular';
 import { of } from 'rxjs';
@@ -7,8 +7,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UsuariosPage', () => {
-  let component: UsuariosPage;
-  let fixture: ComponentFixture<UsuariosPage>;
+  let component: CarrosPage;
+  let fixture: ComponentFixture<CarrosPage>;
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
@@ -16,7 +16,7 @@ describe('UsuariosPage', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        UsuariosPage, // standalone component
+        CarrosPage, // standalone component
         IonicModule.forRoot(),
         HttpClientTestingModule,
         RouterTestingModule
@@ -26,12 +26,12 @@ describe('UsuariosPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UsuariosPage);
+    fixture = TestBed.createComponent(CarrosPage);
     component = fixture.componentInstance;
     userServiceSpy = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
     // ✅ Esta línea debe ir después de obtener el userServiceSpy real
-    userServiceSpy.getUsers.and.returnValue(of([]));
+    userServiceSpy.getCars.and.returnValue(of([]));
 
     fixture.detectChanges();
   });
@@ -40,15 +40,16 @@ describe('UsuariosPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería llamar a createUser con los datos correctos', () => {
-    const mockUser = { name: 'Pedro', email: 'pedro@example.com' };
-    component.nuevoNombre = mockUser.name;
-    component.nuevoCorreo = mockUser.email;
+  it('debería llamar a createCar con los datos correctos', () => {
+    const mockUser = { modelo: '2010', marca: 'Ford', serie: 'Explorer'};
+    component.nuevoModelo = mockUser.modelo;
+    component.nuevaMarca = mockUser.marca;
+    component.nuevaSerie = mockUser.serie;
 
-    userServiceSpy.createUser.and.returnValue(of({}));
+    userServiceSpy.createCar.and.returnValue(of({}));
 
-    component.crearUsuario();
+    component.crearCarro();
 
-    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email);
+    expect(userServiceSpy.createCar).toHaveBeenCalledWith(mockUser.modelo, mockUser.marca, mockUser.serie);
   });
 });

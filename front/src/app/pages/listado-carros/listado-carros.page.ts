@@ -8,22 +8,22 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'app-listado-usuarios',
-  templateUrl: './listado-usuarios.page.html',
-  styleUrls: ['./listado-usuarios.page.scss'],
+  selector: 'app-listado-carros',
+  templateUrl: './listado-carros.page.html',
+  styleUrls: ['./listado-carros.page.scss'],
   standalone: true,
   imports: [IonicModule, NgFor, AsyncPipe, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ListadoUsuariosPage implements OnInit {
-  usuarios: any[] = [];
+
+export class ListadoCarrosPage implements OnInit {
+  carros: any[] = [];
   constructor(private userService: UserService) {
-    this.userService.getUsers().subscribe((data) =>{
-      this.usuarios=data;
+    this.userService.getCars().subscribe((data) => {
+      this.carros = data;
     });
-   }
+  }
 
   ngOnInit() {
   }
-
 }

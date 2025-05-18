@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from app.models import Car
 
-def create_car(db:Session, modelo: int , marca: str, serie: str):
+def create_car(db:Session, modelo: str , marca: str, serie: str):
     car=Car(modelo=modelo,marca=marca,serie=serie)
     db.add(car)
     db.commit()

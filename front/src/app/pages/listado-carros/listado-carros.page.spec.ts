@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListadoUsuariosPage } from './listado-usuarios.page';
+import { ListadoCarrosPage } from './listado-carros.page';
 import { UserService } from '../../services/user.service';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-describe('ListadoUsuariosPage', () => {
-  let component: ListadoUsuariosPage;
-  let fixture: ComponentFixture<ListadoUsuariosPage>;
+describe('ListadocarrosPage', () => {
+  let component: ListadoCarrosPage;
+  let fixture: ComponentFixture<ListadoCarrosPage>;
   let userServiceSpy: jasmine.SpyObj<UserService>;
   let navCtrlSpy: jasmine.SpyObj<NavController>;
 
@@ -18,10 +18,10 @@ describe('ListadoUsuariosPage', () => {
   beforeEach(async () => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['getUsers']);
     navCtrlSpy = jasmine.createSpyObj('NavController', ['navigateForward']);
-    userServiceSpy.getUsers.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
+    userServiceSpy.getCars.and.returnValue(of([{ name: 'Ana', email: 'ana@demo.com' }]));
 
     await TestBed.configureTestingModule({
-      imports: [ListadoUsuariosPage],
+      imports: [ListadoCarrosPage],
       providers: [
         { provide: UserService, useValue: userServiceSpy },
         { provide: NavController, useValue: navCtrlSpy },
@@ -29,7 +29,7 @@ describe('ListadoUsuariosPage', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListadoUsuariosPage);
+    fixture = TestBed.createComponent(ListadoCarrosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -50,10 +50,10 @@ describe('ListadoUsuariosPage', () => {
   });
 
   it('debería manejar error al obtener usuarios', () => {
-    userServiceSpy.getUsers.and.returnValue(throwError(() => new Error('Error')));
-    fixture = TestBed.createComponent(ListadoUsuariosPage);
+    userServiceSpy.getCars.and.returnValue(throwError(() => new Error('Error')));
+    fixture = TestBed.createComponent(ListadoCarrosPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    expect(component.usuarios).toEqual([]);
+    expect(component.carros).toEqual([]);
   });
 });

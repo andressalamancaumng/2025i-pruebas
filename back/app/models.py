@@ -7,6 +7,6 @@ class Car(Base):
     __tablename__="cars"
 
     id=Column(Integer, primary_key=True, index=True)
-    modelo= Column(Integer, index=True)
+    modelo= Column(String(10), index=True)
     marca= Column(String(55), index=True)
     serie= Column(String(55), index=True)

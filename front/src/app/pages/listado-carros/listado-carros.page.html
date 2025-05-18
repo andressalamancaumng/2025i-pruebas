@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Listado de carros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let carro of carros">
+      <ion-label>
+        <h2>{{ carro.marca }}</h2>
+        <p>{{ carro.modelo }}</p>
+        <p>{{ carro.serie }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" routerLink="/carros" class="ion-margin-top" type="button">
+    Ingresar Carro
+  </ion-button>
+</ion-content>

@@ -10,13 +10,15 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/`);
+  getCars(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/cars/`);
   }
 
-  createUser(name: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/`, null, {
-      params: { name, email },
+  createCar(modelo: string, marca: string, serie: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/cars/`,null, {
+      params: {modelo,
+      marca,
+      serie},
     });
   }
 }
