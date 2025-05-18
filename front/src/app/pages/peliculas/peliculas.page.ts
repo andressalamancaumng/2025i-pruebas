@@ -64,7 +64,7 @@ export class UsuariosPage implements AfterViewInit, OnDestroy {
 
 startAutoScroll() {
   const carrusel = this.carruselRef.nativeElement;
-  const velocidad = 1; // velocidad suave
+  const velocidad = 2; // velocidad suave
 
   this.scrollInterval = setInterval(() => {
     if (!carrusel) return;
