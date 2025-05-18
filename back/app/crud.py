@@ -1,12 +1,20 @@
 from sqlalchemy.orm import Session
-from app.models import User
+from app.models import Carros
 
-def create_user(db: Session, name: str, email: str):
-    db_user = User(name=name, email=email)
-    db.add(db_user)
+def create_carro(db: Session, marca: str, modelo: int, serie:str):
+    db_carro = Carros(marca=marca, modelo=modelo, serie=serie)
+    db.add(db_carro)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_carro)
+    return db_carro
 
-def get_users(db: Session):
-    return db.query(User).all()
+def get_carros(db: Session):
+    return db.query(Carros).all()
+def get_carro_by_id(db: Session, carro_id: int):
+    return db.query(Carros).filter(Carros.id == carro_id).first()
+
+def delete_carro(db: Session, carro_id: int):
+    db_carro = db.query(Carros).filter(Carros.id == carro_id).first()
+    if db_carro is not None:
+        db.delete(db_carro)
+        db.commit()

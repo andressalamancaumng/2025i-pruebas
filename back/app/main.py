@@ -1,12 +1,20 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app import models, crud, database
+from app import models, crud, database  # Asegúrate que estos módulos existan
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Query
+from pydantic import BaseModel
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=database.engine)
 
+class CarroCreate(BaseModel):
+    marca: str
+    modelo: int
+    serie: str
+    
+# Corrige el guión: bind-database -> bind=database
+models.Base.metadata.create_all(bind=database.engine)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Puedes restringir a ["http://localhost:8100"] si prefieres
@@ -14,18 +22,32 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 def get_db():
     db = database.SessionLocal()
     try:
-        yield db
+        yield db  # Sangría corregida
     finally:
-        db.close()
+        db.close()  # Sangría corregida
 
-@app.post("/users/")
-def create_user(name: str, email: str, db: Session = Depends(get_db)):
-    return crud.create_user(db, name, email)
+# Corrige los paréntesis en las rutas: (carro_id) -> {carro_id}
+@app.post("/carros/")
+def create_carro(carro: CarroCreate, db: Session = Depends(get_db)):
+    return crud.create_carro(
+        db, 
+        marca=carro.marca, 
+        modelo=carro.modelo, 
+        serie=carro.serie,
 
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+    )
+
+@app.get("/carros/")
+def get_carros(db: Session = Depends(get_db)):
+    return crud.get_carros(db)
+
+@app.get("/carros/{carro_id}")  # Corregido
+def get_carro_por_id(carro_id: int, db: Session = Depends(get_db)):
+    return crud.get_carro_by_id(db, carro_id)
+
+@app.delete("/carros/{carro_id}")  # Corregido
+def delete_carro(carro_id: int, db: Session = Depends(get_db)):
+    return crud.delete_carro(db, carro_id)
