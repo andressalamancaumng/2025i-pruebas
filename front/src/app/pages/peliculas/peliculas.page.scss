@@ -122,46 +122,4 @@
   gap: 2rem;
 }
 
-.movie-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(6px);
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.movie-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.movie-header h2 {
-  font-size: 1.5rem;
-  margin: 0;
-  color: #0f172a;
-  font-weight: 600;
-}
-
-.year {
-  background-color: #6366f1;
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.director {
-  margin-top: 0.6rem;
-  color: #475569;
-  font-size: 1rem;
-  font-style: italic;
-}
