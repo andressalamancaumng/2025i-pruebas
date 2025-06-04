@@ -15,8 +15,16 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'listado-usuarios',
+    redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'carros',
+    loadComponent: () => import('./pages/carros/carros.page').then( m => m.CarrosPage)
+  },
+  {
+    path: 'listado-carros',
+    loadComponent: () => import('./pages/listado-carros/listado-carros.page').then( m => m.ListadoCarrosPage)
   },
   
 ];

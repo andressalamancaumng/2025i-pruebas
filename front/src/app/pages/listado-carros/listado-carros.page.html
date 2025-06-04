@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Listado de Carros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let carro of carros" lines="full" detail="false" button>
+      <ion-label>
+        <h2>ID: {{ carro.id }}</h2>
+        <h3>{{ carro.marca }} - {{ carro.modelo }}</h3>
+        <p>Serie: {{ carro.serie }}</p>
+      </ion-label>
+
+      <ion-button
+        color="danger"
+        fill="clear"
+        slot="end"
+        aria-label="Eliminar carro {{ carro.id }}"
+        (click)="deleteCarro(carro.id)"
+      >
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button
+    expand="block"
+    routerLink="/carros"
+    color="danger"
+    class="ion-margin-top"
+  >
+    Volver a Gestión de Carros
+  </ion-button>
+</ion-content>
