@@ -5,16 +5,28 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
   <ion-list>
     <ion-item *ngFor="let usuario of usuarios">
       <ion-label>
         <h2>{{ usuario.name }}</h2>
         <p>{{ usuario.email }}</p>
       </ion-label>
+      <ion-button color="danger" fill="clear" slot="end" (click)="eliminarUsuario(usuario.id)">
+        Eliminar
+      </ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" routerLink="/usuarios" class="ion-margin-top" type="button">
+  <ion-item>
+    <ion-input placeholder="Nombre" [(ngModel)]="nombreNuevo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Correo" [(ngModel)]="correoNuevo"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="crearUsuario()" class="ion-margin-top" type="button">
     Crear Usuario
   </ion-button>
+
 </ion-content>

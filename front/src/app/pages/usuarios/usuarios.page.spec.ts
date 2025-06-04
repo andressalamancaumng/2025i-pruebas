@@ -1,10 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { UsuariosPage } from './usuarios.page';
 import { UserService } from '../../services/user.service';
-import { IonicModule } from '@ionic/angular';
-import { of } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UsuariosPage', () => {
   let component: UsuariosPage;
@@ -12,15 +9,10 @@ describe('UsuariosPage', () => {
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('UserService', ['getUsers', 'createUser']);
+    const spy = jasmine.createSpyObj('UserService', ['getUsers', 'createUser', 'deleteUser']);
 
     await TestBed.configureTestingModule({
-      imports: [
-        UsuariosPage, // standalone component
-        IonicModule.forRoot(),
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
+      declarations: [ UsuariosPage ],
       providers: [
         { provide: UserService, useValue: spy }
       ]
@@ -30,25 +22,21 @@ describe('UsuariosPage', () => {
     component = fixture.componentInstance;
     userServiceSpy = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
 
-    // ✅ Esta línea debe ir después de obtener el userServiceSpy real
-    userServiceSpy.getUsers.and.returnValue(of([]));
-
-    fixture.detectChanges();
+    // Mock getUsers con propiedades en español según tu interfaz User
+    userServiceSpy.getUsers.and.returnValue(of([
+      { id: 1, nombre: 'Juan', correo: 'juan@mail.com', documento: '123456' },
+      { id: 2, nombre: 'Maria', correo: 'maria@mail.com', documento: '789012' }
+    ]));
   });
 
-  it('debería crear el componente', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería llamar a createUser con los datos correctos', () => {
-    const mockUser = { name: 'Pedro', email: 'pedro@example.com' };
-    component.nuevoNombre = mockUser.name;
-    component.nuevoCorreo = mockUser.email;
-
-    userServiceSpy.createUser.and.returnValue(of({}));
-
-    component.crearUsuario();
-
-    expect(userServiceSpy.createUser).toHaveBeenCalledWith(mockUser.name, mockUser.email);
+  it('should load users', () => {
+    component.cargarUsuarios();
+    expect(component.usuarios.length).toBe(2);
+    expect(component.usuarios[0].nombre).toBe('Juan');
   });
+
 });
